@@ -49,3 +49,7 @@ gitlab-token.txt
 
 # Node dependencies
 node_modules/
+
+# Playwright (perfecto/playwright)
+test-results/
+playwright-report/

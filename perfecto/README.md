@@ -7,6 +7,7 @@ Three test tracks run against the same app and the same virtual service.
 | Espresso core suite | `app/src/androidTest/.../demo/core/` | `scripts/perfecto-espresso.sh` (Perfecto Gradle plugin) |
 | AI Scriptless | Perfecto Scriptless, your customer folder | Perfecto MCP or the Scriptless job. See [scriptless/README.md](scriptless/README.md). |
 | Autonomous Testing | Application 227, items named `DriveLink …` | PAG `autonomous-testing` server |
+| APK install check (Playwright) | `perfecto/playwright/` | `npm test` in that folder. See [playwright/README.md](playwright/README.md). |
 
 ## Device matrix
 
