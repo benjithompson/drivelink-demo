@@ -1,0 +1,32 @@
+[
+  {
+    "id": "trp-4112",
+    "startedAt": "2026-10-02T15:20:00Z",
+    "endedAt": "2026-10-02T15:58:00Z",
+    "distanceMi": 24.6,
+    "durationMin": 38,
+    "avgMph": 38.8,
+    "efficiency": 34.2,
+    "efficiencyUnit": "MPG"
+  },
+  {
+    "id": "trp-4111",
+    "startedAt": "2026-10-01T17:45:00Z",
+    "endedAt": "2026-10-01T18:07:00Z",
+    "distanceMi": 9.1,
+    "durationMin": 22,
+    "avgMph": 24.8,
+    "efficiency": 31.4,
+    "efficiencyUnit": "MPG"
+  },
+  {
+    "id": "trp-4110",
+    "startedAt": "2026-09-30T07:55:00Z",
+    "endedAt": "2026-09-30T08:41:00Z",
+    "distanceMi": 38.3,
+    "durationMin": 46,
+    "avgMph": 50.0,
+    "efficiency": 35.8,
+    "efficiencyUnit": "MPG"
+  }
+]

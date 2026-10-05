@@ -1,0 +1,3527 @@
+[
+  {
+    "name": "drivelink createServiceRequest 201 default",
+    "operationId": "createServiceRequest",
+    "example": "201.default",
+    "scenario": null,
+    "priority": 6,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/vehicles/[^/?]+/service\\-requests(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 201,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "createServiceRequest/201.default.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink createServiceRequest 201 default @fast",
+    "operationId": "createServiceRequest",
+    "example": "201.default",
+    "scenario": "fast",
+    "priority": 3,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/vehicles/[^/?]+/service\\-requests(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 201,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "createServiceRequest/201.default.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink createServiceRequest 401 auth-expired",
+    "operationId": "createServiceRequest",
+    "example": "401.auth-expired",
+    "scenario": "auth-expired",
+    "priority": 3,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/vehicles/[^/?]+/service\\-requests(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "auth-expired"
+        }
+      ]
+    },
+    "response": {
+      "status": 401,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "createServiceRequest/401.auth-expired.json"
+    },
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "name": "drivelink createServiceRequest 429 rate-limited",
+    "operationId": "createServiceRequest",
+    "example": "429.rate-limited",
+    "scenario": "rate-limited",
+    "priority": 3,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/vehicles/[^/?]+/service\\-requests(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "rate-limited"
+        }
+      ]
+    },
+    "response": {
+      "status": 429,
+      "headers": {
+        "Content-Type": "application/problem+json",
+        "Retry-After": "30"
+      },
+      "file": "createServiceRequest/429.rate-limited.json"
+    },
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "name": "drivelink createServiceRequest 500 server-error",
+    "operationId": "createServiceRequest",
+    "example": "500.server-error",
+    "scenario": "server-error",
+    "priority": 3,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/vehicles/[^/?]+/service\\-requests(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "server-error"
+        }
+      ]
+    },
+    "response": {
+      "status": 500,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "createServiceRequest/500.server-error.json"
+    },
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "name": "drivelink createToken 200 default",
+    "operationId": "createToken",
+    "example": "200.default",
+    "scenario": null,
+    "priority": 6,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/auth/token(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "createToken/200.default.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink createToken 200 default @auth-expired",
+    "operationId": "createToken",
+    "example": "200.default",
+    "scenario": "auth-expired",
+    "priority": 3,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/auth/token(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "auth-expired"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "createToken/200.default.json"
+    },
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "name": "drivelink createToken 200 default @fast",
+    "operationId": "createToken",
+    "example": "200.default",
+    "scenario": "fast",
+    "priority": 3,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/auth/token(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "createToken/200.default.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink createToken 429 rate-limited",
+    "operationId": "createToken",
+    "example": "429.rate-limited",
+    "scenario": "rate-limited",
+    "priority": 3,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/auth/token(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "rate-limited"
+        }
+      ]
+    },
+    "response": {
+      "status": 429,
+      "headers": {
+        "Content-Type": "application/problem+json",
+        "Retry-After": "30"
+      },
+      "file": "createToken/429.rate-limited.json"
+    },
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "name": "drivelink createToken 500 server-error",
+    "operationId": "createToken",
+    "example": "500.server-error",
+    "scenario": "server-error",
+    "priority": 3,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/auth/token(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "server-error"
+        }
+      ]
+    },
+    "response": {
+      "status": 500,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "createToken/500.server-error.json"
+    },
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "name": "drivelink getChargeSettings 200 default",
+    "operationId": "getChargeSettings",
+    "example": "200.default",
+    "scenario": null,
+    "priority": 5,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/DLEV26AURA0000101/charge\\-settings(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getChargeSettings/200.default.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getChargeSettings 200 default @fast",
+    "operationId": "getChargeSettings",
+    "example": "200.default",
+    "scenario": "fast",
+    "priority": 2,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/DLEV26AURA0000101/charge\\-settings(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getChargeSettings/200.default.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink getChargeSettings 401 auth-expired",
+    "operationId": "getChargeSettings",
+    "example": "401.auth-expired",
+    "scenario": "auth-expired",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/charge\\-settings(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "auth-expired"
+        }
+      ]
+    },
+    "response": {
+      "status": 401,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "getChargeSettings/401.auth-expired.json"
+    },
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "name": "drivelink getChargeSettings 404 ice-no-charging",
+    "operationId": "getChargeSettings",
+    "example": "404.ice-no-charging",
+    "scenario": null,
+    "priority": 5,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/DLGS25SLACE000202/charge\\-settings(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 404,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "getChargeSettings/404.ice-no-charging.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getChargeSettings 404 ice-no-charging @fast",
+    "operationId": "getChargeSettings",
+    "example": "404.ice-no-charging",
+    "scenario": "fast",
+    "priority": 2,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/DLGS25SLACE000202/charge\\-settings(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 404,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "getChargeSettings/404.ice-no-charging.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink getChargeSettings 404 unknown-vin",
+    "operationId": "getChargeSettings",
+    "example": "404.unknown-vin",
+    "scenario": null,
+    "priority": 6,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/charge\\-settings(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 404,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "getChargeSettings/404.unknown-vin.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getChargeSettings 404 unknown-vin @fast",
+    "operationId": "getChargeSettings",
+    "example": "404.unknown-vin",
+    "scenario": "fast",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/charge\\-settings(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 404,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "getChargeSettings/404.unknown-vin.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink getChargeSettings 429 rate-limited",
+    "operationId": "getChargeSettings",
+    "example": "429.rate-limited",
+    "scenario": "rate-limited",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/charge\\-settings(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "rate-limited"
+        }
+      ]
+    },
+    "response": {
+      "status": 429,
+      "headers": {
+        "Content-Type": "application/problem+json",
+        "Retry-After": "30"
+      },
+      "file": "getChargeSettings/429.rate-limited.json"
+    },
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "name": "drivelink getChargeSettings 500 server-error",
+    "operationId": "getChargeSettings",
+    "example": "500.server-error",
+    "scenario": "server-error",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/charge\\-settings(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "server-error"
+        }
+      ]
+    },
+    "response": {
+      "status": 500,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "getChargeSettings/500.server-error.json"
+    },
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "name": "drivelink getClimatePresets 200 default",
+    "operationId": "getClimatePresets",
+    "example": "200.default",
+    "scenario": null,
+    "priority": 6,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/climate\\-presets(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getClimatePresets/200.default.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getClimatePresets 200 default @fast",
+    "operationId": "getClimatePresets",
+    "example": "200.default",
+    "scenario": "fast",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/climate\\-presets(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getClimatePresets/200.default.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink getClimatePresets 401 auth-expired",
+    "operationId": "getClimatePresets",
+    "example": "401.auth-expired",
+    "scenario": "auth-expired",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/climate\\-presets(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "auth-expired"
+        }
+      ]
+    },
+    "response": {
+      "status": 401,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "getClimatePresets/401.auth-expired.json"
+    },
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "name": "drivelink getClimatePresets 429 rate-limited",
+    "operationId": "getClimatePresets",
+    "example": "429.rate-limited",
+    "scenario": "rate-limited",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/climate\\-presets(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "rate-limited"
+        }
+      ]
+    },
+    "response": {
+      "status": 429,
+      "headers": {
+        "Content-Type": "application/problem+json",
+        "Retry-After": "30"
+      },
+      "file": "getClimatePresets/429.rate-limited.json"
+    },
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "name": "drivelink getClimatePresets 500 server-error",
+    "operationId": "getClimatePresets",
+    "example": "500.server-error",
+    "scenario": "server-error",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/climate\\-presets(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "server-error"
+        }
+      ]
+    },
+    "response": {
+      "status": 500,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "getClimatePresets/500.server-error.json"
+    },
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "name": "drivelink getCommand 200 command-fails",
+    "operationId": "getCommand",
+    "example": "200.command-fails",
+    "scenario": "command-fails",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "command-fails"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getCommand/200.command-fails.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getCommand 200 command-fails-pending",
+    "operationId": "getCommand",
+    "example": "200.command-fails-pending",
+    "scenario": "command-fails",
+    "priority": 2,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "command-fails"
+        },
+        {
+          "key": "X-Poll-Attempt",
+          "matcher": "matches",
+          "value": "^1$"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getCommand/200.command-fails-pending.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getCommand 200 command-timeout",
+    "operationId": "getCommand",
+    "example": "200.command-timeout",
+    "scenario": "command-timeout",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "command-timeout"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getCommand/200.command-timeout.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getCommand 200 default",
+    "operationId": "getCommand",
+    "example": "200.default",
+    "scenario": null,
+    "priority": 6,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getCommand/200.default.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getCommand 200 default-pending",
+    "operationId": "getCommand",
+    "example": "200.default-pending",
+    "scenario": null,
+    "priority": 5,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Poll-Attempt",
+          "matcher": "matches",
+          "value": "^[12]$"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getCommand/200.default-pending.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getCommand 200 fast",
+    "operationId": "getCommand",
+    "example": "200.fast",
+    "scenario": "fast",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getCommand/200.fast.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink getCommand 200 slow-vehicle",
+    "operationId": "getCommand",
+    "example": "200.slow-vehicle",
+    "scenario": "slow-vehicle",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "slow-vehicle"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getCommand/200.slow-vehicle.json"
+    },
+    "thinkTimeMs": [
+      2000,
+      3000
+    ]
+  },
+  {
+    "name": "drivelink getCommand 200 slow-vehicle-pending",
+    "operationId": "getCommand",
+    "example": "200.slow-vehicle-pending",
+    "scenario": "slow-vehicle",
+    "priority": 2,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "slow-vehicle"
+        },
+        {
+          "key": "X-Poll-Attempt",
+          "matcher": "matches",
+          "value": "^[1-8]$"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getCommand/200.slow-vehicle-pending.json"
+    },
+    "thinkTimeMs": [
+      2000,
+      3000
+    ]
+  },
+  {
+    "name": "drivelink getCommand 200 vehicle-asleep",
+    "operationId": "getCommand",
+    "example": "200.vehicle-asleep",
+    "scenario": "vehicle-asleep",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "vehicle-asleep"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getCommand/200.vehicle-asleep.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getCommand 200 vehicle-asleep-pending",
+    "operationId": "getCommand",
+    "example": "200.vehicle-asleep-pending",
+    "scenario": "vehicle-asleep",
+    "priority": 2,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "vehicle-asleep"
+        },
+        {
+          "key": "X-Poll-Attempt",
+          "matcher": "matches",
+          "value": "^[34]$"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getCommand/200.vehicle-asleep-pending.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getCommand 200 vehicle-asleep-waking",
+    "operationId": "getCommand",
+    "example": "200.vehicle-asleep-waking",
+    "scenario": "vehicle-asleep",
+    "priority": 2,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "vehicle-asleep"
+        },
+        {
+          "key": "X-Poll-Attempt",
+          "matcher": "matches",
+          "value": "^[12]$"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getCommand/200.vehicle-asleep-waking.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getCommand 401 auth-expired",
+    "operationId": "getCommand",
+    "example": "401.auth-expired",
+    "scenario": "auth-expired",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "auth-expired"
+        }
+      ]
+    },
+    "response": {
+      "status": 401,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "getCommand/401.auth-expired.json"
+    },
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "name": "drivelink getCommand 429 rate-limited",
+    "operationId": "getCommand",
+    "example": "429.rate-limited",
+    "scenario": "rate-limited",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "rate-limited"
+        }
+      ]
+    },
+    "response": {
+      "status": 429,
+      "headers": {
+        "Content-Type": "application/problem+json",
+        "Retry-After": "30"
+      },
+      "file": "getCommand/429.rate-limited.json"
+    },
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "name": "drivelink getCommand 500 server-error",
+    "operationId": "getCommand",
+    "example": "500.server-error",
+    "scenario": "server-error",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "server-error"
+        }
+      ]
+    },
+    "response": {
+      "status": 500,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "getCommand/500.server-error.json"
+    },
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "name": "drivelink getHealth 200 default",
+    "operationId": "getHealth",
+    "example": "200.default",
+    "scenario": null,
+    "priority": 6,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/health(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getHealth/200.default.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getHealth 200 default @auth-expired",
+    "operationId": "getHealth",
+    "example": "200.default",
+    "scenario": "auth-expired",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/health(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "auth-expired"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getHealth/200.default.json"
+    },
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "name": "drivelink getHealth 200 default @fast",
+    "operationId": "getHealth",
+    "example": "200.default",
+    "scenario": "fast",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/health(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getHealth/200.default.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink getHealth 200 default @rate-limited",
+    "operationId": "getHealth",
+    "example": "200.default",
+    "scenario": "rate-limited",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/health(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "rate-limited"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getHealth/200.default.json"
+    },
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "name": "drivelink getHealth 200 default @server-error",
+    "operationId": "getHealth",
+    "example": "200.default",
+    "scenario": "server-error",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/health(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "server-error"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getHealth/200.default.json"
+    },
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "name": "drivelink getMaintenance 200 default",
+    "operationId": "getMaintenance",
+    "example": "200.default",
+    "scenario": null,
+    "priority": 6,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/maintenance(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getMaintenance/200.default.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getMaintenance 200 default @fast",
+    "operationId": "getMaintenance",
+    "example": "200.default",
+    "scenario": "fast",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/maintenance(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getMaintenance/200.default.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink getMaintenance 200 default-ice",
+    "operationId": "getMaintenance",
+    "example": "200.default-ice",
+    "scenario": null,
+    "priority": 5,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/DLGS25SLACE000202/maintenance(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getMaintenance/200.default-ice.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getMaintenance 200 default-ice @fast",
+    "operationId": "getMaintenance",
+    "example": "200.default-ice",
+    "scenario": "fast",
+    "priority": 2,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/DLGS25SLACE000202/maintenance(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getMaintenance/200.default-ice.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink getMaintenance 401 auth-expired",
+    "operationId": "getMaintenance",
+    "example": "401.auth-expired",
+    "scenario": "auth-expired",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/maintenance(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "auth-expired"
+        }
+      ]
+    },
+    "response": {
+      "status": 401,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "getMaintenance/401.auth-expired.json"
+    },
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "name": "drivelink getMaintenance 429 rate-limited",
+    "operationId": "getMaintenance",
+    "example": "429.rate-limited",
+    "scenario": "rate-limited",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/maintenance(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "rate-limited"
+        }
+      ]
+    },
+    "response": {
+      "status": 429,
+      "headers": {
+        "Content-Type": "application/problem+json",
+        "Retry-After": "30"
+      },
+      "file": "getMaintenance/429.rate-limited.json"
+    },
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "name": "drivelink getMaintenance 500 server-error",
+    "operationId": "getMaintenance",
+    "example": "500.server-error",
+    "scenario": "server-error",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/maintenance(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "server-error"
+        }
+      ]
+    },
+    "response": {
+      "status": 500,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "getMaintenance/500.server-error.json"
+    },
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "name": "drivelink getMe 200 default",
+    "operationId": "getMe",
+    "example": "200.default",
+    "scenario": null,
+    "priority": 6,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/me(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getMe/200.default.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getMe 200 default @fast",
+    "operationId": "getMe",
+    "example": "200.default",
+    "scenario": "fast",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/me(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getMe/200.default.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink getMe 401 auth-expired",
+    "operationId": "getMe",
+    "example": "401.auth-expired",
+    "scenario": "auth-expired",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/me(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "auth-expired"
+        }
+      ]
+    },
+    "response": {
+      "status": 401,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "getMe/401.auth-expired.json"
+    },
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "name": "drivelink getMe 429 rate-limited",
+    "operationId": "getMe",
+    "example": "429.rate-limited",
+    "scenario": "rate-limited",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/me(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "rate-limited"
+        }
+      ]
+    },
+    "response": {
+      "status": 429,
+      "headers": {
+        "Content-Type": "application/problem+json",
+        "Retry-After": "30"
+      },
+      "file": "getMe/429.rate-limited.json"
+    },
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "name": "drivelink getMe 500 server-error",
+    "operationId": "getMe",
+    "example": "500.server-error",
+    "scenario": "server-error",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/me(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "server-error"
+        }
+      ]
+    },
+    "response": {
+      "status": 500,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "getMe/500.server-error.json"
+    },
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "name": "drivelink getVehicleLocation 200 default",
+    "operationId": "getVehicleLocation",
+    "example": "200.default",
+    "scenario": null,
+    "priority": 6,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/location(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getVehicleLocation/200.default.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getVehicleLocation 200 default @fast",
+    "operationId": "getVehicleLocation",
+    "example": "200.default",
+    "scenario": "fast",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/location(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getVehicleLocation/200.default.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink getVehicleLocation 200 default-ice",
+    "operationId": "getVehicleLocation",
+    "example": "200.default-ice",
+    "scenario": null,
+    "priority": 5,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/DLGS25SLACE000202/location(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getVehicleLocation/200.default-ice.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getVehicleLocation 200 default-ice @fast",
+    "operationId": "getVehicleLocation",
+    "example": "200.default-ice",
+    "scenario": "fast",
+    "priority": 2,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/DLGS25SLACE000202/location(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getVehicleLocation/200.default-ice.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink getVehicleLocation 401 auth-expired",
+    "operationId": "getVehicleLocation",
+    "example": "401.auth-expired",
+    "scenario": "auth-expired",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/location(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "auth-expired"
+        }
+      ]
+    },
+    "response": {
+      "status": 401,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "getVehicleLocation/401.auth-expired.json"
+    },
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "name": "drivelink getVehicleLocation 429 rate-limited",
+    "operationId": "getVehicleLocation",
+    "example": "429.rate-limited",
+    "scenario": "rate-limited",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/location(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "rate-limited"
+        }
+      ]
+    },
+    "response": {
+      "status": 429,
+      "headers": {
+        "Content-Type": "application/problem+json",
+        "Retry-After": "30"
+      },
+      "file": "getVehicleLocation/429.rate-limited.json"
+    },
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "name": "drivelink getVehicleLocation 500 server-error",
+    "operationId": "getVehicleLocation",
+    "example": "500.server-error",
+    "scenario": "server-error",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/location(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "server-error"
+        }
+      ]
+    },
+    "response": {
+      "status": 500,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "getVehicleLocation/500.server-error.json"
+    },
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "name": "drivelink getVehicleStatus 200 bad-payload",
+    "operationId": "getVehicleStatus",
+    "example": "200.bad-payload",
+    "scenario": "bad-payload",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/status(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "bad-payload"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getVehicleStatus/200.bad-payload.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getVehicleStatus 200 default",
+    "operationId": "getVehicleStatus",
+    "example": "200.default",
+    "scenario": null,
+    "priority": 5,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/DLEV26AURA0000101/status(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getVehicleStatus/200.default.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getVehicleStatus 200 default @fast",
+    "operationId": "getVehicleStatus",
+    "example": "200.default",
+    "scenario": "fast",
+    "priority": 2,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/DLEV26AURA0000101/status(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getVehicleStatus/200.default.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink getVehicleStatus 200 default-ice",
+    "operationId": "getVehicleStatus",
+    "example": "200.default-ice",
+    "scenario": null,
+    "priority": 5,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/DLGS25SLACE000202/status(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getVehicleStatus/200.default-ice.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getVehicleStatus 200 default-ice @fast",
+    "operationId": "getVehicleStatus",
+    "example": "200.default-ice",
+    "scenario": "fast",
+    "priority": 2,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/DLGS25SLACE000202/status(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getVehicleStatus/200.default-ice.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink getVehicleStatus 200 door-ajar",
+    "operationId": "getVehicleStatus",
+    "example": "200.door-ajar",
+    "scenario": "door-ajar",
+    "priority": 2,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/DLEV26AURA0000101/status(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "door-ajar"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getVehicleStatus/200.door-ajar.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getVehicleStatus 200 low-battery",
+    "operationId": "getVehicleStatus",
+    "example": "200.low-battery",
+    "scenario": "low-battery",
+    "priority": 2,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/DLEV26AURA0000101/status(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "low-battery"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getVehicleStatus/200.low-battery.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getVehicleStatus 200 tire-low",
+    "operationId": "getVehicleStatus",
+    "example": "200.tire-low",
+    "scenario": "tire-low",
+    "priority": 2,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/DLEV26AURA0000101/status(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "tire-low"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getVehicleStatus/200.tire-low.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getVehicleStatus 200 vehicle-offline",
+    "operationId": "getVehicleStatus",
+    "example": "200.vehicle-offline",
+    "scenario": "vehicle-offline",
+    "priority": 2,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/DLEV26AURA0000101/status(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "vehicle-offline"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "getVehicleStatus/200.vehicle-offline.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getVehicleStatus 401 auth-expired",
+    "operationId": "getVehicleStatus",
+    "example": "401.auth-expired",
+    "scenario": "auth-expired",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/status(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "auth-expired"
+        }
+      ]
+    },
+    "response": {
+      "status": 401,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "getVehicleStatus/401.auth-expired.json"
+    },
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "name": "drivelink getVehicleStatus 404 unknown-vin",
+    "operationId": "getVehicleStatus",
+    "example": "404.unknown-vin",
+    "scenario": null,
+    "priority": 6,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/status(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 404,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "getVehicleStatus/404.unknown-vin.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink getVehicleStatus 404 unknown-vin @fast",
+    "operationId": "getVehicleStatus",
+    "example": "404.unknown-vin",
+    "scenario": "fast",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/status(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 404,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "getVehicleStatus/404.unknown-vin.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink getVehicleStatus 429 rate-limited",
+    "operationId": "getVehicleStatus",
+    "example": "429.rate-limited",
+    "scenario": "rate-limited",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/status(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "rate-limited"
+        }
+      ]
+    },
+    "response": {
+      "status": 429,
+      "headers": {
+        "Content-Type": "application/problem+json",
+        "Retry-After": "30"
+      },
+      "file": "getVehicleStatus/429.rate-limited.json"
+    },
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "name": "drivelink getVehicleStatus 500 server-error",
+    "operationId": "getVehicleStatus",
+    "example": "500.server-error",
+    "scenario": "server-error",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/status(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "server-error"
+        }
+      ]
+    },
+    "response": {
+      "status": 500,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "getVehicleStatus/500.server-error.json"
+    },
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "name": "drivelink listAlerts 200 default",
+    "operationId": "listAlerts",
+    "example": "200.default",
+    "scenario": null,
+    "priority": 6,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/alerts(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "listAlerts/200.default.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink listAlerts 200 default @fast",
+    "operationId": "listAlerts",
+    "example": "200.default",
+    "scenario": "fast",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/alerts(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "listAlerts/200.default.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink listAlerts 200 door-ajar",
+    "operationId": "listAlerts",
+    "example": "200.door-ajar",
+    "scenario": "door-ajar",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/alerts(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "door-ajar"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "listAlerts/200.door-ajar.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink listAlerts 200 low-battery",
+    "operationId": "listAlerts",
+    "example": "200.low-battery",
+    "scenario": "low-battery",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/alerts(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "low-battery"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "listAlerts/200.low-battery.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink listAlerts 200 tire-low",
+    "operationId": "listAlerts",
+    "example": "200.tire-low",
+    "scenario": "tire-low",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/alerts(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "tire-low"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "listAlerts/200.tire-low.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink listAlerts 401 auth-expired",
+    "operationId": "listAlerts",
+    "example": "401.auth-expired",
+    "scenario": "auth-expired",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/alerts(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "auth-expired"
+        }
+      ]
+    },
+    "response": {
+      "status": 401,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "listAlerts/401.auth-expired.json"
+    },
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "name": "drivelink listAlerts 429 rate-limited",
+    "operationId": "listAlerts",
+    "example": "429.rate-limited",
+    "scenario": "rate-limited",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/alerts(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "rate-limited"
+        }
+      ]
+    },
+    "response": {
+      "status": 429,
+      "headers": {
+        "Content-Type": "application/problem+json",
+        "Retry-After": "30"
+      },
+      "file": "listAlerts/429.rate-limited.json"
+    },
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "name": "drivelink listAlerts 500 server-error",
+    "operationId": "listAlerts",
+    "example": "500.server-error",
+    "scenario": "server-error",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/alerts(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "server-error"
+        }
+      ]
+    },
+    "response": {
+      "status": 500,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "listAlerts/500.server-error.json"
+    },
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "name": "drivelink listTrips 200 default",
+    "operationId": "listTrips",
+    "example": "200.default",
+    "scenario": null,
+    "priority": 6,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/trips(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "listTrips/200.default.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink listTrips 200 default @fast",
+    "operationId": "listTrips",
+    "example": "200.default",
+    "scenario": "fast",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/trips(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "listTrips/200.default.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink listTrips 200 default-ice",
+    "operationId": "listTrips",
+    "example": "200.default-ice",
+    "scenario": null,
+    "priority": 5,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/DLGS25SLACE000202/trips(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "listTrips/200.default-ice.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink listTrips 200 default-ice @fast",
+    "operationId": "listTrips",
+    "example": "200.default-ice",
+    "scenario": "fast",
+    "priority": 2,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/DLGS25SLACE000202/trips(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "listTrips/200.default-ice.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink listTrips 401 auth-expired",
+    "operationId": "listTrips",
+    "example": "401.auth-expired",
+    "scenario": "auth-expired",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/trips(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "auth-expired"
+        }
+      ]
+    },
+    "response": {
+      "status": 401,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "listTrips/401.auth-expired.json"
+    },
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "name": "drivelink listTrips 429 rate-limited",
+    "operationId": "listTrips",
+    "example": "429.rate-limited",
+    "scenario": "rate-limited",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/trips(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "rate-limited"
+        }
+      ]
+    },
+    "response": {
+      "status": 429,
+      "headers": {
+        "Content-Type": "application/problem+json",
+        "Retry-After": "30"
+      },
+      "file": "listTrips/429.rate-limited.json"
+    },
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "name": "drivelink listTrips 500 server-error",
+    "operationId": "listTrips",
+    "example": "500.server-error",
+    "scenario": "server-error",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles/[^/?]+/trips(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "server-error"
+        }
+      ]
+    },
+    "response": {
+      "status": 500,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "listTrips/500.server-error.json"
+    },
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "name": "drivelink listVehicles 200 default",
+    "operationId": "listVehicles",
+    "example": "200.default",
+    "scenario": null,
+    "priority": 6,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "listVehicles/200.default.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink listVehicles 200 default @fast",
+    "operationId": "listVehicles",
+    "example": "200.default",
+    "scenario": "fast",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "listVehicles/200.default.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink listVehicles 401 auth-expired",
+    "operationId": "listVehicles",
+    "example": "401.auth-expired",
+    "scenario": "auth-expired",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "auth-expired"
+        }
+      ]
+    },
+    "response": {
+      "status": 401,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "listVehicles/401.auth-expired.json"
+    },
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "name": "drivelink listVehicles 429 rate-limited",
+    "operationId": "listVehicles",
+    "example": "429.rate-limited",
+    "scenario": "rate-limited",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "rate-limited"
+        }
+      ]
+    },
+    "response": {
+      "status": 429,
+      "headers": {
+        "Content-Type": "application/problem+json",
+        "Retry-After": "30"
+      },
+      "file": "listVehicles/429.rate-limited.json"
+    },
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "name": "drivelink listVehicles 500 server-error",
+    "operationId": "listVehicles",
+    "example": "500.server-error",
+    "scenario": "server-error",
+    "priority": 3,
+    "request": {
+      "method": "GET",
+      "urlRegex": "^/v1/vehicles(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "server-error"
+        }
+      ]
+    },
+    "response": {
+      "status": 500,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "listVehicles/500.server-error.json"
+    },
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "name": "drivelink markAlertRead 204 default",
+    "operationId": "markAlertRead",
+    "example": "204.default",
+    "scenario": null,
+    "priority": 6,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/alerts/[^/?]+/read(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 204,
+      "headers": {},
+      "file": null
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink markAlertRead 204 default @fast",
+    "operationId": "markAlertRead",
+    "example": "204.default",
+    "scenario": "fast",
+    "priority": 3,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/alerts/[^/?]+/read(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 204,
+      "headers": {},
+      "file": null
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink markAlertRead 401 auth-expired",
+    "operationId": "markAlertRead",
+    "example": "401.auth-expired",
+    "scenario": "auth-expired",
+    "priority": 3,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/alerts/[^/?]+/read(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "auth-expired"
+        }
+      ]
+    },
+    "response": {
+      "status": 401,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "markAlertRead/401.auth-expired.json"
+    },
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "name": "drivelink markAlertRead 429 rate-limited",
+    "operationId": "markAlertRead",
+    "example": "429.rate-limited",
+    "scenario": "rate-limited",
+    "priority": 3,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/alerts/[^/?]+/read(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "rate-limited"
+        }
+      ]
+    },
+    "response": {
+      "status": 429,
+      "headers": {
+        "Content-Type": "application/problem+json",
+        "Retry-After": "30"
+      },
+      "file": "markAlertRead/429.rate-limited.json"
+    },
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "name": "drivelink markAlertRead 500 server-error",
+    "operationId": "markAlertRead",
+    "example": "500.server-error",
+    "scenario": "server-error",
+    "priority": 3,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/alerts/[^/?]+/read(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "server-error"
+        }
+      ]
+    },
+    "response": {
+      "status": 500,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "markAlertRead/500.server-error.json"
+    },
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "name": "drivelink refreshToken 200 default",
+    "operationId": "refreshToken",
+    "example": "200.default",
+    "scenario": null,
+    "priority": 6,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/auth/refresh(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "refreshToken/200.default.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink refreshToken 200 default @fast",
+    "operationId": "refreshToken",
+    "example": "200.default",
+    "scenario": "fast",
+    "priority": 3,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/auth/refresh(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "refreshToken/200.default.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink refreshToken 401 auth-expired",
+    "operationId": "refreshToken",
+    "example": "401.auth-expired",
+    "scenario": "auth-expired",
+    "priority": 3,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/auth/refresh(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "auth-expired"
+        }
+      ]
+    },
+    "response": {
+      "status": 401,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "refreshToken/401.auth-expired.json"
+    },
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "name": "drivelink refreshToken 429 rate-limited",
+    "operationId": "refreshToken",
+    "example": "429.rate-limited",
+    "scenario": "rate-limited",
+    "priority": 3,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/auth/refresh(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "rate-limited"
+        }
+      ]
+    },
+    "response": {
+      "status": 429,
+      "headers": {
+        "Content-Type": "application/problem+json",
+        "Retry-After": "30"
+      },
+      "file": "refreshToken/429.rate-limited.json"
+    },
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "name": "drivelink refreshToken 500 server-error",
+    "operationId": "refreshToken",
+    "example": "500.server-error",
+    "scenario": "server-error",
+    "priority": 3,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/auth/refresh(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "server-error"
+        }
+      ]
+    },
+    "response": {
+      "status": 500,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "refreshToken/500.server-error.json"
+    },
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "name": "drivelink sendCommand 202 default",
+    "operationId": "sendCommand",
+    "example": "202.default",
+    "scenario": null,
+    "priority": 6,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/vehicles/[^/?]+/commands(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 202,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "sendCommand/202.default.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink sendCommand 202 default @fast",
+    "operationId": "sendCommand",
+    "example": "202.default",
+    "scenario": "fast",
+    "priority": 3,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/vehicles/[^/?]+/commands(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 202,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "sendCommand/202.default.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink sendCommand 401 auth-expired",
+    "operationId": "sendCommand",
+    "example": "401.auth-expired",
+    "scenario": "auth-expired",
+    "priority": 3,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/vehicles/[^/?]+/commands(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "auth-expired"
+        }
+      ]
+    },
+    "response": {
+      "status": 401,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "sendCommand/401.auth-expired.json"
+    },
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "name": "drivelink sendCommand 409 vehicle-offline",
+    "operationId": "sendCommand",
+    "example": "409.vehicle-offline",
+    "scenario": "vehicle-offline",
+    "priority": 3,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/vehicles/[^/?]+/commands(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "vehicle-offline"
+        }
+      ]
+    },
+    "response": {
+      "status": 409,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "sendCommand/409.vehicle-offline.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink sendCommand 429 rate-limited",
+    "operationId": "sendCommand",
+    "example": "429.rate-limited",
+    "scenario": "rate-limited",
+    "priority": 3,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/vehicles/[^/?]+/commands(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "rate-limited"
+        }
+      ]
+    },
+    "response": {
+      "status": 429,
+      "headers": {
+        "Content-Type": "application/problem+json",
+        "Retry-After": "30"
+      },
+      "file": "sendCommand/429.rate-limited.json"
+    },
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "name": "drivelink sendCommand 500 server-error",
+    "operationId": "sendCommand",
+    "example": "500.server-error",
+    "scenario": "server-error",
+    "priority": 3,
+    "request": {
+      "method": "POST",
+      "urlRegex": "^/v1/vehicles/[^/?]+/commands(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "server-error"
+        }
+      ]
+    },
+    "response": {
+      "status": 500,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "sendCommand/500.server-error.json"
+    },
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "name": "drivelink updateChargeSettings 200 default",
+    "operationId": "updateChargeSettings",
+    "example": "200.default",
+    "scenario": null,
+    "priority": 5,
+    "request": {
+      "method": "PUT",
+      "urlRegex": "^/v1/vehicles/DLEV26AURA0000101/charge\\-settings(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "updateChargeSettings/200.default.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink updateChargeSettings 200 default @fast",
+    "operationId": "updateChargeSettings",
+    "example": "200.default",
+    "scenario": "fast",
+    "priority": 2,
+    "request": {
+      "method": "PUT",
+      "urlRegex": "^/v1/vehicles/DLEV26AURA0000101/charge\\-settings(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "updateChargeSettings/200.default.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink updateChargeSettings 401 auth-expired",
+    "operationId": "updateChargeSettings",
+    "example": "401.auth-expired",
+    "scenario": "auth-expired",
+    "priority": 3,
+    "request": {
+      "method": "PUT",
+      "urlRegex": "^/v1/vehicles/[^/?]+/charge\\-settings(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "auth-expired"
+        }
+      ]
+    },
+    "response": {
+      "status": 401,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "updateChargeSettings/401.auth-expired.json"
+    },
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "name": "drivelink updateChargeSettings 404 ice-no-charging",
+    "operationId": "updateChargeSettings",
+    "example": "404.ice-no-charging",
+    "scenario": null,
+    "priority": 5,
+    "request": {
+      "method": "PUT",
+      "urlRegex": "^/v1/vehicles/DLGS25SLACE000202/charge\\-settings(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 404,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "updateChargeSettings/404.ice-no-charging.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink updateChargeSettings 404 ice-no-charging @fast",
+    "operationId": "updateChargeSettings",
+    "example": "404.ice-no-charging",
+    "scenario": "fast",
+    "priority": 2,
+    "request": {
+      "method": "PUT",
+      "urlRegex": "^/v1/vehicles/DLGS25SLACE000202/charge\\-settings(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 404,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "updateChargeSettings/404.ice-no-charging.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink updateChargeSettings 404 unknown-vin",
+    "operationId": "updateChargeSettings",
+    "example": "404.unknown-vin",
+    "scenario": null,
+    "priority": 6,
+    "request": {
+      "method": "PUT",
+      "urlRegex": "^/v1/vehicles/[^/?]+/charge\\-settings(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 404,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "updateChargeSettings/404.unknown-vin.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink updateChargeSettings 404 unknown-vin @fast",
+    "operationId": "updateChargeSettings",
+    "example": "404.unknown-vin",
+    "scenario": "fast",
+    "priority": 3,
+    "request": {
+      "method": "PUT",
+      "urlRegex": "^/v1/vehicles/[^/?]+/charge\\-settings(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 404,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "updateChargeSettings/404.unknown-vin.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink updateChargeSettings 429 rate-limited",
+    "operationId": "updateChargeSettings",
+    "example": "429.rate-limited",
+    "scenario": "rate-limited",
+    "priority": 3,
+    "request": {
+      "method": "PUT",
+      "urlRegex": "^/v1/vehicles/[^/?]+/charge\\-settings(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "rate-limited"
+        }
+      ]
+    },
+    "response": {
+      "status": 429,
+      "headers": {
+        "Content-Type": "application/problem+json",
+        "Retry-After": "30"
+      },
+      "file": "updateChargeSettings/429.rate-limited.json"
+    },
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "name": "drivelink updateChargeSettings 500 server-error",
+    "operationId": "updateChargeSettings",
+    "example": "500.server-error",
+    "scenario": "server-error",
+    "priority": 3,
+    "request": {
+      "method": "PUT",
+      "urlRegex": "^/v1/vehicles/[^/?]+/charge\\-settings(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "server-error"
+        }
+      ]
+    },
+    "response": {
+      "status": 500,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "updateChargeSettings/500.server-error.json"
+    },
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "name": "drivelink updateClimatePresets 200 default",
+    "operationId": "updateClimatePresets",
+    "example": "200.default",
+    "scenario": null,
+    "priority": 6,
+    "request": {
+      "method": "PUT",
+      "urlRegex": "^/v1/vehicles/[^/?]+/climate\\-presets(\\?.*)?$",
+      "headers": []
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "updateClimatePresets/200.default.json"
+    },
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "name": "drivelink updateClimatePresets 200 default @fast",
+    "operationId": "updateClimatePresets",
+    "example": "200.default",
+    "scenario": "fast",
+    "priority": 3,
+    "request": {
+      "method": "PUT",
+      "urlRegex": "^/v1/vehicles/[^/?]+/climate\\-presets(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "fast"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "updateClimatePresets/200.default.json"
+    },
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "drivelink updateClimatePresets 401 auth-expired",
+    "operationId": "updateClimatePresets",
+    "example": "401.auth-expired",
+    "scenario": "auth-expired",
+    "priority": 3,
+    "request": {
+      "method": "PUT",
+      "urlRegex": "^/v1/vehicles/[^/?]+/climate\\-presets(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "auth-expired"
+        }
+      ]
+    },
+    "response": {
+      "status": 401,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "updateClimatePresets/401.auth-expired.json"
+    },
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "name": "drivelink updateClimatePresets 429 rate-limited",
+    "operationId": "updateClimatePresets",
+    "example": "429.rate-limited",
+    "scenario": "rate-limited",
+    "priority": 3,
+    "request": {
+      "method": "PUT",
+      "urlRegex": "^/v1/vehicles/[^/?]+/climate\\-presets(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "rate-limited"
+        }
+      ]
+    },
+    "response": {
+      "status": 429,
+      "headers": {
+        "Content-Type": "application/problem+json",
+        "Retry-After": "30"
+      },
+      "file": "updateClimatePresets/429.rate-limited.json"
+    },
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "name": "drivelink updateClimatePresets 500 server-error",
+    "operationId": "updateClimatePresets",
+    "example": "500.server-error",
+    "scenario": "server-error",
+    "priority": 3,
+    "request": {
+      "method": "PUT",
+      "urlRegex": "^/v1/vehicles/[^/?]+/climate\\-presets(\\?.*)?$",
+      "headers": [
+        {
+          "key": "X-Scenario",
+          "matcher": "equals",
+          "value": "server-error"
+        }
+      ]
+    },
+    "response": {
+      "status": 500,
+      "headers": {
+        "Content-Type": "application/problem+json"
+      },
+      "file": "updateClimatePresets/500.server-error.json"
+    },
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  }
+]

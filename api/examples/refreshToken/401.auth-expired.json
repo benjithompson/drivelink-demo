@@ -1,0 +1,8 @@
+{
+  "type": "https://drivelink.test/problems/token-expired",
+  "title": "Session expired",
+  "status": 401,
+  "detail": "The refresh token has expired. Sign in again.",
+  "code": "TOKEN_EXPIRED",
+  "correlationId": "7f3c91a2-0000-4000-8000-000000000401"
+}

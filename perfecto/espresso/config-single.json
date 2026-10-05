@@ -1,0 +1,27 @@
+{
+  "devices": [
+    {
+      "deviceName": "48071FDAP003CY",
+      "model": "Pixel 9 Pro"
+    }
+  ],
+  "jobName": "drivelink-espresso",
+  "projectName": "DriveLink Demo",
+  "projectVersion": "0.1",
+  "tags": [
+    "drivelink",
+    "espresso",
+    "core-suite"
+  ],
+  "installationDetails": {
+    "preCleanUp": "true"
+  },
+  "postExecution": {
+    "uninstall": "true"
+  },
+  "debug": false,
+  "failBuildOnFailure": true,
+  "takeScreenshotOnTestFailure": true,
+  "shard": false,
+  "testTimeout": 180000
+}

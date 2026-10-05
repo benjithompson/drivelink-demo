@@ -1,0 +1,32 @@
+[
+  {
+    "id": "trp-3021",
+    "startedAt": "2026-10-02T14:05:00Z",
+    "endedAt": "2026-10-02T14:31:00Z",
+    "distanceMi": 12.4,
+    "durationMin": 26,
+    "avgMph": 28.6,
+    "efficiency": 3.9,
+    "efficiencyUnit": "MI_PER_KWH"
+  },
+  {
+    "id": "trp-3020",
+    "startedAt": "2026-10-01T23:40:00Z",
+    "endedAt": "2026-10-02T00:22:00Z",
+    "distanceMi": 31.8,
+    "durationMin": 42,
+    "avgMph": 45.4,
+    "efficiency": 3.4,
+    "efficiencyUnit": "MI_PER_KWH"
+  },
+  {
+    "id": "trp-3019",
+    "startedAt": "2026-10-01T15:10:00Z",
+    "endedAt": "2026-10-01T15:24:00Z",
+    "distanceMi": 5.2,
+    "durationMin": 14,
+    "avgMph": 22.3,
+    "efficiency": 4.2,
+    "efficiencyUnit": "MI_PER_KWH"
+  }
+]

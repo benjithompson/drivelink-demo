@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application>
+        <!--
+            Debug builds only: test hook for Perfecto and CI. No UI; it applies the extras and finishes.
+            Exported so that `adb shell am start` can reach it. It changes demo settings only.
+        -->
+        <activity
+            android:name=".DemoConfigActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:theme="@android:style/Theme.NoDisplay"
+            tools:ignore="ExportedActivity" />
+    </application>
+
+</manifest>

@@ -1,0 +1,44 @@
+{
+  "vin": "DLGS25SLACE000202",
+  "powertrain": "ICE",
+  "updatedAt": "2026-10-02T16:40:00Z",
+  "locked": true,
+  "engineOn": false,
+  "connectivity": "ONLINE",
+  "climate": {
+    "on": false,
+    "tempMode": "SET",
+    "setTempF": 70,
+    "frontDefrost": false,
+    "rearDefrost": false,
+    "heatedSteeringWheel": false,
+    "heatedSeats": 0
+  },
+  "doors": {
+    "fl": "CLOSED",
+    "fr": "CLOSED",
+    "rl": "CLOSED",
+    "rr": "CLOSED",
+    "trunk": "CLOSED",
+    "hood": "CLOSED"
+  },
+  "windows": {
+    "fl": "CLOSED",
+    "fr": "CLOSED",
+    "rl": "CLOSED",
+    "rr": "CLOSED"
+  },
+  "fuelPct": 62,
+  "rangeMi": 318,
+  "tires": {
+    "flPsi": 35,
+    "frPsi": 35,
+    "rlPsi": 34,
+    "rrPsi": 35,
+    "lowWarning": false,
+    "lowWheels": []
+  },
+  "odometerMi": 27310,
+  "oilLifePct": 41,
+  "aux12vOk": true
+}

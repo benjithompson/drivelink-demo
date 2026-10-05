@@ -1,0 +1,54 @@
+{
+  "presets": [
+    {
+      "id": "pre-1",
+      "name": "Summer",
+      "params": {
+        "tempMode": "SET",
+        "tempF": 68,
+        "frontDefrost": false,
+        "rearDefrost": false,
+        "heatedSteeringWheel": false,
+        "heatedSeats": 0,
+        "durationMin": 10
+      }
+    },
+    {
+      "id": "pre-2",
+      "name": "Winter",
+      "params": {
+        "tempMode": "SET",
+        "tempF": 76,
+        "frontDefrost": true,
+        "rearDefrost": true,
+        "heatedSteeringWheel": true,
+        "heatedSeats": 3,
+        "durationMin": 10
+      }
+    },
+    {
+      "id": "pre-3",
+      "name": "Preset 3",
+      "params": {
+        "tempMode": "HI",
+        "frontDefrost": true,
+        "rearDefrost": true,
+        "heatedSteeringWheel": true,
+        "heatedSeats": 3,
+        "durationMin": 5
+      }
+    },
+    {
+      "id": "pre-4",
+      "name": "Preset 4",
+      "params": {
+        "tempMode": "OFF",
+        "frontDefrost": false,
+        "rearDefrost": false,
+        "heatedSteeringWheel": false,
+        "heatedSeats": 1,
+        "durationMin": 5
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "userId": "usr-1001",
+  "name": "Alex Rivera",
+  "email": "alex.rivera@drivelink.test",
+  "units": {
+    "distance": "MI",
+    "temperature": "F"
+  }
+}

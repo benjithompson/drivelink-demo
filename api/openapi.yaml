@@ -1,0 +1,2141 @@
+openapi: 3.0.3
+info:
+  title: DriveLink Demo API
+  version: 1.0.0
+  description: |
+    Connected-car API for the DriveLink Demo app. Every response comes from a BlazeMeter virtual service.
+
+    The `X-Scenario` request header selects the behavior of the virtual service. When the header is
+    absent, the service uses the `default` scenario. The scenario catalog is in `api/scenarios.yaml`.
+
+    Example conventions (used to build the virtual-service transactions in Phase 3):
+    - Each named example has `x-scenario`: the `X-Scenario` value that returns it.
+    - `x-match` adds request matchers, for example `X-Poll-Attempt: "^[12]$"` (regex).
+    - `x-vin` limits an example to one vehicle.
+    - Examples without `x-match` are the fallback for their scenario.
+
+    The API is original. It does not mirror any OEM API.
+  contact:
+    name: Ben Thompson
+servers:
+  - url: https://{host}/v1
+    description: BlazeMeter virtual service (URL set per endpoint profile)
+    variables:
+      host:
+        default: mock.example.com
+security:
+  - bearerAuth: []
+tags:
+  - name: auth
+  - name: account
+  - name: vehicles
+  - name: commands
+  - name: charging
+  - name: climate
+  - name: trips
+  - name: maintenance
+  - name: alerts
+  - name: system
+
+paths:
+  /health:
+    get:
+      tags: [system]
+      operationId: getHealth
+      summary: Health check for the "Test connection" button
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/XScenario'
+        - $ref: '#/components/parameters/XCorrelationId'
+      responses:
+        '200':
+          description: Service is up
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/XCorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+              examples:
+                default:
+                  x-scenario: default
+                  value:
+                    status: UP
+                    version: 1.0.0
+                    service: drivelink-mock
+
+  /auth/token:
+    post:
+      tags: [auth]
+      operationId: createToken
+      summary: Sign in with email and password
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/XScenario'
+        - $ref: '#/components/parameters/XCorrelationId'
+        - $ref: '#/components/parameters/XClientVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+            examples:
+              default:
+                value:
+                  email: alex.rivera@drivelink.test
+                  password: demo-password
+      responses:
+        '200':
+          $ref: '#/components/responses/TokenOk'
+        '401':
+          description: Email or password is not correct
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/XCorrelationId'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+              examples:
+                invalid-credentials:
+                  value:
+                    type: https://drivelink.test/problems/invalid-credentials
+                    title: Sign-in failed
+                    status: 401
+                    detail: The email or password is not correct.
+                    code: INVALID_CREDENTIALS
+                    correlationId: 7f3c91a2-0000-4000-8000-000000000401
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /auth/refresh:
+    post:
+      tags: [auth]
+      operationId: refreshToken
+      summary: Exchange a refresh token for a new access token
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/XScenario'
+        - $ref: '#/components/parameters/XCorrelationId'
+        - $ref: '#/components/parameters/XClientVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshRequest'
+            examples:
+              default:
+                value:
+                  refreshToken: rt-demo-7f3c91a2
+      responses:
+        '200':
+          $ref: '#/components/responses/TokenOk'
+        '401':
+          description: Refresh token rejected
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/XCorrelationId'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+              examples:
+                auth-expired:
+                  x-scenario: auth-expired
+                  value:
+                    type: https://drivelink.test/problems/token-expired
+                    title: Session expired
+                    status: 401
+                    detail: The refresh token has expired. Sign in again.
+                    code: TOKEN_EXPIRED
+                    correlationId: 7f3c91a2-0000-4000-8000-000000000401
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /me:
+    get:
+      tags: [account]
+      operationId: getMe
+      summary: Current user profile and unit preferences
+      parameters:
+        - $ref: '#/components/parameters/XScenario'
+        - $ref: '#/components/parameters/XCorrelationId'
+        - $ref: '#/components/parameters/XClientVersion'
+      responses:
+        '200':
+          description: User profile
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/XCorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                default:
+                  x-scenario: default
+                  value:
+                    userId: usr-1001
+                    name: Alex Rivera
+                    email: alex.rivera@drivelink.test
+                    units:
+                      distance: MI
+                      temperature: F
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /vehicles:
+    get:
+      tags: [vehicles]
+      operationId: listVehicles
+      summary: Vehicles on the account
+      parameters:
+        - $ref: '#/components/parameters/XScenario'
+        - $ref: '#/components/parameters/XCorrelationId'
+        - $ref: '#/components/parameters/XClientVersion'
+      responses:
+        '200':
+          description: Vehicle list
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/XCorrelationId'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vehicle'
+              examples:
+                default:
+                  x-scenario: default
+                  value:
+                    - vin: DLEV26AURA0000101
+                      nickname: Aurora
+                      model: Aurora EV
+                      trim: Limited AWD · Long Range
+                      year: 2026
+                      color: Glacier Blue
+                      powertrain: EV
+                      imageKey: crossover-glacier-blue
+                    - vin: DLGS25SLACE000202
+                      nickname: Solace
+                      model: Solace
+                      trim: SEL · 2.5L
+                      year: 2025
+                      color: Ember Red
+                      powertrain: ICE
+                      imageKey: sedan-ember-red
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /vehicles/{vin}/status:
+    get:
+      tags: [vehicles]
+      operationId: getVehicleStatus
+      summary: Last known vehicle status
+      parameters:
+        - $ref: '#/components/parameters/Vin'
+        - $ref: '#/components/parameters/XScenario'
+        - $ref: '#/components/parameters/XCorrelationId'
+        - $ref: '#/components/parameters/XClientVersion'
+      responses:
+        '200':
+          description: Vehicle status
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/XCorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleStatus'
+              examples:
+                default:
+                  $ref: '#/components/examples/StatusDefaultEv'
+                default-ice:
+                  $ref: '#/components/examples/StatusDefaultIce'
+                low-battery:
+                  $ref: '#/components/examples/StatusLowBattery'
+                door-ajar:
+                  $ref: '#/components/examples/StatusDoorAjar'
+                tire-low:
+                  $ref: '#/components/examples/StatusTireLow'
+                vehicle-offline:
+                  $ref: '#/components/examples/StatusOffline'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: No vehicle with this VIN on the account
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/XCorrelationId'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+              examples:
+                unknown-vin:
+                  x-scenario: default
+                  value:
+                    type: https://drivelink.test/problems/not-found
+                    title: Vehicle not found
+                    status: 404
+                    detail: No vehicle with this VIN on the account.
+                    code: NOT_FOUND
+                    correlationId: 7f3c91a2-0000-4000-8000-000000000404
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /vehicles/{vin}/commands:
+    post:
+      tags: [commands]
+      operationId: sendCommand
+      summary: Queue a remote command; poll the returned command for the result
+      description: |
+        The virtual service returns fixed example bodies; `type` in the response may differ from the requested type. Clients show the command label from local state.
+      parameters:
+        - $ref: '#/components/parameters/Vin'
+        - $ref: '#/components/parameters/XScenario'
+        - $ref: '#/components/parameters/XCorrelationId'
+        - $ref: '#/components/parameters/XClientVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommandRequest'
+            examples:
+              lock:
+                value:
+                  type: LOCK
+                  pin: '1234'
+              start-with-climate:
+                value:
+                  type: START
+                  pin: '1234'
+                  params:
+                    tempMode: SET
+                    tempF: 72
+                    frontDefrost: true
+                    rearDefrost: false
+                    heatedSteeringWheel: false
+                    heatedSeats: 2
+                    durationMin: 10
+      responses:
+        '202':
+          description: Command queued
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/XCorrelationId'
+            Location:
+              description: URL of the command resource to poll
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Command'
+              examples:
+                default:
+                  x-scenario: default
+                  value:
+                    commandId: cmd-5b1e7c40
+                    type: LOCK
+                    status: QUEUED
+                    createdAt: '2026-10-02T17:00:00Z'
+                    updatedAt: '2026-10-02T17:00:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: The PIN is not correct
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/XCorrelationId'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+              examples:
+                invalid-pin:
+                  value:
+                    type: https://drivelink.test/problems/invalid-pin
+                    title: Incorrect PIN
+                    status: 403
+                    detail: The PIN is not correct. Try again.
+                    code: INVALID_PIN
+                    correlationId: 7f3c91a2-0000-4000-8000-000000000403
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: Vehicle cannot accept the command
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/XCorrelationId'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+              examples:
+                vehicle-offline:
+                  x-scenario: vehicle-offline
+                  value:
+                    type: https://drivelink.test/problems/vehicle-offline
+                    title: Vehicle is offline
+                    status: 409
+                    detail: The vehicle has no network connection. Try again when it is in coverage.
+                    code: VEHICLE_OFFLINE
+                    correlationId: 7f3c91a2-0000-4000-8000-000000000409
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /commands/{commandId}:
+    get:
+      tags: [commands]
+      operationId: getCommand
+      summary: Poll a remote command
+      description: |
+        The app polls every 2 s (4 s after attempt 5) and stops after 60 s. It sends the attempt number in
+        `X-Poll-Attempt`, so the virtual service can return PENDING for early attempts without state.
+
+        The virtual service returns fixed example bodies; `type` in the response may differ from the requested type. Clients show the command label from local state.
+      parameters:
+        - name: commandId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: cmd-5b1e7c40
+        - name: X-Poll-Attempt
+          in: header
+          required: true
+          description: Poll count, starting at 1
+          schema:
+            type: integer
+            minimum: 1
+        - $ref: '#/components/parameters/XScenario'
+        - $ref: '#/components/parameters/XCorrelationId'
+        - $ref: '#/components/parameters/XClientVersion'
+      responses:
+        '200':
+          description: Command state
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/XCorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Command'
+              examples:
+                default-pending:
+                  x-scenario: default
+                  x-match:
+                    X-Poll-Attempt: '^[12]$'
+                  value:
+                    commandId: cmd-5b1e7c40
+                    type: LOCK
+                    status: PENDING
+                    createdAt: '2026-10-02T17:00:00Z'
+                    updatedAt: '2026-10-02T17:00:02Z'
+                default:
+                  x-scenario: default
+                  value:
+                    commandId: cmd-5b1e7c40
+                    type: LOCK
+                    status: SUCCEEDED
+                    createdAt: '2026-10-02T17:00:00Z'
+                    updatedAt: '2026-10-02T17:00:06Z'
+                fast:
+                  x-scenario: fast
+                  value:
+                    commandId: cmd-5b1e7c40
+                    type: LOCK
+                    status: SUCCEEDED
+                    createdAt: '2026-10-02T17:00:00Z'
+                    updatedAt: '2026-10-02T17:00:01Z'
+                slow-vehicle-pending:
+                  x-scenario: slow-vehicle
+                  x-match:
+                    X-Poll-Attempt: '^[1-8]$'
+                  value:
+                    commandId: cmd-5b1e7c40
+                    type: LOCK
+                    status: PENDING
+                    createdAt: '2026-10-02T17:00:00Z'
+                    updatedAt: '2026-10-02T17:00:10Z'
+                slow-vehicle:
+                  x-scenario: slow-vehicle
+                  value:
+                    commandId: cmd-5b1e7c40
+                    type: LOCK
+                    status: SUCCEEDED
+                    createdAt: '2026-10-02T17:00:00Z'
+                    updatedAt: '2026-10-02T17:00:28Z'
+                vehicle-asleep-waking:
+                  x-scenario: vehicle-asleep
+                  x-match:
+                    X-Poll-Attempt: '^[12]$'
+                  value:
+                    commandId: cmd-5b1e7c40
+                    type: LOCK
+                    status: PENDING
+                    reason: WAKING
+                    createdAt: '2026-10-02T17:00:00Z'
+                    updatedAt: '2026-10-02T17:00:02Z'
+                vehicle-asleep-pending:
+                  x-scenario: vehicle-asleep
+                  x-match:
+                    X-Poll-Attempt: '^[34]$'
+                  value:
+                    commandId: cmd-5b1e7c40
+                    type: LOCK
+                    status: PENDING
+                    createdAt: '2026-10-02T17:00:00Z'
+                    updatedAt: '2026-10-02T17:00:06Z'
+                vehicle-asleep:
+                  x-scenario: vehicle-asleep
+                  value:
+                    commandId: cmd-5b1e7c40
+                    type: LOCK
+                    status: SUCCEEDED
+                    createdAt: '2026-10-02T17:00:00Z'
+                    updatedAt: '2026-10-02T17:00:10Z'
+                command-fails-pending:
+                  x-scenario: command-fails
+                  x-match:
+                    X-Poll-Attempt: '^1$'
+                  value:
+                    commandId: cmd-5b1e7c40
+                    type: LOCK
+                    status: PENDING
+                    createdAt: '2026-10-02T17:00:00Z'
+                    updatedAt: '2026-10-02T17:00:02Z'
+                command-fails:
+                  x-scenario: command-fails
+                  value:
+                    commandId: cmd-5b1e7c40
+                    type: LOCK
+                    status: FAILED
+                    reason: DOOR_OPEN
+                    createdAt: '2026-10-02T17:00:00Z'
+                    updatedAt: '2026-10-02T17:00:04Z'
+                command-timeout:
+                  x-scenario: command-timeout
+                  value:
+                    commandId: cmd-5b1e7c40
+                    type: LOCK
+                    status: PENDING
+                    createdAt: '2026-10-02T17:00:00Z'
+                    updatedAt: '2026-10-02T17:00:02Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /vehicles/{vin}/location:
+    get:
+      tags: [vehicles]
+      operationId: getVehicleLocation
+      summary: Last known vehicle location
+      parameters:
+        - $ref: '#/components/parameters/Vin'
+        - $ref: '#/components/parameters/XScenario'
+        - $ref: '#/components/parameters/XCorrelationId'
+        - $ref: '#/components/parameters/XClientVersion'
+      responses:
+        '200':
+          description: Location
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/XCorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+              examples:
+                default:
+                  x-scenario: default
+                  value:
+                    lat: 33.6189
+                    lon: -117.9298
+                    accuracyM: 8
+                    address: 120 Marina Way, Harbor District
+                    locality: Harbor District
+                    updatedAt: '2026-10-02T16:58:00Z'
+                default-ice:
+                  x-scenario: default
+                  x-vin: DLGS25SLACE000202
+                  value:
+                    lat: 33.6412
+                    lon: -117.9187
+                    accuracyM: 12
+                    address: 455 Cypress Avenue, Old Town
+                    locality: Old Town
+                    updatedAt: '2026-10-02T16:40:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /vehicles/{vin}/charge-settings:
+    get:
+      tags: [charging]
+      operationId: getChargeSettings
+      summary: Charge limits and schedules (EV and HYBRID only)
+      parameters:
+        - $ref: '#/components/parameters/Vin'
+        - $ref: '#/components/parameters/XScenario'
+        - $ref: '#/components/parameters/XCorrelationId'
+        - $ref: '#/components/parameters/XClientVersion'
+      responses:
+        '200':
+          description: Charge settings
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/XCorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChargeSettings'
+              examples:
+                default:
+                  $ref: '#/components/examples/ChargeSettingsDefault'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: The vehicle does not support charging (ICE), or the VIN is unknown
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/XCorrelationId'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+              examples:
+                ice-no-charging:
+                  x-scenario: default
+                  x-vin: DLGS25SLACE000202
+                  value:
+                    type: https://drivelink.test/problems/not-supported
+                    title: Not supported
+                    status: 404
+                    detail: This vehicle does not support charging.
+                    code: NOT_FOUND
+                    correlationId: 7f3c91a2-0000-4000-8000-000000000404
+                unknown-vin:
+                  x-scenario: default
+                  value:
+                    type: https://drivelink.test/problems/not-found
+                    title: Vehicle not found
+                    status: 404
+                    detail: No vehicle with this VIN on the account.
+                    code: NOT_FOUND
+                    correlationId: 7f3c91a2-0000-4000-8000-000000000404
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    put:
+      tags: [charging]
+      operationId: updateChargeSettings
+      summary: Update charge limits and schedules
+      parameters:
+        - $ref: '#/components/parameters/Vin'
+        - $ref: '#/components/parameters/XScenario'
+        - $ref: '#/components/parameters/XCorrelationId'
+        - $ref: '#/components/parameters/XClientVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChargeSettings'
+            examples:
+              default:
+                $ref: '#/components/examples/ChargeSettingsDefault'
+      responses:
+        '200':
+          description: Updated charge settings
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/XCorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChargeSettings'
+              examples:
+                default:
+                  $ref: '#/components/examples/ChargeSettingsDefault'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: The vehicle does not support charging (ICE), or the VIN is unknown
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/XCorrelationId'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+              examples:
+                ice-no-charging:
+                  x-scenario: default
+                  x-vin: DLGS25SLACE000202
+                  value:
+                    type: https://drivelink.test/problems/not-supported
+                    title: Not supported
+                    status: 404
+                    detail: This vehicle does not support charging.
+                    code: NOT_FOUND
+                    correlationId: 7f3c91a2-0000-4000-8000-000000000404
+                unknown-vin:
+                  x-scenario: default
+                  value:
+                    type: https://drivelink.test/problems/not-found
+                    title: Vehicle not found
+                    status: 404
+                    detail: No vehicle with this VIN on the account.
+                    code: NOT_FOUND
+                    correlationId: 7f3c91a2-0000-4000-8000-000000000404
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /vehicles/{vin}/climate-presets:
+    get:
+      tags: [climate]
+      operationId: getClimatePresets
+      summary: Saved remote-start presets (up to 4)
+      parameters:
+        - $ref: '#/components/parameters/Vin'
+        - $ref: '#/components/parameters/XScenario'
+        - $ref: '#/components/parameters/XCorrelationId'
+        - $ref: '#/components/parameters/XClientVersion'
+      responses:
+        '200':
+          description: Presets
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/XCorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClimatePresets'
+              examples:
+                default:
+                  $ref: '#/components/examples/ClimatePresetsDefault'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    put:
+      tags: [climate]
+      operationId: updateClimatePresets
+      summary: Replace the saved presets
+      parameters:
+        - $ref: '#/components/parameters/Vin'
+        - $ref: '#/components/parameters/XScenario'
+        - $ref: '#/components/parameters/XCorrelationId'
+        - $ref: '#/components/parameters/XClientVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClimatePresets'
+            examples:
+              default:
+                $ref: '#/components/examples/ClimatePresetsDefault'
+      responses:
+        '200':
+          description: Updated presets
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/XCorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClimatePresets'
+              examples:
+                default:
+                  $ref: '#/components/examples/ClimatePresetsDefault'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /vehicles/{vin}/trips:
+    get:
+      tags: [trips]
+      operationId: listTrips
+      summary: Recent trips, newest first
+      parameters:
+        - $ref: '#/components/parameters/Vin'
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50
+            default: 20
+        - $ref: '#/components/parameters/XScenario'
+        - $ref: '#/components/parameters/XCorrelationId'
+        - $ref: '#/components/parameters/XClientVersion'
+      responses:
+        '200':
+          description: Trips
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/XCorrelationId'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Trip'
+              examples:
+                default:
+                  x-scenario: default
+                  value:
+                    - id: trp-3021
+                      startedAt: '2026-10-02T14:05:00Z'
+                      endedAt: '2026-10-02T14:31:00Z'
+                      distanceMi: 12.4
+                      durationMin: 26
+                      avgMph: 28.6
+                      efficiency: 3.9
+                      efficiencyUnit: MI_PER_KWH
+                    - id: trp-3020
+                      startedAt: '2026-10-01T23:40:00Z'
+                      endedAt: '2026-10-02T00:22:00Z'
+                      distanceMi: 31.8
+                      durationMin: 42
+                      avgMph: 45.4
+                      efficiency: 3.4
+                      efficiencyUnit: MI_PER_KWH
+                    - id: trp-3019
+                      startedAt: '2026-10-01T15:10:00Z'
+                      endedAt: '2026-10-01T15:24:00Z'
+                      distanceMi: 5.2
+                      durationMin: 14
+                      avgMph: 22.3
+                      efficiency: 4.2
+                      efficiencyUnit: MI_PER_KWH
+                default-ice:
+                  x-scenario: default
+                  x-vin: DLGS25SLACE000202
+                  value:
+                    - id: trp-4112
+                      startedAt: '2026-10-02T15:20:00Z'
+                      endedAt: '2026-10-02T15:58:00Z'
+                      distanceMi: 24.6
+                      durationMin: 38
+                      avgMph: 38.8
+                      efficiency: 34.2
+                      efficiencyUnit: MPG
+                    - id: trp-4111
+                      startedAt: '2026-10-01T17:45:00Z'
+                      endedAt: '2026-10-01T18:07:00Z'
+                      distanceMi: 9.1
+                      durationMin: 22
+                      avgMph: 24.8
+                      efficiency: 31.4
+                      efficiencyUnit: MPG
+                    - id: trp-4110
+                      startedAt: '2026-09-30T07:55:00Z'
+                      endedAt: '2026-09-30T08:41:00Z'
+                      distanceMi: 38.3
+                      durationMin: 46
+                      avgMph: 50.0
+                      efficiency: 35.8
+                      efficiencyUnit: MPG
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /vehicles/{vin}/maintenance:
+    get:
+      tags: [maintenance]
+      operationId: getMaintenance
+      summary: Service history, upcoming items, recalls and the preferred service center
+      parameters:
+        - $ref: '#/components/parameters/Vin'
+        - $ref: '#/components/parameters/XScenario'
+        - $ref: '#/components/parameters/XCorrelationId'
+        - $ref: '#/components/parameters/XClientVersion'
+      responses:
+        '200':
+          description: Maintenance summary
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/XCorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Maintenance'
+              examples:
+                default:
+                  x-scenario: default
+                  value:
+                    odometerMi: 18452
+                    lastService:
+                      odometerMi: 15020
+                      date: '2026-06-12'
+                    nextService:
+                      odometerMi: 22520
+                      date: '2026-12-12'
+                    intervalMi: 7500
+                    items:
+                      - id: svc-11
+                        name: Tire rotation
+                        dueMi: 19500
+                        status: UPCOMING
+                      - id: svc-12
+                        name: Cabin air filter
+                        dueDate: '2026-12-01'
+                        status: UPCOMING
+                    recalls: []
+                    preferredServiceCenter:
+                      id: sc-204
+                      name: Harborview Auto Service
+                      address: 120 Marina Way, Harbor District
+                      phone: '+1 555 0142'
+                      distanceMi: 2.4
+                      hours: 7am - 6pm
+                      openNow: true
+                default-ice:
+                  x-scenario: default
+                  x-vin: DLGS25SLACE000202
+                  value:
+                    odometerMi: 27310
+                    lastService:
+                      odometerMi: 20310
+                      date: '2026-04-18'
+                    nextService:
+                      odometerMi: 27810
+                      date: '2026-10-18'
+                    intervalMi: 7500
+                    items:
+                      - id: svc-21
+                        name: Oil and filter change
+                        dueMi: 27810
+                        status: DUE
+                      - id: svc-22
+                        name: Tire rotation
+                        dueMi: 27810
+                        status: DUE
+                      - id: svc-23
+                        name: Engine air filter
+                        dueMi: 30000
+                        status: UPCOMING
+                    recalls:
+                      - id: rcl-301
+                        campaign: DL-26-014
+                        title: Seat-belt reminder chime software update
+                        description: In some conditions the seat-belt reminder chime does not sound. A free software update is available at your service center.
+                        status: OPEN
+                        issuedDate: '2026-08-14'
+                    preferredServiceCenter:
+                      id: sc-204
+                      name: Harborview Auto Service
+                      address: 120 Marina Way, Harbor District
+                      phone: '+1 555 0142'
+                      distanceMi: 3.1
+                      hours: 7am - 6pm
+                      openNow: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /vehicles/{vin}/service-requests:
+    post:
+      tags: [maintenance]
+      operationId: createServiceRequest
+      summary: Ask the service center for an appointment
+      parameters:
+        - $ref: '#/components/parameters/Vin'
+        - $ref: '#/components/parameters/XScenario'
+        - $ref: '#/components/parameters/XCorrelationId'
+        - $ref: '#/components/parameters/XClientVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceRequestCreate'
+            examples:
+              default:
+                value:
+                  serviceCenterId: sc-204
+                  preferredDate: '2026-10-09'
+                  itemIds: [svc-11]
+                  notes: Please also check the 12 V battery.
+      responses:
+        '201':
+          description: Request created
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/XCorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceRequest'
+              examples:
+                default:
+                  x-scenario: default
+                  value:
+                    requestId: srq-8812
+                    status: REQUESTED
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /alerts:
+    get:
+      tags: [alerts]
+      operationId: listAlerts
+      summary: Notification inbox, newest first
+      parameters:
+        - name: vin
+          in: query
+          required: false
+          description: Limit to one vehicle
+          schema:
+            $ref: '#/components/schemas/Vin'
+        - $ref: '#/components/parameters/XScenario'
+        - $ref: '#/components/parameters/XCorrelationId'
+        - $ref: '#/components/parameters/XClientVersion'
+      responses:
+        '200':
+          description: Alerts
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/XCorrelationId'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Alert'
+              examples:
+                default:
+                  x-scenario: default
+                  value:
+                    - id: alr-901
+                      vin: DLEV26AURA0000101
+                      type: CHARGE_COMPLETE
+                      severity: INFO
+                      title: Charge complete
+                      body: Aurora reached its 80% charge limit.
+                      createdAt: '2026-10-02T06:12:00Z'
+                      read: false
+                    - id: alr-900
+                      vin: DLGS25SLACE000202
+                      type: SERVICE_DUE
+                      severity: INFO
+                      title: Service due soon
+                      body: Solace is due for an oil change in 500 miles.
+                      createdAt: '2026-09-30T09:00:00Z'
+                      read: true
+                low-battery:
+                  x-scenario: low-battery
+                  value:
+                    - id: alr-910
+                      vin: DLEV26AURA0000101
+                      type: LOW_RANGE
+                      severity: WARN
+                      title: Low range
+                      body: Aurora has 19 miles of range left.
+                      createdAt: '2026-10-02T16:50:00Z'
+                      read: false
+                door-ajar:
+                  x-scenario: door-ajar
+                  value:
+                    - id: alr-920
+                      vin: DLEV26AURA0000101
+                      type: DOOR_OPEN
+                      severity: WARN
+                      title: Door left open
+                      body: The rear left door of Aurora is open and the vehicle is unlocked.
+                      createdAt: '2026-10-02T16:55:00Z'
+                      read: false
+                tire-low:
+                  x-scenario: tire-low
+                  value:
+                    - id: alr-930
+                      vin: DLEV26AURA0000101
+                      type: LOW_TIRE
+                      severity: WARN
+                      title: Low tire pressure
+                      body: The rear left tire of Aurora is at 24 psi. Check the tire pressure.
+                      createdAt: '2026-10-02T16:52:00Z'
+                      read: false
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /alerts/{alertId}/read:
+    post:
+      tags: [alerts]
+      operationId: markAlertRead
+      summary: Mark an alert as read
+      parameters:
+        - name: alertId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: alr-901
+        - $ref: '#/components/parameters/XScenario'
+        - $ref: '#/components/parameters/XCorrelationId'
+        - $ref: '#/components/parameters/XClientVersion'
+      responses:
+        '204':
+          description: Marked as read
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/XCorrelationId'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Any non-empty token is accepted, except in the `auth-expired` scenario.
+
+  parameters:
+    Vin:
+      name: vin
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/Vin'
+    XScenario:
+      name: X-Scenario
+      in: header
+      required: false
+      description: Virtual-service behavior. Absent means `default`. See `api/scenarios.yaml`.
+      schema:
+        type: string
+        enum:
+          - default
+          - fast
+          - slow-vehicle
+          - vehicle-asleep
+          - vehicle-offline
+          - command-fails
+          - command-timeout
+          - low-battery
+          - door-ajar
+          - tire-low
+          - auth-expired
+          - rate-limited
+          - server-error
+          - bad-payload
+    XCorrelationId:
+      name: X-Correlation-Id
+      in: header
+      required: false
+      description: UUID per request; echoed in the response and in problem bodies
+      schema:
+        type: string
+        format: uuid
+    XClientVersion:
+      name: X-Client-Version
+      in: header
+      required: false
+      description: App version, for example `0.1.0 (1)`
+      schema:
+        type: string
+
+  headers:
+    XCorrelationId:
+      description: Echo of the request X-Correlation-Id
+      schema:
+        type: string
+    RetryAfter:
+      description: Seconds to wait before the next request
+      schema:
+        type: integer
+
+  responses:
+    TokenOk:
+      description: Tokens issued
+      headers:
+        X-Correlation-Id:
+          $ref: '#/components/headers/XCorrelationId'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TokenResponse'
+          examples:
+            default:
+              x-scenario: default
+              value:
+                accessToken: at-demo-1c9e44d0
+                expiresIn: 3600
+                refreshToken: rt-demo-7f3c91a2
+    BadRequest:
+      description: Request body is not valid
+      headers:
+        X-Correlation-Id:
+          $ref: '#/components/headers/XCorrelationId'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+          examples:
+            invalid:
+              value:
+                type: https://drivelink.test/problems/invalid-request
+                title: Invalid request
+                status: 400
+                detail: acTargetPct must be a multiple of 10 between 50 and 100.
+                code: INVALID_REQUEST
+                correlationId: 7f3c91a2-0000-4000-8000-000000000400
+    Unauthorized:
+      description: Access token missing or expired
+      headers:
+        X-Correlation-Id:
+          $ref: '#/components/headers/XCorrelationId'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+          examples:
+            auth-expired:
+              x-scenario: auth-expired
+              value:
+                type: https://drivelink.test/problems/token-expired
+                title: Session expired
+                status: 401
+                detail: The access token has expired.
+                code: TOKEN_EXPIRED
+                correlationId: 7f3c91a2-0000-4000-8000-000000000401
+    NotFound:
+      description: Resource not found, or the vehicle does not support it (for example charge settings on an ICE vehicle)
+      headers:
+        X-Correlation-Id:
+          $ref: '#/components/headers/XCorrelationId'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+          examples:
+            not-found:
+              value:
+                type: https://drivelink.test/problems/not-found
+                title: Not found
+                status: 404
+                detail: No vehicle with this VIN on the account.
+                code: NOT_FOUND
+                correlationId: 7f3c91a2-0000-4000-8000-000000000404
+    RateLimited:
+      description: Too many requests
+      headers:
+        X-Correlation-Id:
+          $ref: '#/components/headers/XCorrelationId'
+        Retry-After:
+          $ref: '#/components/headers/RetryAfter'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+          examples:
+            rate-limited:
+              x-scenario: rate-limited
+              x-headers:
+                Retry-After: '30'
+              value:
+                type: https://drivelink.test/problems/rate-limited
+                title: Too many requests
+                status: 429
+                detail: Wait 30 seconds before the next request.
+                code: RATE_LIMITED
+                correlationId: 7f3c91a2-0000-4000-8000-000000000429
+    ServerError:
+      description: Unexpected server error
+      headers:
+        X-Correlation-Id:
+          $ref: '#/components/headers/XCorrelationId'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+          examples:
+            server-error:
+              x-scenario: server-error
+              value:
+                type: https://drivelink.test/problems/internal
+                title: Something went wrong
+                status: 500
+                detail: The service could not complete the request.
+                code: INTERNAL
+                correlationId: 7f3c91a2-0000-4000-8000-000000000500
+
+  examples:
+    StatusDefaultEv:
+      x-scenario: default
+      x-vin: DLEV26AURA0000101
+      value:
+        vin: DLEV26AURA0000101
+        powertrain: EV
+        updatedAt: '2026-10-02T16:58:00Z'
+        locked: true
+        engineOn: false
+        connectivity: ONLINE
+        climate:
+          'on': false
+          tempMode: SET
+          setTempF: 72
+          frontDefrost: false
+          rearDefrost: false
+          heatedSteeringWheel: false
+          heatedSeats: 0
+        doors: {fl: CLOSED, fr: CLOSED, rl: CLOSED, rr: CLOSED, trunk: CLOSED, hood: CLOSED}
+        windows: {fl: CLOSED, fr: CLOSED, rl: CLOSED, rr: CLOSED}
+        batteryPct: 72
+        rangeMi: 226
+        charging:
+          pluggedIn: true
+          active: true
+          state: CHARGING
+          chargerType: AC
+          rateKw: 6.6
+          minutesToTarget: 42
+          targetPct: 80
+          energyAddedKwh: 12
+          costUsd: 4.8
+        tires: {flPsi: 38, frPsi: 38, rlPsi: 37, rrPsi: 38, lowWarning: false, lowWheels: []}
+        odometerMi: 18452
+        aux12vOk: true
+    StatusDefaultIce:
+      x-scenario: default
+      x-vin: DLGS25SLACE000202
+      value:
+        vin: DLGS25SLACE000202
+        powertrain: ICE
+        updatedAt: '2026-10-02T16:40:00Z'
+        locked: true
+        engineOn: false
+        connectivity: ONLINE
+        climate:
+          'on': false
+          tempMode: SET
+          setTempF: 70
+          frontDefrost: false
+          rearDefrost: false
+          heatedSteeringWheel: false
+          heatedSeats: 0
+        doors: {fl: CLOSED, fr: CLOSED, rl: CLOSED, rr: CLOSED, trunk: CLOSED, hood: CLOSED}
+        windows: {fl: CLOSED, fr: CLOSED, rl: CLOSED, rr: CLOSED}
+        fuelPct: 62
+        rangeMi: 318
+        tires: {flPsi: 35, frPsi: 35, rlPsi: 34, rrPsi: 35, lowWarning: false, lowWheels: []}
+        odometerMi: 27310
+        oilLifePct: 41
+        aux12vOk: true
+    StatusLowBattery:
+      x-scenario: low-battery
+      x-vin: DLEV26AURA0000101
+      value:
+        vin: DLEV26AURA0000101
+        powertrain: EV
+        updatedAt: '2026-10-02T16:58:00Z'
+        locked: true
+        engineOn: false
+        connectivity: ONLINE
+        climate:
+          'on': false
+          tempMode: SET
+          setTempF: 72
+          frontDefrost: false
+          rearDefrost: false
+          heatedSteeringWheel: false
+          heatedSeats: 0
+        doors: {fl: CLOSED, fr: CLOSED, rl: CLOSED, rr: CLOSED, trunk: CLOSED, hood: CLOSED}
+        windows: {fl: CLOSED, fr: CLOSED, rl: CLOSED, rr: CLOSED}
+        batteryPct: 8
+        rangeMi: 19
+        charging:
+          pluggedIn: false
+          active: false
+          state: NOT_PLUGGED
+        tires: {flPsi: 38, frPsi: 38, rlPsi: 37, rrPsi: 38, lowWarning: false, lowWheels: []}
+        odometerMi: 18452
+        aux12vOk: true
+    StatusDoorAjar:
+      x-scenario: door-ajar
+      x-vin: DLEV26AURA0000101
+      value:
+        vin: DLEV26AURA0000101
+        powertrain: EV
+        updatedAt: '2026-10-02T16:58:00Z'
+        locked: false
+        engineOn: false
+        connectivity: ONLINE
+        climate:
+          'on': false
+          tempMode: SET
+          setTempF: 72
+          frontDefrost: false
+          rearDefrost: false
+          heatedSteeringWheel: false
+          heatedSeats: 0
+        doors: {fl: CLOSED, fr: CLOSED, rl: OPEN, rr: CLOSED, trunk: CLOSED, hood: CLOSED}
+        windows: {fl: CLOSED, fr: CLOSED, rl: CLOSED, rr: CLOSED}
+        batteryPct: 72
+        rangeMi: 226
+        charging:
+          pluggedIn: false
+          active: false
+          state: NOT_PLUGGED
+        tires: {flPsi: 38, frPsi: 38, rlPsi: 37, rrPsi: 38, lowWarning: false, lowWheels: []}
+        odometerMi: 18452
+        aux12vOk: true
+    StatusTireLow:
+      x-scenario: tire-low
+      x-vin: DLEV26AURA0000101
+      value:
+        vin: DLEV26AURA0000101
+        powertrain: EV
+        updatedAt: '2026-10-02T16:58:00Z'
+        locked: true
+        engineOn: false
+        connectivity: ONLINE
+        climate:
+          'on': false
+          tempMode: SET
+          setTempF: 72
+          frontDefrost: false
+          rearDefrost: false
+          heatedSteeringWheel: false
+          heatedSeats: 0
+        doors: {fl: CLOSED, fr: CLOSED, rl: CLOSED, rr: CLOSED, trunk: CLOSED, hood: CLOSED}
+        windows: {fl: CLOSED, fr: CLOSED, rl: CLOSED, rr: CLOSED}
+        batteryPct: 72
+        rangeMi: 226
+        charging:
+          pluggedIn: false
+          active: false
+          state: NOT_PLUGGED
+        tires: {flPsi: 38, frPsi: 38, rlPsi: 24, rrPsi: 38, lowWarning: true, lowWheels: [rl]}
+        odometerMi: 18452
+        aux12vOk: true
+    StatusOffline:
+      x-scenario: vehicle-offline
+      x-vin: DLEV26AURA0000101
+      value:
+        vin: DLEV26AURA0000101
+        powertrain: EV
+        updatedAt: '2026-09-29T08:15:00Z'
+        locked: true
+        engineOn: false
+        connectivity: OFFLINE
+        climate:
+          'on': false
+          tempMode: SET
+          setTempF: 72
+          frontDefrost: false
+          rearDefrost: false
+          heatedSteeringWheel: false
+          heatedSeats: 0
+        doors: {fl: CLOSED, fr: CLOSED, rl: CLOSED, rr: CLOSED, trunk: CLOSED, hood: CLOSED}
+        windows: {fl: CLOSED, fr: CLOSED, rl: CLOSED, rr: CLOSED}
+        batteryPct: 64
+        rangeMi: 201
+        charging:
+          pluggedIn: false
+          active: false
+          state: NOT_PLUGGED
+        tires: {flPsi: 38, frPsi: 38, rlPsi: 37, rrPsi: 38, lowWarning: false, lowWheels: []}
+        odometerMi: 18390
+        aux12vOk: true
+    ChargeSettingsDefault:
+      x-scenario: default
+      x-vin: DLEV26AURA0000101
+      value:
+        acTargetPct: 80
+        dcTargetPct: 90
+        offPeakMode: OFF_PEAK_PRIORITY
+        schedules:
+          - id: sch-1
+            days: [MON, TUE, WED, THU, FRI]
+            startTime: '23:00'
+            endTime: '06:00'
+            enabled: true
+        departure:
+          enabled: true
+          days: [MON, TUE, WED, THU, FRI]
+          time: '07:30'
+          climate:
+            'on': true
+            tempMode: SET
+            setTempF: 70
+            frontDefrost: true
+            rearDefrost: false
+            heatedSteeringWheel: false
+            heatedSeats: 0
+    ClimatePresetsDefault:
+      x-scenario: default
+      value:
+        presets:
+          - id: pre-1
+            name: Summer
+            params: {tempMode: SET, tempF: 68, frontDefrost: false, rearDefrost: false, heatedSteeringWheel: false, heatedSeats: 0, durationMin: 10}
+          - id: pre-2
+            name: Winter
+            params: {tempMode: SET, tempF: 76, frontDefrost: true, rearDefrost: true, heatedSteeringWheel: true, heatedSeats: 3, durationMin: 10}
+          - id: pre-3
+            name: Preset 3
+            params: {tempMode: HI, frontDefrost: true, rearDefrost: true, heatedSteeringWheel: true, heatedSeats: 3, durationMin: 5}
+          - id: pre-4
+            name: Preset 4
+            params: {tempMode: 'OFF', frontDefrost: false, rearDefrost: false, heatedSteeringWheel: false, heatedSeats: 1, durationMin: 5}
+
+  schemas:
+    Vin:
+      type: string
+      description: 17-character fake VIN (letters I, O and Q are not used)
+      pattern: '^[A-HJ-NPR-Z0-9]{17}$'
+      example: DLEV26AURA0000101
+    Timestamp:
+      type: string
+      format: date-time
+      description: ISO 8601, UTC
+    Powertrain:
+      type: string
+      enum: [EV, ICE, HYBRID]
+    OpenClosed:
+      type: string
+      enum: [OPEN, CLOSED]
+    WindowState:
+      type: string
+      enum: [OPEN, CLOSED, VENTED]
+    DayOfWeek:
+      type: string
+      enum: [MON, TUE, WED, THU, FRI, SAT, SUN]
+    LocalTime:
+      type: string
+      pattern: '^([01][0-9]|2[0-3]):[0-5][0-9]$'
+      example: '07:30'
+    TempMode:
+      type: string
+      description: Climate mode. SET holds setTempF (ClimateState) or tempF (ClimateParams). LO is full cooling. HI is full heating.
+      enum: ['OFF', LO, SET, HI]
+    WheelPosition:
+      type: string
+      enum: [fl, fr, rl, rr]
+
+    Health:
+      type: object
+      required: [status, version]
+      properties:
+        status:
+          type: string
+          enum: [UP, DEGRADED]
+        version:
+          type: string
+        service:
+          type: string
+
+    TokenRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 1
+    RefreshRequest:
+      type: object
+      required: [refreshToken]
+      properties:
+        refreshToken:
+          type: string
+    TokenResponse:
+      type: object
+      required: [accessToken, expiresIn, refreshToken]
+      properties:
+        accessToken:
+          type: string
+        expiresIn:
+          type: integer
+          description: Seconds
+        refreshToken:
+          type: string
+
+    User:
+      type: object
+      required: [userId, name, email, units]
+      properties:
+        userId:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        units:
+          type: object
+          required: [distance, temperature]
+          properties:
+            distance:
+              type: string
+              enum: [MI, KM]
+            temperature:
+              type: string
+              enum: [F, C]
+
+    Vehicle:
+      type: object
+      required: [vin, nickname, model, year, powertrain, imageKey]
+      properties:
+        vin:
+          $ref: '#/components/schemas/Vin'
+        nickname:
+          type: string
+        model:
+          type: string
+        trim:
+          type: string
+        year:
+          type: integer
+        color:
+          type: string
+        powertrain:
+          $ref: '#/components/schemas/Powertrain'
+        imageKey:
+          type: string
+          description: Selects the in-app vehicle illustration and paint, for example `crossover-glacier-blue`
+
+    ClimateState:
+      type: object
+      required: ['on', tempMode]
+      properties:
+        'on':
+          type: boolean
+        tempMode:
+          $ref: '#/components/schemas/TempMode'
+        setTempF:
+          type: integer
+          minimum: 62
+          maximum: 82
+          description: Meaningful when tempMode is SET
+        frontDefrost:
+          type: boolean
+        rearDefrost:
+          type: boolean
+        heatedSteeringWheel:
+          type: boolean
+        heatedSeats:
+          type: integer
+          minimum: 0
+          maximum: 3
+          description: 0 = off, 3 = high
+
+    VehicleStatus:
+      type: object
+      required: [vin, powertrain, updatedAt, connectivity, locked, engineOn, climate, doors, rangeMi, tires, odometerMi, aux12vOk]
+      properties:
+        vin:
+          $ref: '#/components/schemas/Vin'
+        powertrain:
+          $ref: '#/components/schemas/Powertrain'
+        updatedAt:
+          $ref: '#/components/schemas/Timestamp'
+        connectivity:
+          type: string
+          description: Telematics link state. OFFLINE means the data is the last known state.
+          enum: [ONLINE, ASLEEP, OFFLINE]
+        locked:
+          type: boolean
+        engineOn:
+          type: boolean
+        climate:
+          $ref: '#/components/schemas/ClimateState'
+        doors:
+          type: object
+          required: [fl, fr, rl, rr, trunk, hood]
+          properties:
+            fl: {$ref: '#/components/schemas/OpenClosed'}
+            fr: {$ref: '#/components/schemas/OpenClosed'}
+            rl: {$ref: '#/components/schemas/OpenClosed'}
+            rr: {$ref: '#/components/schemas/OpenClosed'}
+            trunk: {$ref: '#/components/schemas/OpenClosed'}
+            hood: {$ref: '#/components/schemas/OpenClosed'}
+        windows:
+          type: object
+          properties:
+            fl: {$ref: '#/components/schemas/WindowState'}
+            fr: {$ref: '#/components/schemas/WindowState'}
+            rl: {$ref: '#/components/schemas/WindowState'}
+            rr: {$ref: '#/components/schemas/WindowState'}
+        fuelPct:
+          type: integer
+          minimum: 0
+          maximum: 100
+          description: ICE and HYBRID only
+        batteryPct:
+          type: integer
+          minimum: 0
+          maximum: 100
+          description: EV and HYBRID only
+        rangeMi:
+          type: integer
+          minimum: 0
+        charging:
+          $ref: '#/components/schemas/ChargingState'
+        tires:
+          type: object
+          required: [flPsi, frPsi, rlPsi, rrPsi, lowWarning, lowWheels]
+          properties:
+            flPsi: {type: integer}
+            frPsi: {type: integer}
+            rlPsi: {type: integer}
+            rrPsi: {type: integer}
+            lowWarning: {type: boolean}
+            lowWheels:
+              type: array
+              description: Wheels with low pressure. Empty when no tire is low.
+              uniqueItems: true
+              items:
+                $ref: '#/components/schemas/WheelPosition'
+        odometerMi:
+          type: integer
+          minimum: 0
+        oilLifePct:
+          type: integer
+          minimum: 0
+          maximum: 100
+        aux12vOk:
+          type: boolean
+
+    ChargingState:
+      type: object
+      description: EV and HYBRID only
+      required: [pluggedIn, active, state]
+      properties:
+        pluggedIn:
+          type: boolean
+        active:
+          type: boolean
+        state:
+          type: string
+          description: NOT_PLUGGED when pluggedIn is false. CHARGING when active is true.
+          enum: [NOT_PLUGGED, CHARGING, COMPLETE, SCHEDULED]
+        chargerType:
+          type: string
+          description: Present when pluggedIn is true
+          enum: [AC, DC]
+        rateKw:
+          type: number
+        minutesToTarget:
+          type: integer
+        targetPct:
+          type: integer
+        energyAddedKwh:
+          type: number
+        costUsd:
+          type: number
+
+    CommandType:
+      type: string
+      enum: [LOCK, UNLOCK, START, STOP, HORN_LIGHTS, LIGHTS, CHARGE_START, CHARGE_STOP]
+    ClimateParams:
+      type: object
+      description: Remote-start options. Used with START and stored in presets.
+      required: [tempMode, durationMin]
+      properties:
+        tempMode:
+          $ref: '#/components/schemas/TempMode'
+        tempF:
+          type: integer
+          minimum: 62
+          maximum: 82
+          description: Required when tempMode is SET
+        frontDefrost:
+          type: boolean
+        rearDefrost:
+          type: boolean
+        heatedSteeringWheel:
+          type: boolean
+        heatedSeats:
+          type: integer
+          minimum: 0
+          maximum: 3
+        durationMin:
+          type: integer
+          minimum: 1
+          maximum: 10
+        presetId:
+          type: string
+    CommandRequest:
+      type: object
+      required: [type, pin]
+      properties:
+        type:
+          $ref: '#/components/schemas/CommandType'
+        pin:
+          type: string
+          pattern: '^[0-9]{4}$'
+          description: The user's 4-digit PIN. The virtual service accepts any 4 digits.
+        params:
+          $ref: '#/components/schemas/ClimateParams'
+    Command:
+      type: object
+      required: [commandId, type, status, createdAt, updatedAt]
+      properties:
+        commandId:
+          type: string
+        type:
+          $ref: '#/components/schemas/CommandType'
+        status:
+          type: string
+          enum: [QUEUED, PENDING, SUCCEEDED, FAILED]
+        reason:
+          type: string
+          description: Sub-state while PENDING (WAKING) or the cause when FAILED
+          enum: [WAKING, DOOR_OPEN, HOOD_OPEN, ENGINE_RUNNING, KEY_IN_VEHICLE, LOW_BATTERY, UNKNOWN]
+        createdAt:
+          $ref: '#/components/schemas/Timestamp'
+        updatedAt:
+          $ref: '#/components/schemas/Timestamp'
+
+    Location:
+      type: object
+      required: [lat, lon, accuracyM, updatedAt]
+      properties:
+        lat:
+          type: number
+          minimum: -90
+          maximum: 90
+        lon:
+          type: number
+          minimum: -180
+          maximum: 180
+        accuracyM:
+          type: integer
+        address:
+          type: string
+        locality:
+          type: string
+          description: Short area name for the map label, for example "Harbor District"
+        updatedAt:
+          $ref: '#/components/schemas/Timestamp'
+
+    ChargeSettings:
+      type: object
+      required: [acTargetPct, dcTargetPct, schedules]
+      properties:
+        acTargetPct:
+          type: integer
+          minimum: 50
+          maximum: 100
+          multipleOf: 10
+        dcTargetPct:
+          type: integer
+          minimum: 50
+          maximum: 100
+          multipleOf: 10
+        offPeakMode:
+          type: string
+          enum: [OFF_PEAK_PRIORITY, OFF_PEAK_ONLY]
+        schedules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChargeSchedule'
+        departure:
+          $ref: '#/components/schemas/Departure'
+    ChargeSchedule:
+      type: object
+      required: [id, days, startTime, endTime, enabled]
+      properties:
+        id:
+          type: string
+        days:
+          type: array
+          items:
+            $ref: '#/components/schemas/DayOfWeek'
+        startTime:
+          $ref: '#/components/schemas/LocalTime'
+        endTime:
+          $ref: '#/components/schemas/LocalTime'
+        enabled:
+          type: boolean
+    Departure:
+      type: object
+      required: [enabled, days, time]
+      properties:
+        enabled:
+          type: boolean
+        days:
+          type: array
+          items:
+            $ref: '#/components/schemas/DayOfWeek'
+        time:
+          $ref: '#/components/schemas/LocalTime'
+        climate:
+          $ref: '#/components/schemas/ClimateState'
+
+    ClimatePresets:
+      type: object
+      required: [presets]
+      properties:
+        presets:
+          type: array
+          maxItems: 4
+          items:
+            type: object
+            required: [id, name, params]
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              params:
+                $ref: '#/components/schemas/ClimateParams'
+
+    Trip:
+      type: object
+      required: [id, startedAt, endedAt, distanceMi, durationMin]
+      properties:
+        id:
+          type: string
+        startedAt:
+          $ref: '#/components/schemas/Timestamp'
+        endedAt:
+          $ref: '#/components/schemas/Timestamp'
+        distanceMi:
+          type: number
+        durationMin:
+          type: integer
+        avgMph:
+          type: number
+        efficiency:
+          type: number
+        efficiencyUnit:
+          type: string
+          enum: [MI_PER_KWH, MPG]
+
+    Maintenance:
+      type: object
+      required: [odometerMi, items, recalls]
+      properties:
+        odometerMi:
+          type: integer
+        lastService:
+          $ref: '#/components/schemas/ServicePoint'
+        nextService:
+          $ref: '#/components/schemas/ServicePoint'
+        intervalMi:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceItem'
+        recalls:
+          type: array
+          items:
+            $ref: '#/components/schemas/Recall'
+        preferredServiceCenter:
+          $ref: '#/components/schemas/ServiceCenter'
+    ServicePoint:
+      type: object
+      required: [odometerMi, date]
+      properties:
+        odometerMi:
+          type: integer
+        date:
+          type: string
+          format: date
+    ServiceItem:
+      type: object
+      required: [id, name, status]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        dueMi:
+          type: integer
+        dueDate:
+          type: string
+          format: date
+        status:
+          type: string
+          enum: [UPCOMING, DUE, OVERDUE]
+    Recall:
+      type: object
+      required: [id, campaign, title, status]
+      properties:
+        id:
+          type: string
+        campaign:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum: [OPEN, REMEDIED]
+        issuedDate:
+          type: string
+          format: date
+    ServiceCenter:
+      type: object
+      required: [id, name, address]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        address:
+          type: string
+        phone:
+          type: string
+          example: '+1 555 0142'
+        distanceMi:
+          type: number
+        hours:
+          type: string
+        openNow:
+          type: boolean
+    ServiceRequestCreate:
+      type: object
+      required: [serviceCenterId, preferredDate]
+      properties:
+        serviceCenterId:
+          type: string
+        preferredDate:
+          type: string
+          format: date
+        itemIds:
+          type: array
+          items:
+            type: string
+        notes:
+          type: string
+          maxLength: 500
+    ServiceRequest:
+      type: object
+      required: [requestId, status]
+      properties:
+        requestId:
+          type: string
+        status:
+          type: string
+          enum: [REQUESTED, CONFIRMED, DECLINED]
+
+    Alert:
+      type: object
+      required: [id, type, severity, title, body, createdAt, read]
+      properties:
+        id:
+          type: string
+        vin:
+          $ref: '#/components/schemas/Vin'
+        type:
+          type: string
+          enum: [DOOR_OPEN, DOOR_UNLOCKED, LOW_TIRE, LOW_RANGE, CHARGE_COMPLETE, THEFT_ALARM, SERVICE_DUE, RECALL]
+        severity:
+          type: string
+          enum: [INFO, WARN, CRITICAL]
+        title:
+          type: string
+        body:
+          type: string
+        createdAt:
+          $ref: '#/components/schemas/Timestamp'
+        read:
+          type: boolean
+
+    Problem:
+      type: object
+      description: RFC 9457 problem details
+      required: [type, title, status, code]
+      properties:
+        type:
+          type: string
+          format: uri
+        title:
+          type: string
+        status:
+          type: integer
+        detail:
+          type: string
+        code:
+          type: string
+          enum: [VEHICLE_OFFLINE, VEHICLE_ASLEEP, COMMAND_CONFLICT, TOKEN_EXPIRED, RATE_LIMITED, INTERNAL, NOT_FOUND, INVALID_REQUEST, INVALID_CREDENTIALS, INVALID_PIN]
+        correlationId:
+          type: string

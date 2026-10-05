@@ -1,0 +1,8 @@
+{
+  "type": "https://drivelink.test/problems/rate-limited",
+  "title": "Too many requests",
+  "status": 429,
+  "detail": "Wait 30 seconds before the next request.",
+  "code": "RATE_LIMITED",
+  "correlationId": "7f3c91a2-0000-4000-8000-000000000429"
+}

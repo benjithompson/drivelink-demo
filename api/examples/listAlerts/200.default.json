@@ -1,0 +1,22 @@
+[
+  {
+    "id": "alr-901",
+    "vin": "DLEV26AURA0000101",
+    "type": "CHARGE_COMPLETE",
+    "severity": "INFO",
+    "title": "Charge complete",
+    "body": "Aurora reached its 80% charge limit.",
+    "createdAt": "2026-10-02T06:12:00Z",
+    "read": false
+  },
+  {
+    "id": "alr-900",
+    "vin": "DLGS25SLACE000202",
+    "type": "SERVICE_DUE",
+    "severity": "INFO",
+    "title": "Service due soon",
+    "body": "Solace is due for an oil change in 500 miles.",
+    "createdAt": "2026-09-30T09:00:00Z",
+    "read": true
+  }
+]

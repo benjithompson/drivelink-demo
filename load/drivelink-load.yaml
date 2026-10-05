@@ -1,0 +1,27 @@
+# DriveLink API load test, Taurus config (PLAN.md, Phase 7a).
+#   python3 scripts/load-target.py                      # writes load/build/target.csv
+#   bzt load/drivelink-load.yaml                        # local run, 50 users
+#   bzt load/drivelink-load.yaml -o execution.0.concurrency=2 -o execution.0.hold-for=2m
+# The first cloud run is 50 users for 5 minutes. Ask Ben before the 500-user run.
+included-configs:
+- thresholds.yml
+
+execution:
+- executor: jmeter
+  scenario: drivelink-api
+  concurrency: 50
+  ramp-up: 1m
+  hold-for: 5m
+
+scenarios:
+  drivelink-api:
+    script: drivelink-api.jmx
+    properties:
+      target_file: build/target.csv
+      scenario: default
+      status_interval_ms: 30000
+      command_every: 6
+
+modules:
+  jmeter:
+    version: 5.6.3

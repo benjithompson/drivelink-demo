@@ -1,0 +1,17 @@
+// Standalone Gradle build that runs the DriveLink Espresso core suite on Perfecto devices.
+// It only applies the Perfecto Gradle plugin; the app and test APKs come from the main build.
+// Run it through scripts/perfecto-espresso.sh, which supplies the token and the instrumentation
+// arguments as ORG_GRADLE_PROJECT_* environment variables (never on the command line).
+buildscript {
+    repositories {
+        mavenCentral()
+        google()
+        maven { url = 'https://repo1.perfectomobile.com/public/repositories/maven/' }
+    }
+    dependencies {
+        // Perfecto: the plugin is not backward compatible, so the docs require the latest version.
+        // Resolved to 26.9 on Oct 3, 2026.
+        classpath 'com.perfectomobile.instrumentedtest.gradleplugin:plugin:+'
+    }
+}
+apply plugin: 'com.perfectomobile.instrumentedtest.gradleplugin'

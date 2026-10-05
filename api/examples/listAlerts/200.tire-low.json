@@ -1,0 +1,12 @@
+[
+  {
+    "id": "alr-930",
+    "vin": "DLEV26AURA0000101",
+    "type": "LOW_TIRE",
+    "severity": "WARN",
+    "title": "Low tire pressure",
+    "body": "The rear left tire of Aurora is at 24 psi. Check the tire pressure.",
+    "createdAt": "2026-10-02T16:52:00Z",
+    "read": false
+  }
+]

@@ -1,0 +1,11 @@
+# OpenAPI lint rules for api/openapi.yaml. Run: scripts/lint-api.sh
+extends: ["spectral:oas"]
+rules:
+  # Summaries are enough for this demo API.
+  operation-description: off
+  # Every operation must carry a tag and an operationId (the operationId names the example files).
+  operation-tags: error
+  operation-operationId: error
+  # Examples must match their schemas. The one invalid payload (bad-payload) lives in api/examples-raw.
+  oas3-valid-media-example: error
+  oas3-valid-schema-example: error

@@ -1,0 +1,22 @@
+[
+  {
+    "vin": "DLEV26AURA0000101",
+    "nickname": "Aurora",
+    "model": "Aurora EV",
+    "trim": "Limited AWD · Long Range",
+    "year": 2026,
+    "color": "Glacier Blue",
+    "powertrain": "EV",
+    "imageKey": "crossover-glacier-blue"
+  },
+  {
+    "vin": "DLGS25SLACE000202",
+    "nickname": "Solace",
+    "model": "Solace",
+    "trim": "SEL · 2.5L",
+    "year": 2025,
+    "color": "Ember Red",
+    "powertrain": "ICE",
+    "imageKey": "sedan-ember-red"
+  }
+]

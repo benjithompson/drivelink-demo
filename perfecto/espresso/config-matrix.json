@@ -1,0 +1,39 @@
+{
+  "devices": [
+    {
+      "deviceName": "48071FDAP003CY",
+      "model": "Pixel 9 Pro"
+    },
+    {
+      "deviceName": "R3CY90QKKFX",
+      "model": "Galaxy S25"
+    },
+    {
+      "deviceName": "0C101FDD4006EH",
+      "model": "Pixel 5"
+    },
+    {
+      "deviceName": "ZY327WM8S9",
+      "model": "Moto G9 Play"
+    }
+  ],
+  "jobName": "drivelink-espresso",
+  "projectName": "DriveLink Demo",
+  "projectVersion": "0.1",
+  "tags": [
+    "drivelink",
+    "espresso",
+    "core-suite"
+  ],
+  "installationDetails": {
+    "preCleanUp": "true"
+  },
+  "postExecution": {
+    "uninstall": "true"
+  },
+  "debug": false,
+  "failBuildOnFailure": true,
+  "takeScreenshotOnTestFailure": true,
+  "shard": false,
+  "testTimeout": 180000
+}

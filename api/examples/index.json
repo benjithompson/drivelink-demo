@@ -1,0 +1,2149 @@
+[
+  {
+    "operationId": "listAlerts",
+    "method": "GET",
+    "path": "/alerts",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "default",
+    "scenario": "default",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "listAlerts/200.default.json",
+    "url": "/v1/alerts",
+    "urlRegex": "^/v1/alerts(\\?.*)?$",
+    "priority": 6,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "listAlerts",
+    "method": "GET",
+    "path": "/alerts",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "door-ajar",
+    "scenario": "door-ajar",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "listAlerts/200.door-ajar.json",
+    "url": "/v1/alerts",
+    "urlRegex": "^/v1/alerts(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "listAlerts",
+    "method": "GET",
+    "path": "/alerts",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "low-battery",
+    "scenario": "low-battery",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "listAlerts/200.low-battery.json",
+    "url": "/v1/alerts",
+    "urlRegex": "^/v1/alerts(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "listAlerts",
+    "method": "GET",
+    "path": "/alerts",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "tire-low",
+    "scenario": "tire-low",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "listAlerts/200.tire-low.json",
+    "url": "/v1/alerts",
+    "urlRegex": "^/v1/alerts(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "listAlerts",
+    "method": "GET",
+    "path": "/alerts",
+    "status": 401,
+    "contentType": "application/problem+json",
+    "example": "auth-expired",
+    "scenario": "auth-expired",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "listAlerts/401.auth-expired.json",
+    "url": "/v1/alerts",
+    "urlRegex": "^/v1/alerts(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "operationId": "listAlerts",
+    "method": "GET",
+    "path": "/alerts",
+    "status": 429,
+    "contentType": "application/problem+json",
+    "example": "rate-limited",
+    "scenario": "rate-limited",
+    "match": {},
+    "vin": null,
+    "headers": {
+      "Retry-After": "30"
+    },
+    "file": "listAlerts/429.rate-limited.json",
+    "url": "/v1/alerts",
+    "urlRegex": "^/v1/alerts(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "operationId": "listAlerts",
+    "method": "GET",
+    "path": "/alerts",
+    "status": 500,
+    "contentType": "application/problem+json",
+    "example": "server-error",
+    "scenario": "server-error",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "listAlerts/500.server-error.json",
+    "url": "/v1/alerts",
+    "urlRegex": "^/v1/alerts(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "operationId": "markAlertRead",
+    "method": "POST",
+    "path": "/alerts/{alertId}/read",
+    "status": 204,
+    "contentType": null,
+    "example": "default",
+    "scenario": "default",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": null,
+    "url": "/v1/alerts/{alertId}/read",
+    "urlRegex": "^/v1/alerts/[^/?]+/read(\\?.*)?$",
+    "priority": 6,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "markAlertRead",
+    "method": "POST",
+    "path": "/alerts/{alertId}/read",
+    "status": 401,
+    "contentType": "application/problem+json",
+    "example": "auth-expired",
+    "scenario": "auth-expired",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "markAlertRead/401.auth-expired.json",
+    "url": "/v1/alerts/{alertId}/read",
+    "urlRegex": "^/v1/alerts/[^/?]+/read(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "operationId": "markAlertRead",
+    "method": "POST",
+    "path": "/alerts/{alertId}/read",
+    "status": 404,
+    "contentType": "application/problem+json",
+    "example": "not-found",
+    "scenario": null,
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "markAlertRead/404.not-found.json"
+  },
+  {
+    "operationId": "markAlertRead",
+    "method": "POST",
+    "path": "/alerts/{alertId}/read",
+    "status": 429,
+    "contentType": "application/problem+json",
+    "example": "rate-limited",
+    "scenario": "rate-limited",
+    "match": {},
+    "vin": null,
+    "headers": {
+      "Retry-After": "30"
+    },
+    "file": "markAlertRead/429.rate-limited.json",
+    "url": "/v1/alerts/{alertId}/read",
+    "urlRegex": "^/v1/alerts/[^/?]+/read(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "operationId": "markAlertRead",
+    "method": "POST",
+    "path": "/alerts/{alertId}/read",
+    "status": 500,
+    "contentType": "application/problem+json",
+    "example": "server-error",
+    "scenario": "server-error",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "markAlertRead/500.server-error.json",
+    "url": "/v1/alerts/{alertId}/read",
+    "urlRegex": "^/v1/alerts/[^/?]+/read(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "operationId": "refreshToken",
+    "method": "POST",
+    "path": "/auth/refresh",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "default",
+    "scenario": "default",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "refreshToken/200.default.json",
+    "url": "/v1/auth/refresh",
+    "urlRegex": "^/v1/auth/refresh(\\?.*)?$",
+    "priority": 6,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "refreshToken",
+    "method": "POST",
+    "path": "/auth/refresh",
+    "status": 401,
+    "contentType": "application/problem+json",
+    "example": "auth-expired",
+    "scenario": "auth-expired",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "refreshToken/401.auth-expired.json",
+    "url": "/v1/auth/refresh",
+    "urlRegex": "^/v1/auth/refresh(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "operationId": "refreshToken",
+    "method": "POST",
+    "path": "/auth/refresh",
+    "status": 429,
+    "contentType": "application/problem+json",
+    "example": "rate-limited",
+    "scenario": "rate-limited",
+    "match": {},
+    "vin": null,
+    "headers": {
+      "Retry-After": "30"
+    },
+    "file": "refreshToken/429.rate-limited.json",
+    "url": "/v1/auth/refresh",
+    "urlRegex": "^/v1/auth/refresh(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "operationId": "refreshToken",
+    "method": "POST",
+    "path": "/auth/refresh",
+    "status": 500,
+    "contentType": "application/problem+json",
+    "example": "server-error",
+    "scenario": "server-error",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "refreshToken/500.server-error.json",
+    "url": "/v1/auth/refresh",
+    "urlRegex": "^/v1/auth/refresh(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "operationId": "createToken",
+    "method": "POST",
+    "path": "/auth/token",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "default",
+    "scenario": "default",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "createToken/200.default.json",
+    "url": "/v1/auth/token",
+    "urlRegex": "^/v1/auth/token(\\?.*)?$",
+    "priority": 6,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "createToken",
+    "method": "POST",
+    "path": "/auth/token",
+    "status": 401,
+    "contentType": "application/problem+json",
+    "example": "invalid-credentials",
+    "scenario": null,
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "createToken/401.invalid-credentials.json"
+  },
+  {
+    "operationId": "createToken",
+    "method": "POST",
+    "path": "/auth/token",
+    "status": 429,
+    "contentType": "application/problem+json",
+    "example": "rate-limited",
+    "scenario": "rate-limited",
+    "match": {},
+    "vin": null,
+    "headers": {
+      "Retry-After": "30"
+    },
+    "file": "createToken/429.rate-limited.json",
+    "url": "/v1/auth/token",
+    "urlRegex": "^/v1/auth/token(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "operationId": "createToken",
+    "method": "POST",
+    "path": "/auth/token",
+    "status": 500,
+    "contentType": "application/problem+json",
+    "example": "server-error",
+    "scenario": "server-error",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "createToken/500.server-error.json",
+    "url": "/v1/auth/token",
+    "urlRegex": "^/v1/auth/token(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "operationId": "getCommand",
+    "method": "GET",
+    "path": "/commands/{commandId}",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "command-fails",
+    "scenario": "command-fails",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getCommand/200.command-fails.json",
+    "url": "/v1/commands/{commandId}",
+    "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getCommand",
+    "method": "GET",
+    "path": "/commands/{commandId}",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "command-fails-pending",
+    "scenario": "command-fails",
+    "match": {
+      "X-Poll-Attempt": "^1$"
+    },
+    "vin": null,
+    "headers": {},
+    "file": "getCommand/200.command-fails-pending.json",
+    "url": "/v1/commands/{commandId}",
+    "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+    "priority": 2,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getCommand",
+    "method": "GET",
+    "path": "/commands/{commandId}",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "command-timeout",
+    "scenario": "command-timeout",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getCommand/200.command-timeout.json",
+    "url": "/v1/commands/{commandId}",
+    "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getCommand",
+    "method": "GET",
+    "path": "/commands/{commandId}",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "default",
+    "scenario": "default",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getCommand/200.default.json",
+    "url": "/v1/commands/{commandId}",
+    "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+    "priority": 6,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getCommand",
+    "method": "GET",
+    "path": "/commands/{commandId}",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "default-pending",
+    "scenario": "default",
+    "match": {
+      "X-Poll-Attempt": "^[12]$"
+    },
+    "vin": null,
+    "headers": {},
+    "file": "getCommand/200.default-pending.json",
+    "url": "/v1/commands/{commandId}",
+    "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+    "priority": 5,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getCommand",
+    "method": "GET",
+    "path": "/commands/{commandId}",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "fast",
+    "scenario": "fast",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getCommand/200.fast.json",
+    "url": "/v1/commands/{commandId}",
+    "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      40,
+      60
+    ]
+  },
+  {
+    "operationId": "getCommand",
+    "method": "GET",
+    "path": "/commands/{commandId}",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "slow-vehicle",
+    "scenario": "slow-vehicle",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getCommand/200.slow-vehicle.json",
+    "url": "/v1/commands/{commandId}",
+    "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      2000,
+      3000
+    ]
+  },
+  {
+    "operationId": "getCommand",
+    "method": "GET",
+    "path": "/commands/{commandId}",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "slow-vehicle-pending",
+    "scenario": "slow-vehicle",
+    "match": {
+      "X-Poll-Attempt": "^[1-8]$"
+    },
+    "vin": null,
+    "headers": {},
+    "file": "getCommand/200.slow-vehicle-pending.json",
+    "url": "/v1/commands/{commandId}",
+    "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+    "priority": 2,
+    "thinkTimeMs": [
+      2000,
+      3000
+    ]
+  },
+  {
+    "operationId": "getCommand",
+    "method": "GET",
+    "path": "/commands/{commandId}",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "vehicle-asleep",
+    "scenario": "vehicle-asleep",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getCommand/200.vehicle-asleep.json",
+    "url": "/v1/commands/{commandId}",
+    "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getCommand",
+    "method": "GET",
+    "path": "/commands/{commandId}",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "vehicle-asleep-pending",
+    "scenario": "vehicle-asleep",
+    "match": {
+      "X-Poll-Attempt": "^[34]$"
+    },
+    "vin": null,
+    "headers": {},
+    "file": "getCommand/200.vehicle-asleep-pending.json",
+    "url": "/v1/commands/{commandId}",
+    "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+    "priority": 2,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getCommand",
+    "method": "GET",
+    "path": "/commands/{commandId}",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "vehicle-asleep-waking",
+    "scenario": "vehicle-asleep",
+    "match": {
+      "X-Poll-Attempt": "^[12]$"
+    },
+    "vin": null,
+    "headers": {},
+    "file": "getCommand/200.vehicle-asleep-waking.json",
+    "url": "/v1/commands/{commandId}",
+    "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+    "priority": 2,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getCommand",
+    "method": "GET",
+    "path": "/commands/{commandId}",
+    "status": 401,
+    "contentType": "application/problem+json",
+    "example": "auth-expired",
+    "scenario": "auth-expired",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getCommand/401.auth-expired.json",
+    "url": "/v1/commands/{commandId}",
+    "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "operationId": "getCommand",
+    "method": "GET",
+    "path": "/commands/{commandId}",
+    "status": 404,
+    "contentType": "application/problem+json",
+    "example": "not-found",
+    "scenario": null,
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getCommand/404.not-found.json"
+  },
+  {
+    "operationId": "getCommand",
+    "method": "GET",
+    "path": "/commands/{commandId}",
+    "status": 429,
+    "contentType": "application/problem+json",
+    "example": "rate-limited",
+    "scenario": "rate-limited",
+    "match": {},
+    "vin": null,
+    "headers": {
+      "Retry-After": "30"
+    },
+    "file": "getCommand/429.rate-limited.json",
+    "url": "/v1/commands/{commandId}",
+    "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "operationId": "getCommand",
+    "method": "GET",
+    "path": "/commands/{commandId}",
+    "status": 500,
+    "contentType": "application/problem+json",
+    "example": "server-error",
+    "scenario": "server-error",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getCommand/500.server-error.json",
+    "url": "/v1/commands/{commandId}",
+    "urlRegex": "^/v1/commands/[^/?]+(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "operationId": "getHealth",
+    "method": "GET",
+    "path": "/health",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "default",
+    "scenario": "default",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getHealth/200.default.json",
+    "url": "/v1/health",
+    "urlRegex": "^/v1/health(\\?.*)?$",
+    "priority": 6,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getMe",
+    "method": "GET",
+    "path": "/me",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "default",
+    "scenario": "default",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getMe/200.default.json",
+    "url": "/v1/me",
+    "urlRegex": "^/v1/me(\\?.*)?$",
+    "priority": 6,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getMe",
+    "method": "GET",
+    "path": "/me",
+    "status": 401,
+    "contentType": "application/problem+json",
+    "example": "auth-expired",
+    "scenario": "auth-expired",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getMe/401.auth-expired.json",
+    "url": "/v1/me",
+    "urlRegex": "^/v1/me(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "operationId": "getMe",
+    "method": "GET",
+    "path": "/me",
+    "status": 429,
+    "contentType": "application/problem+json",
+    "example": "rate-limited",
+    "scenario": "rate-limited",
+    "match": {},
+    "vin": null,
+    "headers": {
+      "Retry-After": "30"
+    },
+    "file": "getMe/429.rate-limited.json",
+    "url": "/v1/me",
+    "urlRegex": "^/v1/me(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "operationId": "getMe",
+    "method": "GET",
+    "path": "/me",
+    "status": 500,
+    "contentType": "application/problem+json",
+    "example": "server-error",
+    "scenario": "server-error",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getMe/500.server-error.json",
+    "url": "/v1/me",
+    "urlRegex": "^/v1/me(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "operationId": "listVehicles",
+    "method": "GET",
+    "path": "/vehicles",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "default",
+    "scenario": "default",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "listVehicles/200.default.json",
+    "url": "/v1/vehicles",
+    "urlRegex": "^/v1/vehicles(\\?.*)?$",
+    "priority": 6,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "listVehicles",
+    "method": "GET",
+    "path": "/vehicles",
+    "status": 401,
+    "contentType": "application/problem+json",
+    "example": "auth-expired",
+    "scenario": "auth-expired",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "listVehicles/401.auth-expired.json",
+    "url": "/v1/vehicles",
+    "urlRegex": "^/v1/vehicles(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "operationId": "listVehicles",
+    "method": "GET",
+    "path": "/vehicles",
+    "status": 429,
+    "contentType": "application/problem+json",
+    "example": "rate-limited",
+    "scenario": "rate-limited",
+    "match": {},
+    "vin": null,
+    "headers": {
+      "Retry-After": "30"
+    },
+    "file": "listVehicles/429.rate-limited.json",
+    "url": "/v1/vehicles",
+    "urlRegex": "^/v1/vehicles(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "operationId": "listVehicles",
+    "method": "GET",
+    "path": "/vehicles",
+    "status": 500,
+    "contentType": "application/problem+json",
+    "example": "server-error",
+    "scenario": "server-error",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "listVehicles/500.server-error.json",
+    "url": "/v1/vehicles",
+    "urlRegex": "^/v1/vehicles(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "operationId": "getChargeSettings",
+    "method": "GET",
+    "path": "/vehicles/{vin}/charge-settings",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "default",
+    "scenario": "default",
+    "match": {},
+    "vin": "DLEV26AURA0000101",
+    "headers": {},
+    "file": "getChargeSettings/200.default.json",
+    "url": "/v1/vehicles/{vin}/charge-settings",
+    "urlRegex": "^/v1/vehicles/DLEV26AURA0000101/charge\\-settings(\\?.*)?$",
+    "priority": 5,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getChargeSettings",
+    "method": "GET",
+    "path": "/vehicles/{vin}/charge-settings",
+    "status": 401,
+    "contentType": "application/problem+json",
+    "example": "auth-expired",
+    "scenario": "auth-expired",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getChargeSettings/401.auth-expired.json",
+    "url": "/v1/vehicles/{vin}/charge-settings",
+    "urlRegex": "^/v1/vehicles/[^/?]+/charge\\-settings(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "operationId": "getChargeSettings",
+    "method": "GET",
+    "path": "/vehicles/{vin}/charge-settings",
+    "status": 404,
+    "contentType": "application/problem+json",
+    "example": "ice-no-charging",
+    "scenario": "default",
+    "match": {},
+    "vin": "DLGS25SLACE000202",
+    "headers": {},
+    "file": "getChargeSettings/404.ice-no-charging.json",
+    "url": "/v1/vehicles/{vin}/charge-settings",
+    "urlRegex": "^/v1/vehicles/DLGS25SLACE000202/charge\\-settings(\\?.*)?$",
+    "priority": 5,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getChargeSettings",
+    "method": "GET",
+    "path": "/vehicles/{vin}/charge-settings",
+    "status": 404,
+    "contentType": "application/problem+json",
+    "example": "unknown-vin",
+    "scenario": "default",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getChargeSettings/404.unknown-vin.json",
+    "url": "/v1/vehicles/{vin}/charge-settings",
+    "urlRegex": "^/v1/vehicles/[^/?]+/charge\\-settings(\\?.*)?$",
+    "priority": 6,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getChargeSettings",
+    "method": "GET",
+    "path": "/vehicles/{vin}/charge-settings",
+    "status": 429,
+    "contentType": "application/problem+json",
+    "example": "rate-limited",
+    "scenario": "rate-limited",
+    "match": {},
+    "vin": null,
+    "headers": {
+      "Retry-After": "30"
+    },
+    "file": "getChargeSettings/429.rate-limited.json",
+    "url": "/v1/vehicles/{vin}/charge-settings",
+    "urlRegex": "^/v1/vehicles/[^/?]+/charge\\-settings(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "operationId": "getChargeSettings",
+    "method": "GET",
+    "path": "/vehicles/{vin}/charge-settings",
+    "status": 500,
+    "contentType": "application/problem+json",
+    "example": "server-error",
+    "scenario": "server-error",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getChargeSettings/500.server-error.json",
+    "url": "/v1/vehicles/{vin}/charge-settings",
+    "urlRegex": "^/v1/vehicles/[^/?]+/charge\\-settings(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "operationId": "updateChargeSettings",
+    "method": "PUT",
+    "path": "/vehicles/{vin}/charge-settings",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "default",
+    "scenario": "default",
+    "match": {},
+    "vin": "DLEV26AURA0000101",
+    "headers": {},
+    "file": "updateChargeSettings/200.default.json",
+    "url": "/v1/vehicles/{vin}/charge-settings",
+    "urlRegex": "^/v1/vehicles/DLEV26AURA0000101/charge\\-settings(\\?.*)?$",
+    "priority": 5,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "updateChargeSettings",
+    "method": "PUT",
+    "path": "/vehicles/{vin}/charge-settings",
+    "status": 400,
+    "contentType": "application/problem+json",
+    "example": "invalid",
+    "scenario": null,
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "updateChargeSettings/400.invalid.json"
+  },
+  {
+    "operationId": "updateChargeSettings",
+    "method": "PUT",
+    "path": "/vehicles/{vin}/charge-settings",
+    "status": 401,
+    "contentType": "application/problem+json",
+    "example": "auth-expired",
+    "scenario": "auth-expired",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "updateChargeSettings/401.auth-expired.json",
+    "url": "/v1/vehicles/{vin}/charge-settings",
+    "urlRegex": "^/v1/vehicles/[^/?]+/charge\\-settings(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "operationId": "updateChargeSettings",
+    "method": "PUT",
+    "path": "/vehicles/{vin}/charge-settings",
+    "status": 404,
+    "contentType": "application/problem+json",
+    "example": "ice-no-charging",
+    "scenario": "default",
+    "match": {},
+    "vin": "DLGS25SLACE000202",
+    "headers": {},
+    "file": "updateChargeSettings/404.ice-no-charging.json",
+    "url": "/v1/vehicles/{vin}/charge-settings",
+    "urlRegex": "^/v1/vehicles/DLGS25SLACE000202/charge\\-settings(\\?.*)?$",
+    "priority": 5,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "updateChargeSettings",
+    "method": "PUT",
+    "path": "/vehicles/{vin}/charge-settings",
+    "status": 404,
+    "contentType": "application/problem+json",
+    "example": "unknown-vin",
+    "scenario": "default",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "updateChargeSettings/404.unknown-vin.json",
+    "url": "/v1/vehicles/{vin}/charge-settings",
+    "urlRegex": "^/v1/vehicles/[^/?]+/charge\\-settings(\\?.*)?$",
+    "priority": 6,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "updateChargeSettings",
+    "method": "PUT",
+    "path": "/vehicles/{vin}/charge-settings",
+    "status": 429,
+    "contentType": "application/problem+json",
+    "example": "rate-limited",
+    "scenario": "rate-limited",
+    "match": {},
+    "vin": null,
+    "headers": {
+      "Retry-After": "30"
+    },
+    "file": "updateChargeSettings/429.rate-limited.json",
+    "url": "/v1/vehicles/{vin}/charge-settings",
+    "urlRegex": "^/v1/vehicles/[^/?]+/charge\\-settings(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "operationId": "updateChargeSettings",
+    "method": "PUT",
+    "path": "/vehicles/{vin}/charge-settings",
+    "status": 500,
+    "contentType": "application/problem+json",
+    "example": "server-error",
+    "scenario": "server-error",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "updateChargeSettings/500.server-error.json",
+    "url": "/v1/vehicles/{vin}/charge-settings",
+    "urlRegex": "^/v1/vehicles/[^/?]+/charge\\-settings(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "operationId": "getClimatePresets",
+    "method": "GET",
+    "path": "/vehicles/{vin}/climate-presets",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "default",
+    "scenario": "default",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getClimatePresets/200.default.json",
+    "url": "/v1/vehicles/{vin}/climate-presets",
+    "urlRegex": "^/v1/vehicles/[^/?]+/climate\\-presets(\\?.*)?$",
+    "priority": 6,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getClimatePresets",
+    "method": "GET",
+    "path": "/vehicles/{vin}/climate-presets",
+    "status": 401,
+    "contentType": "application/problem+json",
+    "example": "auth-expired",
+    "scenario": "auth-expired",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getClimatePresets/401.auth-expired.json",
+    "url": "/v1/vehicles/{vin}/climate-presets",
+    "urlRegex": "^/v1/vehicles/[^/?]+/climate\\-presets(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "operationId": "getClimatePresets",
+    "method": "GET",
+    "path": "/vehicles/{vin}/climate-presets",
+    "status": 404,
+    "contentType": "application/problem+json",
+    "example": "not-found",
+    "scenario": null,
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getClimatePresets/404.not-found.json"
+  },
+  {
+    "operationId": "getClimatePresets",
+    "method": "GET",
+    "path": "/vehicles/{vin}/climate-presets",
+    "status": 429,
+    "contentType": "application/problem+json",
+    "example": "rate-limited",
+    "scenario": "rate-limited",
+    "match": {},
+    "vin": null,
+    "headers": {
+      "Retry-After": "30"
+    },
+    "file": "getClimatePresets/429.rate-limited.json",
+    "url": "/v1/vehicles/{vin}/climate-presets",
+    "urlRegex": "^/v1/vehicles/[^/?]+/climate\\-presets(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "operationId": "getClimatePresets",
+    "method": "GET",
+    "path": "/vehicles/{vin}/climate-presets",
+    "status": 500,
+    "contentType": "application/problem+json",
+    "example": "server-error",
+    "scenario": "server-error",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getClimatePresets/500.server-error.json",
+    "url": "/v1/vehicles/{vin}/climate-presets",
+    "urlRegex": "^/v1/vehicles/[^/?]+/climate\\-presets(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "operationId": "updateClimatePresets",
+    "method": "PUT",
+    "path": "/vehicles/{vin}/climate-presets",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "default",
+    "scenario": "default",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "updateClimatePresets/200.default.json",
+    "url": "/v1/vehicles/{vin}/climate-presets",
+    "urlRegex": "^/v1/vehicles/[^/?]+/climate\\-presets(\\?.*)?$",
+    "priority": 6,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "updateClimatePresets",
+    "method": "PUT",
+    "path": "/vehicles/{vin}/climate-presets",
+    "status": 400,
+    "contentType": "application/problem+json",
+    "example": "invalid",
+    "scenario": null,
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "updateClimatePresets/400.invalid.json"
+  },
+  {
+    "operationId": "updateClimatePresets",
+    "method": "PUT",
+    "path": "/vehicles/{vin}/climate-presets",
+    "status": 401,
+    "contentType": "application/problem+json",
+    "example": "auth-expired",
+    "scenario": "auth-expired",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "updateClimatePresets/401.auth-expired.json",
+    "url": "/v1/vehicles/{vin}/climate-presets",
+    "urlRegex": "^/v1/vehicles/[^/?]+/climate\\-presets(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "operationId": "updateClimatePresets",
+    "method": "PUT",
+    "path": "/vehicles/{vin}/climate-presets",
+    "status": 404,
+    "contentType": "application/problem+json",
+    "example": "not-found",
+    "scenario": null,
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "updateClimatePresets/404.not-found.json"
+  },
+  {
+    "operationId": "updateClimatePresets",
+    "method": "PUT",
+    "path": "/vehicles/{vin}/climate-presets",
+    "status": 429,
+    "contentType": "application/problem+json",
+    "example": "rate-limited",
+    "scenario": "rate-limited",
+    "match": {},
+    "vin": null,
+    "headers": {
+      "Retry-After": "30"
+    },
+    "file": "updateClimatePresets/429.rate-limited.json",
+    "url": "/v1/vehicles/{vin}/climate-presets",
+    "urlRegex": "^/v1/vehicles/[^/?]+/climate\\-presets(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "operationId": "updateClimatePresets",
+    "method": "PUT",
+    "path": "/vehicles/{vin}/climate-presets",
+    "status": 500,
+    "contentType": "application/problem+json",
+    "example": "server-error",
+    "scenario": "server-error",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "updateClimatePresets/500.server-error.json",
+    "url": "/v1/vehicles/{vin}/climate-presets",
+    "urlRegex": "^/v1/vehicles/[^/?]+/climate\\-presets(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "operationId": "sendCommand",
+    "method": "POST",
+    "path": "/vehicles/{vin}/commands",
+    "status": 202,
+    "contentType": "application/json",
+    "example": "default",
+    "scenario": "default",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "sendCommand/202.default.json",
+    "url": "/v1/vehicles/{vin}/commands",
+    "urlRegex": "^/v1/vehicles/[^/?]+/commands(\\?.*)?$",
+    "priority": 6,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "sendCommand",
+    "method": "POST",
+    "path": "/vehicles/{vin}/commands",
+    "status": 401,
+    "contentType": "application/problem+json",
+    "example": "auth-expired",
+    "scenario": "auth-expired",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "sendCommand/401.auth-expired.json",
+    "url": "/v1/vehicles/{vin}/commands",
+    "urlRegex": "^/v1/vehicles/[^/?]+/commands(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "operationId": "sendCommand",
+    "method": "POST",
+    "path": "/vehicles/{vin}/commands",
+    "status": 403,
+    "contentType": "application/problem+json",
+    "example": "invalid-pin",
+    "scenario": null,
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "sendCommand/403.invalid-pin.json"
+  },
+  {
+    "operationId": "sendCommand",
+    "method": "POST",
+    "path": "/vehicles/{vin}/commands",
+    "status": 404,
+    "contentType": "application/problem+json",
+    "example": "not-found",
+    "scenario": null,
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "sendCommand/404.not-found.json"
+  },
+  {
+    "operationId": "sendCommand",
+    "method": "POST",
+    "path": "/vehicles/{vin}/commands",
+    "status": 409,
+    "contentType": "application/problem+json",
+    "example": "vehicle-offline",
+    "scenario": "vehicle-offline",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "sendCommand/409.vehicle-offline.json",
+    "url": "/v1/vehicles/{vin}/commands",
+    "urlRegex": "^/v1/vehicles/[^/?]+/commands(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "sendCommand",
+    "method": "POST",
+    "path": "/vehicles/{vin}/commands",
+    "status": 429,
+    "contentType": "application/problem+json",
+    "example": "rate-limited",
+    "scenario": "rate-limited",
+    "match": {},
+    "vin": null,
+    "headers": {
+      "Retry-After": "30"
+    },
+    "file": "sendCommand/429.rate-limited.json",
+    "url": "/v1/vehicles/{vin}/commands",
+    "urlRegex": "^/v1/vehicles/[^/?]+/commands(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "operationId": "sendCommand",
+    "method": "POST",
+    "path": "/vehicles/{vin}/commands",
+    "status": 500,
+    "contentType": "application/problem+json",
+    "example": "server-error",
+    "scenario": "server-error",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "sendCommand/500.server-error.json",
+    "url": "/v1/vehicles/{vin}/commands",
+    "urlRegex": "^/v1/vehicles/[^/?]+/commands(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "operationId": "getVehicleLocation",
+    "method": "GET",
+    "path": "/vehicles/{vin}/location",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "default",
+    "scenario": "default",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getVehicleLocation/200.default.json",
+    "url": "/v1/vehicles/{vin}/location",
+    "urlRegex": "^/v1/vehicles/[^/?]+/location(\\?.*)?$",
+    "priority": 6,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getVehicleLocation",
+    "method": "GET",
+    "path": "/vehicles/{vin}/location",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "default-ice",
+    "scenario": "default",
+    "match": {},
+    "vin": "DLGS25SLACE000202",
+    "headers": {},
+    "file": "getVehicleLocation/200.default-ice.json",
+    "url": "/v1/vehicles/{vin}/location",
+    "urlRegex": "^/v1/vehicles/DLGS25SLACE000202/location(\\?.*)?$",
+    "priority": 5,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getVehicleLocation",
+    "method": "GET",
+    "path": "/vehicles/{vin}/location",
+    "status": 401,
+    "contentType": "application/problem+json",
+    "example": "auth-expired",
+    "scenario": "auth-expired",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getVehicleLocation/401.auth-expired.json",
+    "url": "/v1/vehicles/{vin}/location",
+    "urlRegex": "^/v1/vehicles/[^/?]+/location(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "operationId": "getVehicleLocation",
+    "method": "GET",
+    "path": "/vehicles/{vin}/location",
+    "status": 404,
+    "contentType": "application/problem+json",
+    "example": "not-found",
+    "scenario": null,
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getVehicleLocation/404.not-found.json"
+  },
+  {
+    "operationId": "getVehicleLocation",
+    "method": "GET",
+    "path": "/vehicles/{vin}/location",
+    "status": 429,
+    "contentType": "application/problem+json",
+    "example": "rate-limited",
+    "scenario": "rate-limited",
+    "match": {},
+    "vin": null,
+    "headers": {
+      "Retry-After": "30"
+    },
+    "file": "getVehicleLocation/429.rate-limited.json",
+    "url": "/v1/vehicles/{vin}/location",
+    "urlRegex": "^/v1/vehicles/[^/?]+/location(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "operationId": "getVehicleLocation",
+    "method": "GET",
+    "path": "/vehicles/{vin}/location",
+    "status": 500,
+    "contentType": "application/problem+json",
+    "example": "server-error",
+    "scenario": "server-error",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getVehicleLocation/500.server-error.json",
+    "url": "/v1/vehicles/{vin}/location",
+    "urlRegex": "^/v1/vehicles/[^/?]+/location(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "operationId": "getMaintenance",
+    "method": "GET",
+    "path": "/vehicles/{vin}/maintenance",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "default",
+    "scenario": "default",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getMaintenance/200.default.json",
+    "url": "/v1/vehicles/{vin}/maintenance",
+    "urlRegex": "^/v1/vehicles/[^/?]+/maintenance(\\?.*)?$",
+    "priority": 6,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getMaintenance",
+    "method": "GET",
+    "path": "/vehicles/{vin}/maintenance",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "default-ice",
+    "scenario": "default",
+    "match": {},
+    "vin": "DLGS25SLACE000202",
+    "headers": {},
+    "file": "getMaintenance/200.default-ice.json",
+    "url": "/v1/vehicles/{vin}/maintenance",
+    "urlRegex": "^/v1/vehicles/DLGS25SLACE000202/maintenance(\\?.*)?$",
+    "priority": 5,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getMaintenance",
+    "method": "GET",
+    "path": "/vehicles/{vin}/maintenance",
+    "status": 401,
+    "contentType": "application/problem+json",
+    "example": "auth-expired",
+    "scenario": "auth-expired",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getMaintenance/401.auth-expired.json",
+    "url": "/v1/vehicles/{vin}/maintenance",
+    "urlRegex": "^/v1/vehicles/[^/?]+/maintenance(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "operationId": "getMaintenance",
+    "method": "GET",
+    "path": "/vehicles/{vin}/maintenance",
+    "status": 404,
+    "contentType": "application/problem+json",
+    "example": "not-found",
+    "scenario": null,
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getMaintenance/404.not-found.json"
+  },
+  {
+    "operationId": "getMaintenance",
+    "method": "GET",
+    "path": "/vehicles/{vin}/maintenance",
+    "status": 429,
+    "contentType": "application/problem+json",
+    "example": "rate-limited",
+    "scenario": "rate-limited",
+    "match": {},
+    "vin": null,
+    "headers": {
+      "Retry-After": "30"
+    },
+    "file": "getMaintenance/429.rate-limited.json",
+    "url": "/v1/vehicles/{vin}/maintenance",
+    "urlRegex": "^/v1/vehicles/[^/?]+/maintenance(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "operationId": "getMaintenance",
+    "method": "GET",
+    "path": "/vehicles/{vin}/maintenance",
+    "status": 500,
+    "contentType": "application/problem+json",
+    "example": "server-error",
+    "scenario": "server-error",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getMaintenance/500.server-error.json",
+    "url": "/v1/vehicles/{vin}/maintenance",
+    "urlRegex": "^/v1/vehicles/[^/?]+/maintenance(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "operationId": "createServiceRequest",
+    "method": "POST",
+    "path": "/vehicles/{vin}/service-requests",
+    "status": 201,
+    "contentType": "application/json",
+    "example": "default",
+    "scenario": "default",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "createServiceRequest/201.default.json",
+    "url": "/v1/vehicles/{vin}/service-requests",
+    "urlRegex": "^/v1/vehicles/[^/?]+/service\\-requests(\\?.*)?$",
+    "priority": 6,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "createServiceRequest",
+    "method": "POST",
+    "path": "/vehicles/{vin}/service-requests",
+    "status": 400,
+    "contentType": "application/problem+json",
+    "example": "invalid",
+    "scenario": null,
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "createServiceRequest/400.invalid.json"
+  },
+  {
+    "operationId": "createServiceRequest",
+    "method": "POST",
+    "path": "/vehicles/{vin}/service-requests",
+    "status": 401,
+    "contentType": "application/problem+json",
+    "example": "auth-expired",
+    "scenario": "auth-expired",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "createServiceRequest/401.auth-expired.json",
+    "url": "/v1/vehicles/{vin}/service-requests",
+    "urlRegex": "^/v1/vehicles/[^/?]+/service\\-requests(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "operationId": "createServiceRequest",
+    "method": "POST",
+    "path": "/vehicles/{vin}/service-requests",
+    "status": 404,
+    "contentType": "application/problem+json",
+    "example": "not-found",
+    "scenario": null,
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "createServiceRequest/404.not-found.json"
+  },
+  {
+    "operationId": "createServiceRequest",
+    "method": "POST",
+    "path": "/vehicles/{vin}/service-requests",
+    "status": 429,
+    "contentType": "application/problem+json",
+    "example": "rate-limited",
+    "scenario": "rate-limited",
+    "match": {},
+    "vin": null,
+    "headers": {
+      "Retry-After": "30"
+    },
+    "file": "createServiceRequest/429.rate-limited.json",
+    "url": "/v1/vehicles/{vin}/service-requests",
+    "urlRegex": "^/v1/vehicles/[^/?]+/service\\-requests(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "operationId": "createServiceRequest",
+    "method": "POST",
+    "path": "/vehicles/{vin}/service-requests",
+    "status": 500,
+    "contentType": "application/problem+json",
+    "example": "server-error",
+    "scenario": "server-error",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "createServiceRequest/500.server-error.json",
+    "url": "/v1/vehicles/{vin}/service-requests",
+    "urlRegex": "^/v1/vehicles/[^/?]+/service\\-requests(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "operationId": "getVehicleStatus",
+    "method": "GET",
+    "path": "/vehicles/{vin}/status",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "bad-payload",
+    "scenario": "bad-payload",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getVehicleStatus/200.bad-payload.json",
+    "invalidOnPurpose": true,
+    "url": "/v1/vehicles/{vin}/status",
+    "urlRegex": "^/v1/vehicles/[^/?]+/status(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getVehicleStatus",
+    "method": "GET",
+    "path": "/vehicles/{vin}/status",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "default",
+    "scenario": "default",
+    "match": {},
+    "vin": "DLEV26AURA0000101",
+    "headers": {},
+    "file": "getVehicleStatus/200.default.json",
+    "url": "/v1/vehicles/{vin}/status",
+    "urlRegex": "^/v1/vehicles/DLEV26AURA0000101/status(\\?.*)?$",
+    "priority": 5,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getVehicleStatus",
+    "method": "GET",
+    "path": "/vehicles/{vin}/status",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "default-ice",
+    "scenario": "default",
+    "match": {},
+    "vin": "DLGS25SLACE000202",
+    "headers": {},
+    "file": "getVehicleStatus/200.default-ice.json",
+    "url": "/v1/vehicles/{vin}/status",
+    "urlRegex": "^/v1/vehicles/DLGS25SLACE000202/status(\\?.*)?$",
+    "priority": 5,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getVehicleStatus",
+    "method": "GET",
+    "path": "/vehicles/{vin}/status",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "door-ajar",
+    "scenario": "door-ajar",
+    "match": {},
+    "vin": "DLEV26AURA0000101",
+    "headers": {},
+    "file": "getVehicleStatus/200.door-ajar.json",
+    "url": "/v1/vehicles/{vin}/status",
+    "urlRegex": "^/v1/vehicles/DLEV26AURA0000101/status(\\?.*)?$",
+    "priority": 2,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getVehicleStatus",
+    "method": "GET",
+    "path": "/vehicles/{vin}/status",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "low-battery",
+    "scenario": "low-battery",
+    "match": {},
+    "vin": "DLEV26AURA0000101",
+    "headers": {},
+    "file": "getVehicleStatus/200.low-battery.json",
+    "url": "/v1/vehicles/{vin}/status",
+    "urlRegex": "^/v1/vehicles/DLEV26AURA0000101/status(\\?.*)?$",
+    "priority": 2,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getVehicleStatus",
+    "method": "GET",
+    "path": "/vehicles/{vin}/status",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "tire-low",
+    "scenario": "tire-low",
+    "match": {},
+    "vin": "DLEV26AURA0000101",
+    "headers": {},
+    "file": "getVehicleStatus/200.tire-low.json",
+    "url": "/v1/vehicles/{vin}/status",
+    "urlRegex": "^/v1/vehicles/DLEV26AURA0000101/status(\\?.*)?$",
+    "priority": 2,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getVehicleStatus",
+    "method": "GET",
+    "path": "/vehicles/{vin}/status",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "vehicle-offline",
+    "scenario": "vehicle-offline",
+    "match": {},
+    "vin": "DLEV26AURA0000101",
+    "headers": {},
+    "file": "getVehicleStatus/200.vehicle-offline.json",
+    "url": "/v1/vehicles/{vin}/status",
+    "urlRegex": "^/v1/vehicles/DLEV26AURA0000101/status(\\?.*)?$",
+    "priority": 2,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getVehicleStatus",
+    "method": "GET",
+    "path": "/vehicles/{vin}/status",
+    "status": 401,
+    "contentType": "application/problem+json",
+    "example": "auth-expired",
+    "scenario": "auth-expired",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getVehicleStatus/401.auth-expired.json",
+    "url": "/v1/vehicles/{vin}/status",
+    "urlRegex": "^/v1/vehicles/[^/?]+/status(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "operationId": "getVehicleStatus",
+    "method": "GET",
+    "path": "/vehicles/{vin}/status",
+    "status": 404,
+    "contentType": "application/problem+json",
+    "example": "unknown-vin",
+    "scenario": "default",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getVehicleStatus/404.unknown-vin.json",
+    "url": "/v1/vehicles/{vin}/status",
+    "urlRegex": "^/v1/vehicles/[^/?]+/status(\\?.*)?$",
+    "priority": 6,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "getVehicleStatus",
+    "method": "GET",
+    "path": "/vehicles/{vin}/status",
+    "status": 429,
+    "contentType": "application/problem+json",
+    "example": "rate-limited",
+    "scenario": "rate-limited",
+    "match": {},
+    "vin": null,
+    "headers": {
+      "Retry-After": "30"
+    },
+    "file": "getVehicleStatus/429.rate-limited.json",
+    "url": "/v1/vehicles/{vin}/status",
+    "urlRegex": "^/v1/vehicles/[^/?]+/status(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "operationId": "getVehicleStatus",
+    "method": "GET",
+    "path": "/vehicles/{vin}/status",
+    "status": 500,
+    "contentType": "application/problem+json",
+    "example": "server-error",
+    "scenario": "server-error",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "getVehicleStatus/500.server-error.json",
+    "url": "/v1/vehicles/{vin}/status",
+    "urlRegex": "^/v1/vehicles/[^/?]+/status(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  },
+  {
+    "operationId": "listTrips",
+    "method": "GET",
+    "path": "/vehicles/{vin}/trips",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "default",
+    "scenario": "default",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "listTrips/200.default.json",
+    "url": "/v1/vehicles/{vin}/trips",
+    "urlRegex": "^/v1/vehicles/[^/?]+/trips(\\?.*)?$",
+    "priority": 6,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "listTrips",
+    "method": "GET",
+    "path": "/vehicles/{vin}/trips",
+    "status": 200,
+    "contentType": "application/json",
+    "example": "default-ice",
+    "scenario": "default",
+    "match": {},
+    "vin": "DLGS25SLACE000202",
+    "headers": {},
+    "file": "listTrips/200.default-ice.json",
+    "url": "/v1/vehicles/{vin}/trips",
+    "urlRegex": "^/v1/vehicles/DLGS25SLACE000202/trips(\\?.*)?$",
+    "priority": 5,
+    "thinkTimeMs": [
+      300,
+      800
+    ]
+  },
+  {
+    "operationId": "listTrips",
+    "method": "GET",
+    "path": "/vehicles/{vin}/trips",
+    "status": 401,
+    "contentType": "application/problem+json",
+    "example": "auth-expired",
+    "scenario": "auth-expired",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "listTrips/401.auth-expired.json",
+    "url": "/v1/vehicles/{vin}/trips",
+    "urlRegex": "^/v1/vehicles/[^/?]+/trips(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      100,
+      200
+    ]
+  },
+  {
+    "operationId": "listTrips",
+    "method": "GET",
+    "path": "/vehicles/{vin}/trips",
+    "status": 404,
+    "contentType": "application/problem+json",
+    "example": "not-found",
+    "scenario": null,
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "listTrips/404.not-found.json"
+  },
+  {
+    "operationId": "listTrips",
+    "method": "GET",
+    "path": "/vehicles/{vin}/trips",
+    "status": 429,
+    "contentType": "application/problem+json",
+    "example": "rate-limited",
+    "scenario": "rate-limited",
+    "match": {},
+    "vin": null,
+    "headers": {
+      "Retry-After": "30"
+    },
+    "file": "listTrips/429.rate-limited.json",
+    "url": "/v1/vehicles/{vin}/trips",
+    "urlRegex": "^/v1/vehicles/[^/?]+/trips(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      50,
+      100
+    ]
+  },
+  {
+    "operationId": "listTrips",
+    "method": "GET",
+    "path": "/vehicles/{vin}/trips",
+    "status": 500,
+    "contentType": "application/problem+json",
+    "example": "server-error",
+    "scenario": "server-error",
+    "match": {},
+    "vin": null,
+    "headers": {},
+    "file": "listTrips/500.server-error.json",
+    "url": "/v1/vehicles/{vin}/trips",
+    "urlRegex": "^/v1/vehicles/[^/?]+/trips(\\?.*)?$",
+    "priority": 3,
+    "thinkTimeMs": [
+      200,
+      200
+    ]
+  }
+]

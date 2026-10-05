@@ -1,0 +1,12 @@
+[
+  {
+    "id": "alr-920",
+    "vin": "DLEV26AURA0000101",
+    "type": "DOOR_OPEN",
+    "severity": "WARN",
+    "title": "Door left open",
+    "body": "The rear left door of Aurora is open and the vehicle is unlocked.",
+    "createdAt": "2026-10-02T16:55:00Z",
+    "read": false
+  }
+]

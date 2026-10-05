@@ -1,0 +1,49 @@
+# Android / Gradle
+.gradle/
+build/
+*/build/
+local.properties
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.keystore
+*.jks
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.DS_Store
+
+# Secrets (never commit)
+secrets.properties
+*.env
+.env*
+perfecto.properties
+perfecto-api-key.json
+perfecto-api-key.json
+
+# Load test output
+load/results/
+*.jtl
+bzt-artifacts/
+
+# Kotlin compiler caches
+.kotlin/
+__pycache__/
+.claude/worktrees/
+
+# Eclipse / VS Code Java tooling
+.project
+.classpath
+.settings/
+*/bin/
+*/*/bin/
+
+# BlazeMeter API key (local only)
+api-key.json
+
+# Node dependencies
+node_modules/

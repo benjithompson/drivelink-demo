@@ -1,0 +1,106 @@
+# Scenario catalog for the DriveLink virtual service.
+#
+# The app sends the scenario name in the X-Scenario header. No header means "default".
+# openapi.yaml holds the response bodies as named examples tagged with x-scenario.
+# This file holds what the spec cannot: think time, scope, and raw (invalid) payloads.
+#
+# Fields:
+#   thinkTimeMs   [min, max] delay the virtual service adds to each response
+#   pollThinkTimeMs  optional override for GET /commands/{commandId}
+#   scope         operationIds the scenario changes; "all" = every operation except the
+#                 ones in "except". Operations outside the scope use the default responses.
+#   rawExamples   payloads that are not valid against the schema, on purpose (file in api/examples-raw)
+#   expect        what the app must show (used by UI tests and the demo script)
+
+scenarios:
+  default:
+    description: Happy path with realistic data. Command polls return PENDING on attempts 1-2, SUCCEEDED from attempt 3.
+    thinkTimeMs: [300, 800]
+    scope: all
+    expect: Normal behavior.
+
+  fast:
+    description: Same as default with a short think time. Commands succeed on the first poll.
+    thinkTimeMs: [40, 60]
+    scope: all
+    expect: Snappy flow for quick demos.
+
+  slow-vehicle:
+    description: Command polls return PENDING through attempt 8, then SUCCEEDED.
+    thinkTimeMs: [300, 800]
+    pollThinkTimeMs: [2000, 3000]
+    scope: [getCommand]
+    expect: Long "Waiting for vehicle" state, then success.
+
+  vehicle-asleep:
+    description: Polls 1-2 return PENDING with reason WAKING, polls 3-4 PENDING, then SUCCEEDED (attempt 5).
+    thinkTimeMs: [300, 800]
+    scope: [getCommand]
+    expect: '"Waking vehicle..." sub-state, then success.'
+
+  vehicle-offline:
+    description: POST commands returns 409 VEHICLE_OFFLINE. Status (EV only) returns data that is 3 days old, connectivity OFFLINE.
+    thinkTimeMs: [300, 800]
+    scope: [sendCommand, getVehicleStatus]
+    expect: Offline message, stale-data banner, no automatic retry.
+
+  command-fails:
+    description: Poll 1 returns PENDING, then FAILED with reason DOOR_OPEN.
+    thinkTimeMs: [300, 800]
+    scope: [getCommand]
+    expect: Specific failure message ("A door is open") with a suggested fix and Retry.
+
+  command-timeout:
+    description: Polls always return PENDING.
+    thinkTimeMs: [300, 800]
+    scope: [getCommand]
+    expect: App stops polling at 60 s and shows "Vehicle did not respond".
+
+  low-battery:
+    description: Battery 8 % and range 19 mi on the EV status; low-range alert.
+    thinkTimeMs: [300, 800]
+    scope: [getVehicleStatus, listAlerts]
+    expect: Red level, warning banner, alert in the inbox.
+
+  door-ajar:
+    description: Rear-left door open and vehicle unlocked on the EV status; door alert.
+    thinkTimeMs: [300, 800]
+    scope: [getVehicleStatus, listAlerts]
+    expect: Status highlights the door; Home shows "Door Open".
+
+  tire-low:
+    description: Rear-left tire at 24 psi with lowWarning true (EV only); low-tire alert.
+    thinkTimeMs: [300, 800]
+    scope: [getVehicleStatus, listAlerts]
+    expect: Tire Pressure "Low" in red on Status and Home; alert in the inbox.
+
+  auth-expired:
+    description: Every authenticated call returns 401 TOKEN_EXPIRED; /auth/refresh also returns 401.
+    thinkTimeMs: [100, 200]
+    scope: all
+    except: [getHealth, createToken]
+    expect: One refresh attempt, then the login screen.
+
+  rate-limited:
+    description: Every call returns 429 RATE_LIMITED with Retry-After 30.
+    thinkTimeMs: [50, 100]
+    scope: all
+    except: [getHealth]
+    expect: Countdown before retry; no request burst.
+
+  server-error:
+    description: Every call returns 500 INTERNAL.
+    thinkTimeMs: [200, 200]
+    scope: all
+    except: [getHealth]
+    expect: Generic error with the correlation ID shown.
+
+  bad-payload:
+    description: Status returns 200 with a missing required field (rangeMi) and a wrong type (locked is a string).
+    thinkTimeMs: [300, 800]
+    scope: [getVehicleStatus]
+    rawExamples:
+      getVehicleStatus:
+        status: 200
+        file: getVehicleStatus.bad-payload.json
+    expect: Parse-error state; the app does not crash.

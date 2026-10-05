@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- osmdroid (Maps tab) checks the connection before it loads map tiles. -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--
+        Android 17 (API 37) blocks connections to local network addresses (for example 10.0.2.2,
+        192.168.x.x) without this runtime permission. The Local and Private location profiles
+        need it. The Demo console requests it when the active profile is on the local network.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_LOCAL_NETWORK" />
+
+    <application
+        android:name=".DriveLinkApplication"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.DriveLink">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

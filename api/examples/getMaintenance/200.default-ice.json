@@ -1,0 +1,51 @@
+{
+  "odometerMi": 27310,
+  "lastService": {
+    "odometerMi": 20310,
+    "date": "2026-04-18"
+  },
+  "nextService": {
+    "odometerMi": 27810,
+    "date": "2026-10-18"
+  },
+  "intervalMi": 7500,
+  "items": [
+    {
+      "id": "svc-21",
+      "name": "Oil and filter change",
+      "dueMi": 27810,
+      "status": "DUE"
+    },
+    {
+      "id": "svc-22",
+      "name": "Tire rotation",
+      "dueMi": 27810,
+      "status": "DUE"
+    },
+    {
+      "id": "svc-23",
+      "name": "Engine air filter",
+      "dueMi": 30000,
+      "status": "UPCOMING"
+    }
+  ],
+  "recalls": [
+    {
+      "id": "rcl-301",
+      "campaign": "DL-26-014",
+      "title": "Seat-belt reminder chime software update",
+      "description": "In some conditions the seat-belt reminder chime does not sound. A free software update is available at your service center.",
+      "status": "OPEN",
+      "issuedDate": "2026-08-14"
+    }
+  ],
+  "preferredServiceCenter": {
+    "id": "sc-204",
+    "name": "Harborview Auto Service",
+    "address": "120 Marina Way, Harbor District",
+    "phone": "+1 555 0142",
+    "distanceMi": 3.1,
+    "hours": "7am - 6pm",
+    "openNow": true
+  }
+}

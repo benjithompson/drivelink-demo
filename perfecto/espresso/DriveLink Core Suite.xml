@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<script>
+  <flow>
+    <action command="espresso" subcommand="execute" error-policy="ABORT">
+      <arguments>
+        <argument>
+          <name>handsetId</name>
+          <data class="variable-argument">
+            <value>DUT</value>
+          </data>
+        </argument>
+        <argument>
+          <name>testPackage</name>
+          <data class="constant-argument" secured="false">
+            <value>com.drivelink.demo.test</value>
+          </data>
+        </argument>
+        <argument>
+          <name>debugApp</name>
+          <data class="constant-argument" secured="false">
+            <value>@REPO_FOLDER@/DriveLink-debug.apk</value>
+          </data>
+        </argument>
+        <argument>
+          <name>testApp</name>
+          <data class="constant-argument" secured="false">
+            <value>@REPO_FOLDER@/DriveLink-debug-androidTest.apk</value>
+          </data>
+        </argument>
+        <argument>
+          <name>runnerName</name>
+          <data class="constant-argument" secured="false">
+            <value>com.drivelink.core.testing.DriveLinkTestRunner</value>
+          </data>
+        </argument>
+        <argument>
+          <name>filterByClass</name>
+          <data class="constant-argument" secured="false">
+            <value>com.drivelink.demo.core.CoreSuiteTest</value>
+          </data>
+        </argument>
+        <argument>
+          <name>timeout</name>
+          <data class="constant-argument" secured="false">
+            <value>900000</value>
+          </data>
+        </argument>
+      </arguments>
+      <validations/>
+    </action>
+  </flow>
+  <info>
+    <model-version>1.0</model-version>
+  </info>
+  <options>
+    <automatic-allocation>true</automatic-allocation>
+  </options>
+  <variables/>
+  <parameters>
+    <parameter>
+      <data class="handset-data" secured="false" key="IMEI">
+        <name>DUT</name>
+        <value>48071FDAP003CY</value>
+      </data>
+    </parameter>
+  </parameters>
+</script>

@@ -1,0 +1,48 @@
+{
+  "vin": "DLEV26AURA0000101",
+  "powertrain": "EV",
+  "updatedAt": "2026-10-02T16:58:00Z",
+  "locked": false,
+  "engineOn": false,
+  "connectivity": "ONLINE",
+  "climate": {
+    "on": false,
+    "tempMode": "SET",
+    "setTempF": 72,
+    "frontDefrost": false,
+    "rearDefrost": false,
+    "heatedSteeringWheel": false,
+    "heatedSeats": 0
+  },
+  "doors": {
+    "fl": "CLOSED",
+    "fr": "CLOSED",
+    "rl": "OPEN",
+    "rr": "CLOSED",
+    "trunk": "CLOSED",
+    "hood": "CLOSED"
+  },
+  "windows": {
+    "fl": "CLOSED",
+    "fr": "CLOSED",
+    "rl": "CLOSED",
+    "rr": "CLOSED"
+  },
+  "batteryPct": 72,
+  "rangeMi": 226,
+  "charging": {
+    "pluggedIn": false,
+    "active": false,
+    "state": "NOT_PLUGGED"
+  },
+  "tires": {
+    "flPsi": 38,
+    "frPsi": 38,
+    "rlPsi": 37,
+    "rrPsi": 38,
+    "lowWarning": false,
+    "lowWheels": []
+  },
+  "odometerMi": 18452,
+  "aux12vOk": true
+}

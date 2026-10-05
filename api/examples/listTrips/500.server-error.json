@@ -1,0 +1,8 @@
+{
+  "type": "https://drivelink.test/problems/internal",
+  "title": "Something went wrong",
+  "status": 500,
+  "detail": "The service could not complete the request.",
+  "code": "INTERNAL",
+  "correlationId": "7f3c91a2-0000-4000-8000-000000000500"
+}

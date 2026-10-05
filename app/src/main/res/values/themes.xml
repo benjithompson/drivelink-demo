@@ -1,0 +1,7 @@
+<resources>
+    <style name="Theme.DriveLink" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/brand_navy</item>
+    </style>
+    <color name="brand_navy">#002C5E</color>
+    <color name="brand_cyan">#00B0DB</color>
+</resources>

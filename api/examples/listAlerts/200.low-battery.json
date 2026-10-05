@@ -1,0 +1,12 @@
+[
+  {
+    "id": "alr-910",
+    "vin": "DLEV26AURA0000101",
+    "type": "LOW_RANGE",
+    "severity": "WARN",
+    "title": "Low range",
+    "body": "Aurora has 19 miles of range left.",
+    "createdAt": "2026-10-02T16:50:00Z",
+    "read": false
+  }
+]

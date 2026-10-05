@@ -1,0 +1,36 @@
+{
+  "odometerMi": 18452,
+  "lastService": {
+    "odometerMi": 15020,
+    "date": "2026-06-12"
+  },
+  "nextService": {
+    "odometerMi": 22520,
+    "date": "2026-12-12"
+  },
+  "intervalMi": 7500,
+  "items": [
+    {
+      "id": "svc-11",
+      "name": "Tire rotation",
+      "dueMi": 19500,
+      "status": "UPCOMING"
+    },
+    {
+      "id": "svc-12",
+      "name": "Cabin air filter",
+      "dueDate": "2026-12-01",
+      "status": "UPCOMING"
+    }
+  ],
+  "recalls": [],
+  "preferredServiceCenter": {
+    "id": "sc-204",
+    "name": "Harborview Auto Service",
+    "address": "120 Marina Way, Harbor District",
+    "phone": "+1 555 0142",
+    "distanceMi": 2.4,
+    "hours": "7am - 6pm",
+    "openNow": true
+  }
+}

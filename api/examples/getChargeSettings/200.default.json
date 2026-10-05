@@ -1,0 +1,40 @@
+{
+  "acTargetPct": 80,
+  "dcTargetPct": 90,
+  "offPeakMode": "OFF_PEAK_PRIORITY",
+  "schedules": [
+    {
+      "id": "sch-1",
+      "days": [
+        "MON",
+        "TUE",
+        "WED",
+        "THU",
+        "FRI"
+      ],
+      "startTime": "23:00",
+      "endTime": "06:00",
+      "enabled": true
+    }
+  ],
+  "departure": {
+    "enabled": true,
+    "days": [
+      "MON",
+      "TUE",
+      "WED",
+      "THU",
+      "FRI"
+    ],
+    "time": "07:30",
+    "climate": {
+      "on": true,
+      "tempMode": "SET",
+      "setTempF": 70,
+      "frontDefrost": true,
+      "rearDefrost": false,
+      "heatedSteeringWheel": false,
+      "heatedSeats": 0
+    }
+  }
+}

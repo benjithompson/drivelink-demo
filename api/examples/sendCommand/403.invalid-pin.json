@@ -1,0 +1,8 @@
+{
+  "type": "https://drivelink.test/problems/invalid-pin",
+  "title": "Incorrect PIN",
+  "status": 403,
+  "detail": "The PIN is not correct. Try again.",
+  "code": "INVALID_PIN",
+  "correlationId": "7f3c91a2-0000-4000-8000-000000000403"
+}
