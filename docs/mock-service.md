@@ -2,15 +2,15 @@
 
 `scripts/build-mock.py` builds the DriveLink API for all 14 scenarios into a BlazeMeter virtual service: 126 transactions from the API contract. It can rebuild a service at any time.
 
-Since Oct 4, 2026, the app uses the stateful virtual service `drivelink-proto` (target `proto`, the default). It has the same 126 transactions plus 5 stateful ones. Its endpoint is `MOCK_BASE_URL`. See [mock/proto/README.md](../mock/proto/README.md).
+The app uses the stateful virtual service `drivelink-proto` (target `proto`, the default). It has the same 126 transactions plus 5 stateful ones. Its endpoint is `MOCK_BASE_URL`. See [mock/proto/README.md](../mock/proto/README.md).
 
-The first service, `drivelink-mock` (target `legacy`), has no state. Its endpoint is `LEGACY_MOCK_BASE_URL`. Nothing in the repo uses it now. The rest of this page describes the contract transactions, which are the same in both services. The measurements were made on `drivelink-mock`. A live check of 1,092 requests gave the same status and body as the local reference mock for every request that completed.
+The service `drivelink-mock` (target `legacy`) has no state. Its endpoint is `LEGACY_MOCK_BASE_URL`. The app does not use it by default. The rest of this page describes the contract transactions, which are the same in both services. The measurements were made on `drivelink-mock`. A live check of 1,092 requests gave the same status and body as the local reference mock for every request that completed.
 
 ## What exists
 
 | Item | Value |
 | --- | --- |
-| Account / workspace | 291446 / 2194183 ("Ben T") |
+| Account / workspace | 291446 / 2194183 |
 | Service | target `proto`: `drivelink-proto`, id 447563. Target `legacy`: `drivelink`, id 447558. |
 | Virtual service | target `proto`: `drivelink-proto`, id 361664. Target `legacy`: `drivelink-mock`, id 361526. Type TRANSACTIONAL, no template. |
 | Location | BlazeMeter cloud, US East (Virginia), 1 replica |
@@ -43,7 +43,7 @@ The target `proto` also assigns the 5 stateful transactions with priority 4. It 
 4. It deploys a stopped virtual service, or it configures a running one when something changed.
 5. It waits for `RUNNING` and writes the endpoint to `secrets.properties` (`MOCK_BASE_URL` or `LEGACY_MOCK_BASE_URL`). Other lines in that file stay. It does not print the endpoint.
 
-All steps use the REST API (`https://mock.blazemeter.com/api/v1/...`). No step uses the MCP. CI can run the same script in Phase 8.
+All steps use the REST API (`https://mock.blazemeter.com/api/v1/...`). No step uses the MCP. CI can run the same script.
 
 | Step | REST call |
 | --- | --- |
@@ -87,7 +87,7 @@ The lowest priority number wins. The script sets the same number on the virtual-
 
 Priorities 1 and 4 are not used, because no entry has both `vin` and `match`. Default transactions have no `X-Scenario` matcher. Thus they also answer each scenario that has no transaction of its own for a request.
 
-## Think-time copies (D-14)
+## Think-time copies
 
 A default transaction keeps its own delay (300–800 ms) when it answers another scenario. The script adds a copy of a default transaction for each scenario S when both conditions are true:
 
@@ -112,7 +112,7 @@ A copy has the response of the default entry, the matcher `X-Scenario` equals S,
 
 When the copies are removed, the check reports 41 delay problems. Thus the check detects a missing copy.
 
-## Verification (measured on Oct 3, 2026)
+## Verification (measured)
 
 All values in this section are measured against the live endpoint.
 
@@ -128,7 +128,7 @@ All values in this section are measured against the live endpoint.
 | `GET /v1/me`, `X-Scenario: rate-limited` | 429, `Retry-After: 30` | 429, `retry-after: 30`, `application/problem+json` |
 | `POST /v1/alerts/alt-0001/read` | 204, no body | 204, 0 bytes |
 | `GET /v1/me?foo=1` | 200 (the URL regex allows a query string) | 200 |
-| `X-Scenario: nope` (not in the catalog) | default data (D-15) | default status body |
+| `X-Scenario: nope` (not in the catalog) | default data | default status body |
 | `x-scenario: low-battery` (lowercase header name) | low-battery data | low-battery body |
 | `X-Scenario: Low-Battery` (other case in the value) | default data (`equals` is case sensitive) | default status body |
 | Full grid: 1,092 requests, 8 in parallel | resolver status and body | 1,069 equal, 0 different, 23 transport errors (see below); the 23 passed on a second run |
@@ -149,7 +149,7 @@ The server time is the configured delay plus approximately 75 ms of SV overhead.
 
 | Topic | Local mock (`scripts/mock-server.py`) | BlazeMeter SV |
 | --- | --- | --- |
-| Unknown `X-Scenario` value | 400 `INVALID_REQUEST` | Default data (D-15) |
+| Unknown `X-Scenario` value | 400 `INVALID_REQUEST` | Default data |
 | No route | 404 problem JSON, code `NOT_FOUND` | 404, text body `No match Found` |
 | `X-Correlation-Id` response header | Echoes the request value, or a new UUID | Not sent. The bodies keep the fixed `correlationId` of the examples. |
 | `X-Scenario` value case | Exact | Exact (`equals` is case sensitive) |

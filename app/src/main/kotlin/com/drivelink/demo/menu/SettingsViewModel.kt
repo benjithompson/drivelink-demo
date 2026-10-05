@@ -31,7 +31,7 @@ data class ChangePinState(
 
 data class SettingsUiState(
     val theme: ThemeMode = ThemeMode.SYSTEM,
-    /** The units of the account as text; read-only (D-13). */
+    /** The units of the account as text; read-only. */
     val units: String = Units.DEFAULT.describe(),
     /** The account units are not loaded; [units] shows the defaults. */
     val unitsAreDefault: Boolean = true,

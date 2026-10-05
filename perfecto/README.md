@@ -1,16 +1,16 @@
-# DriveLink — Perfecto tests (Phase 6)
+# DriveLink — Perfecto tests
 
 Three test tracks run against the same app and the same virtual service.
 
 | Track | Where | How it runs |
 | --- | --- | --- |
-| 6a Espresso core suite | `app/src/androidTest/.../demo/core/` | `scripts/perfecto-espresso.sh` (Perfecto Gradle plugin) |
-| 6b AI Scriptless | Perfecto Scriptless, your customer folder | Perfecto MCP or the Scriptless job. See [scriptless/README.md](scriptless/README.md). |
-| 6c Autonomous Testing | Application 227, items named `DriveLink …` | PAG `autonomous-testing` server |
+| Espresso core suite | `app/src/androidTest/.../demo/core/` | `scripts/perfecto-espresso.sh` (Perfecto Gradle plugin) |
+| AI Scriptless | Perfecto Scriptless, your customer folder | Perfecto MCP or the Scriptless job. See [scriptless/README.md](scriptless/README.md). |
+| Autonomous Testing | Application 227, items named `DriveLink …` | PAG `autonomous-testing` server |
 
 ## Device matrix
 
-The device IDs come from the live device list on Oct 3, 2026. All four devices had the status "Connected", were not in use, and had no POC reservation.
+Example device IDs on the demo cloud. Replace them with devices from your own cloud.
 
 | Device | Android | Location | Device ID | Device sets |
 | --- | --- | --- | --- | --- |
@@ -21,7 +21,7 @@ The device IDs come from the live device list on Oct 3, 2026. All four devices h
 
 Before a run, check the device list (`perfecto_devices list_real_devices`). If a device gets a POC label, replace it in `espresso/config-*.json`.
 
-## Espresso core suite on Perfecto (6a)
+## Espresso core suite on Perfecto
 
 The suite runs against a live endpoint, which it gets from the instrumentation argument `baseUrl`. Without that argument the suite is skipped, so `./gradlew connectedCheck` still passes on a local emulator. Each test sets its own scenario through `DemoConfig` and starts signed out.
 
@@ -86,4 +86,4 @@ The Perfecto Gradle plugin uses the old `buildscript` / `apply plugin` form, and
 
 ## Cost
 
-Each Espresso run uses one device session per device for the length of the suite. Ask before matrix runs and before long sessions.
+Each Espresso run uses one device session per device for the length of the suite. A matrix run uses four devices.

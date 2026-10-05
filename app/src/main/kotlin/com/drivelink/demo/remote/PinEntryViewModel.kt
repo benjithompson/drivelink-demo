@@ -23,7 +23,7 @@ data class PinEntryUiState(
 
 /**
  * The PIN prompt before a remote command. The app checks the PIN against the local PIN, then sends
- * it with the command (D-07). The server can still reject it (`INVALID_PIN`); that error shows on
+ * it with the command. The server can still reject it (`INVALID_PIN`); that error shows on
  * the command card.
  */
 @HiltViewModel

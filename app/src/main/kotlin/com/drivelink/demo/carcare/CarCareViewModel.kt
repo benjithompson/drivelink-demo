@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 /**
- * Car Care tab. Loads the maintenance document of the selected vehicle (D-09: one data set for each demo car).
+ * Car Care tab. Loads the maintenance document of the selected vehicle (one data set for each demo car).
  * [com.drivelink.core.domain.error.AppError.Unauthorized] ends the session; the app returns to Login.
  */
 @HiltViewModel

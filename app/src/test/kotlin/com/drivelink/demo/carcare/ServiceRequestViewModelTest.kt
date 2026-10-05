@@ -7,8 +7,8 @@ import com.drivelink.core.domain.model.ServiceRequestStatus
 import com.drivelink.demo.AURORA
 import com.drivelink.demo.MainDispatcherRule
 import com.drivelink.demo.SOLACE
-import com.drivelink.demo.screenload.StageBExamples
-import com.drivelink.demo.screenload.StageBHarness
+import com.drivelink.demo.screenload.ExampleData
+import com.drivelink.demo.screenload.ScreenHarness
 import com.drivelink.demo.screenload.networkError
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.CompletableDeferred
@@ -22,7 +22,7 @@ import java.time.ZoneOffset
 class ServiceRequestViewModelTest {
     @get:Rule val main = MainDispatcherRule()
 
-    private val h = StageBHarness()
+    private val h = ScreenHarness()
     private val clock = Clock.fixed(Instant.parse("2026-10-03T12:00:00Z"), ZoneOffset.UTC)
 
     private fun viewModel() = ServiceRequestViewModel(h.garage, h.vehicles, h.config, clock)
@@ -44,7 +44,7 @@ class ServiceRequestViewModelTest {
     }
 
     @Test fun dueItemsComeBeforeUpcomingItems() {
-        val base = StageBExamples.maintenance("200.default-ice")
+        val base = ExampleData.maintenance("200.default-ice")
         h.vehicles.maintenance[AURORA] = Outcome.Ok(base.copy(items = base.items.reversed()))
 
         assertThat(viewModel().state.value.options.map { it.id }).containsExactly("svc-22", "svc-21", "svc-23").inOrder()
@@ -178,7 +178,7 @@ class ServiceRequestViewModelTest {
             AppError.Parse("requestId", "c5") to "The server sent data that the app cannot read.",
             AppError.NotFound("c6") to "Not found.",
         ).forEach { (error, message) ->
-            val harness = StageBHarness()
+            val harness = ScreenHarness()
             harness.vehicles.serviceResult = Outcome.Err(error)
             val vm = ServiceRequestViewModel(harness.garage, harness.vehicles, harness.config, clock)
             vm.setDate(nextWeek)
@@ -257,7 +257,7 @@ class ServiceRequestViewModelTest {
     }
 
     @Test fun noPreferredCenter_blocksTheForm() {
-        val base = StageBExamples.maintenance()
+        val base = ExampleData.maintenance()
         h.vehicles.maintenance[AURORA] = Outcome.Ok(base.copy(preferredServiceCenter = null))
         val vm = viewModel()
         vm.setDate(nextWeek)
@@ -278,7 +278,7 @@ class ServiceRequestViewModelTest {
         assertThat(vm.state.value.loadError?.correlationId).isEqualTo("cid-load")
         assertThat(vm.state.value.center).isNull()
 
-        h.vehicles.maintenance[AURORA] = Outcome.Ok(StageBExamples.maintenance())
+        h.vehicles.maintenance[AURORA] = Outcome.Ok(ExampleData.maintenance())
         vm.reload()
 
         assertThat(vm.state.value.loadError).isNull()

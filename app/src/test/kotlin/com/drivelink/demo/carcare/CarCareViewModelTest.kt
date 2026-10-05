@@ -12,8 +12,8 @@ import com.drivelink.demo.AURORA
 import com.drivelink.demo.Examples
 import com.drivelink.demo.MainDispatcherRule
 import com.drivelink.demo.SOLACE
-import com.drivelink.demo.screenload.StageBExamples
-import com.drivelink.demo.screenload.StageBHarness
+import com.drivelink.demo.screenload.ExampleData
+import com.drivelink.demo.screenload.ScreenHarness
 import com.drivelink.demo.screenload.networkError
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest
@@ -23,7 +23,7 @@ import org.junit.Test
 class CarCareViewModelTest {
     @get:Rule val main = MainDispatcherRule()
 
-    private val h = StageBHarness()
+    private val h = ScreenHarness()
 
     private fun viewModel() = CarCareViewModel(h.garage, h.vehicles, h.config)
 
@@ -69,12 +69,12 @@ class CarCareViewModelTest {
     }
 
     @Test fun headline_followsTheWorstItem() {
-        val base = StageBExamples.maintenance("200.default")
+        val base = ExampleData.maintenance("200.default")
         val overdue = base.copy(items = base.items + ServiceItem("svc-x", "Brake fluid", dueMi = 18000, status = ServiceItemStatus.OVERDUE))
         h.vehicles.maintenance[AURORA] = Outcome.Ok(overdue)
         assertThat(viewModel().state.value.content?.headline).isEqualTo(CarCareHeadline.Overdue)
 
-        val recallOnly = StageBExamples.maintenance("200.default-ice")
+        val recallOnly = ExampleData.maintenance("200.default-ice")
             .let { it.copy(items = it.items.map { item -> item.copy(status = ServiceItemStatus.UPCOMING) }) }
         assertThat(carCareContent(recallOnly).headline).isEqualTo(CarCareHeadline.Recall)
         assertThat(carCareContent(recallOnly).summary).isEqualTo("1 open recall")
@@ -95,7 +95,7 @@ class CarCareViewModelTest {
     }
 
     @Test fun missingParts_areNull() {
-        val bare = StageBExamples.maintenance().copy(lastService = null, nextService = null, intervalMi = null, preferredServiceCenter = null)
+        val bare = ExampleData.maintenance().copy(lastService = null, nextService = null, intervalMi = null, preferredServiceCenter = null)
 
         val content = carCareContent(bare)
         assertThat(content.lastMiles).isNull()
@@ -114,7 +114,7 @@ class CarCareViewModelTest {
         assertThat(failed.error).isInstanceOf(AppError.Network::class.java)
         assertThat(failed.error?.correlationId).isEqualTo("cid-9")
 
-        h.vehicles.maintenance[AURORA] = Outcome.Ok(StageBExamples.maintenance())
+        h.vehicles.maintenance[AURORA] = Outcome.Ok(ExampleData.maintenance())
         vm.refresh()
 
         val loaded = vm.state.value
@@ -129,7 +129,7 @@ class CarCareViewModelTest {
             AppError.Parse("odometerMi", "c3"),
             AppError.NotFound("c4"),
         ).forEach { error ->
-            val harness = StageBHarness().also { it.vehicles.maintenance[AURORA] = Outcome.Err(error) }
+            val harness = ScreenHarness().also { it.vehicles.maintenance[AURORA] = Outcome.Err(error) }
             val state = CarCareViewModel(harness.garage, harness.vehicles, harness.config).state.value
             assertThat(state.error).isEqualTo(error)
             assertThat(state.content).isNull()
@@ -183,7 +183,7 @@ class CarCareViewModelTest {
         vm.onShown()
         assertThat(h.vehicles.maintenanceCalls).isEqualTo(calls)
 
-        h.vehicles.maintenance[AURORA] = Outcome.Ok(StageBExamples.maintenance("200.default-ice"))
+        h.vehicles.maintenance[AURORA] = Outcome.Ok(ExampleData.maintenance("200.default-ice"))
         h.config.setScenario("low-battery")
         vm.onShown()
 

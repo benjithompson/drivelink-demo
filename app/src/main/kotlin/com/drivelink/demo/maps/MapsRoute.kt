@@ -74,7 +74,7 @@ private val ChipClearance = 56.dp
  * Maps tab (no top bar; the map runs under the status bar). Shows the selected vehicle on an
  * OpenStreetMap map (osmdroid, no API key), a right rail of buttons and a bottom sheet with the
  * "My Vehicle" card. Only Vehicle (recenter) and Refresh do something; the other buttons show a
- * message (D-11 style stubs).
+ * message.
  */
 @Composable
 fun MapsRoute(modifier: Modifier = Modifier, viewModel: MapsViewModel = hiltViewModel()) {

@@ -1,8 +1,7 @@
-# DriveLink API load test, Taurus config (PLAN.md, Phase 7a).
+# DriveLink API load test, Taurus config: 50 users for 5 minutes.
 #   python3 scripts/load-target.py                      # writes load/build/target.csv
 #   bzt load/drivelink-load.yaml                        # local run, 50 users
 #   bzt load/drivelink-load.yaml -o execution.0.concurrency=2 -o execution.0.hold-for=2m
-# The first cloud run is 50 users for 5 minutes. Ask Ben before the 500-user run.
 included-configs:
 - thresholds.yml
 

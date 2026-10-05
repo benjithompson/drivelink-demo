@@ -4,7 +4,7 @@ package com.drivelink.core.domain.error
  * Typed error for every failed call. Screens show [message] and, when present, [correlationId].
  *
  * [correlationId]: the problem body value when the server sent one, else the X-Correlation-Id
- * that the app sent with the request (D-17). Null only when no request was made.
+ * that the app sent with the request. Null only when no request was made.
  */
 sealed interface AppError {
     val correlationId: String?
@@ -40,7 +40,7 @@ sealed interface AppError {
     /** 5xx, INTERNAL. */
     data class Server(val status: Int, override val correlationId: String?, override val message: String = "Something went wrong on our side.") : AppError
 
-    /** Transport failure: no connection, DNS, TLS, timeout (D-16: call timeout 15 s). */
+    /** Transport failure: no connection, DNS, TLS, timeout (call timeout 15 s). */
     data class Network(val timeout: Boolean, override val correlationId: String?, override val message: String = "Cannot reach the server. Check the connection.") : AppError
 
     /** A 2xx body that does not match the schema (bad-payload). Never crashes the app. */

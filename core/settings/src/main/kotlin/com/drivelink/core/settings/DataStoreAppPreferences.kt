@@ -21,7 +21,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * [AppPreferences] in the settings [DataStore] (D-24: one instance for the process).
+ * [AppPreferences] in the settings [DataStore] (one instance for the process).
  * The constructor reads the stored values once, blocking, so the first frame already uses the
  * saved theme. A write publishes the new value before it returns.
  *

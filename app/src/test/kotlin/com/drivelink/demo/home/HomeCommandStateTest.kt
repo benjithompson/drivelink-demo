@@ -20,7 +20,7 @@ import org.junit.Test
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
-/** The Lock tile and the picker, with the commanded states of D-30. */
+/** The Lock tile and the picker, with the commanded states. */
 @OptIn(ExperimentalCoroutinesApi::class)
 class HomeCommandStateTest {
     @get:Rule val main = MainDispatcherRule()

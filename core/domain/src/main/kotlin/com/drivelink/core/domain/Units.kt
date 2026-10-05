@@ -6,7 +6,7 @@ import com.drivelink.core.domain.model.UserUnits
 import kotlin.math.roundToInt
 
 /**
- * Display units (D-13). The API sends miles and degrees Fahrenheit only.
+ * Display units. The API sends miles and degrees Fahrenheit only.
  * The app converts for display and converts back before it sends a value.
  */
 object Units {
@@ -19,7 +19,7 @@ object Units {
     const val MIN_TEMP_F = 62
     const val MAX_TEMP_F = 82
 
-    /** Remote-start temperature range shown when the user's unit is Celsius (D-13). */
+    /** Remote-start temperature range shown when the user's unit is Celsius. */
     const val MIN_TEMP_C = 17
     const val MAX_TEMP_C = 28
 

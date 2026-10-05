@@ -25,7 +25,7 @@ import org.junit.runner.RunWith
 import javax.inject.Inject
 
 /**
- * The Phase 4 network hooks on a device, with the real Hilt graph (settings, network, data).
+ * The network hooks on a device, with the real Hilt graph (settings, network, data).
  * Two MockWebServer instances run on the device. Each test restores the active profile and
  * the scenario that it found, so the instrumentation arguments stay in effect.
  */

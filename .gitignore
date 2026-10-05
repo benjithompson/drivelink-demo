@@ -33,7 +33,6 @@ bzt-artifacts/
 # Kotlin compiler caches
 .kotlin/
 __pycache__/
-.claude/worktrees/
 
 # Eclipse / VS Code Java tooling
 .project

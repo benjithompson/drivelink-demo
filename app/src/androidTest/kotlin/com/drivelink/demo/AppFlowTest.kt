@@ -30,7 +30,7 @@ import org.junit.runner.RunWith
 import javax.inject.Inject
 
 /**
- * The Phase 5 stage 1 screens on a device, with the real Hilt graph and the real network stack.
+ * The main screens on a device, with the real Hilt graph and the real network stack.
  * A MockWebServer on the device serves the contract examples ([ExampleServer]).
  * Each test starts signed out, without a PIN, and puts the demo settings back at the end.
  */

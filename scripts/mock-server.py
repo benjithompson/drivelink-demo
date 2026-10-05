@@ -2,7 +2,7 @@
 """Local reference mock of the DriveLink virtual service.
 
 Serves the examples in api/examples/ with the resolution rules in scripts/mock_resolver.py
-(the same rules the BlazeMeter transactions encode in Phase 3). Request bodies are read and
+(the same rules the BlazeMeter transactions encode). Request bodies are read and
 ignored. Logs one line per request:
   METHOD path scenario -> status example
 

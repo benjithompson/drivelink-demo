@@ -28,7 +28,7 @@ import kotlinx.serialization.Serializable
 @Serializable data object Profile
 @Serializable data object Settings
 
-/** The `screen` launch extra values (docs/ui-spec.md) and the route each one opens. */
+/** The `screen` launch extra values and the route each one opens. */
 object ScreenNames {
     fun route(name: String?): Any? = when (name) {
         "home" -> Home

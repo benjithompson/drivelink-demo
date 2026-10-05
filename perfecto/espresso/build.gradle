@@ -10,7 +10,6 @@ buildscript {
     }
     dependencies {
         // Perfecto: the plugin is not backward compatible, so the docs require the latest version.
-        // Resolved to 26.9 on Oct 3, 2026.
         classpath 'com.perfectomobile.instrumentedtest.gradleplugin:plugin:+'
     }
 }

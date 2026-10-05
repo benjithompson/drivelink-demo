@@ -31,7 +31,7 @@ import javax.inject.Inject
  * command. A gas car sends no charging request (the API answers 404).
  *
  * A move of a limit slider updates the screen at once. The app saves the limits [SAVE_DELAY_MS] after
- * the last move (PUT). When the save fails, the sliders go back to the saved values (D-32).
+ * the last move (PUT). When the save fails, the sliders go back to the saved values.
  */
 @HiltViewModel
 class ChargingViewModel @Inject constructor(

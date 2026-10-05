@@ -8,7 +8,7 @@ info:
     The `X-Scenario` request header selects the behavior of the virtual service. When the header is
     absent, the service uses the `default` scenario. The scenario catalog is in `api/scenarios.yaml`.
 
-    Example conventions (used to build the virtual-service transactions in Phase 3):
+    Example conventions (used to build the virtual-service transactions):
     - Each named example has `x-scenario`: the `X-Scenario` value that returns it.
     - `x-match` adds request matchers, for example `X-Poll-Attempt: "^[12]$"` (regex).
     - `x-vin` limits an example to one vehicle.

@@ -58,7 +58,7 @@ data class ServiceCenterUi(
     val openNow: Boolean?,
 )
 
-/** Everything the Car Care tab draws once the data is loaded. Values are in the user's units (D-13). */
+/** Everything the Car Care tab draws once the data is loaded. Values are in the user's units. */
 data class CarCareContent(
     val headline: CarCareHeadline,
     /** For example "1 item overdue, 2 items due, 1 open recall"; null when the headline is Good. */

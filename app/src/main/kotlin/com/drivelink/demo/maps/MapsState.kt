@@ -15,7 +15,7 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 
 /**
- * The fixed point that the Maps card measures the distance from (D-40). The app asks for no
+ * The fixed point that the Maps card measures the distance from. The app asks for no
  * location permission, so it cannot know where the phone is. The point lies 0.3 mi north of the
  * Aurora's sample position, so the demo shows "0.3 mi" for the Aurora and about 1.4 mi for the Solace.
  */
@@ -39,7 +39,7 @@ data class VehicleLocationUi(
     val lat: Double,
     val lon: Double,
     val address: String,
-    /** For example "0.3 mi away" or "0.5 km away", from the user's units (D-13). */
+    /** For example "0.3 mi away" or "0.5 km away", from the user's units. */
     val distance: String,
     /** For example "±8 m". The API sends meters only. */
     val accuracy: String,

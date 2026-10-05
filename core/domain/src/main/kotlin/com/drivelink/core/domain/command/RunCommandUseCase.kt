@@ -42,7 +42,7 @@ sealed interface CommandProgress {
 }
 
 /**
- * Sends a command and polls it to a terminal state (docs/source-plan.md, "Remote command pattern").
+ * Sends a command and polls it to a terminal state.
  *
  * - sendCommand, then getCommand with X-Poll-Attempt 1, 2, 3 ...
  * - Wait 2 s before polls 1 to 5, 4 s before poll 6 and later. The wait starts when the previous call returns.

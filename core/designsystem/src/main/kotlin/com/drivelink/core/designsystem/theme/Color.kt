@@ -4,7 +4,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
-// Light palette. Values follow the reference measurements in docs/PLAN.md (Visual reference).
+// Light palette.
 internal val Navy = Color(0xFF002C5E)
 internal val NavyPressed = Color(0xFF001F44)
 internal val Cyan = Color(0xFF00B0DB)

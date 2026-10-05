@@ -30,7 +30,7 @@ data class ProfileUiState(
     val error: AppError? = null,
 )
 
-/** "Miles, °F" or "Kilometers, °C": the units of the account (D-13), as text. */
+/** "Miles, °F" or "Kilometers, °C": the units of the account, as text. */
 fun UserUnits.describe(): String {
     val distance = if (distance == DistanceUnit.KM) "Kilometers (km)" else "Miles (mi)"
     val temperature = if (temperature == TemperatureUnit.C) "Celsius (°C)" else "Fahrenheit (°F)"

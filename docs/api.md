@@ -1,6 +1,4 @@
-# DriveLink Demo — API (Phase 2)
-
-Oct 2, 2026 · Ben Thompson
+# DriveLink Demo — API
 
 ## Summary
 
@@ -10,15 +8,15 @@ The generated index (`api/examples/index.json`) has 110 entries: 95 scenario exa
 
 The contract is the single source of truth:
 
-- Phase 3 builds the virtual-service transactions from the named examples.
-- Phase 4 writes the app's data classes to match the schemas. A contract test parses every example.
-- `scripts/lint-api.sh` checks the contract. It runs on every change.
+- The build script creates the virtual-service transactions from the named examples.
+- The app's data classes match the schemas. A contract test parses every example.
+- `scripts/lint-api.sh` checks the contract.
 
 ```sh
 scripts/lint-api.sh
 ```
 
-The lint result on Oct 2, 2026 (measured):
+Expected lint output:
 
 ```text
 No results with a severity of 'error' found!
@@ -112,7 +110,7 @@ The `low-battery`, `door-ajar`, `tire-low` and `vehicle-offline` status examples
 
 ## How the examples drive the virtual service
 
-Each named example carries metadata in `x-` fields. Phase 3 reads `api/examples/index.json` and creates one transaction per entry.
+Each named example carries metadata in `x-` fields. The build script reads `api/examples/index.json` and creates one transaction per entry.
 
 | Field | Meaning | Example |
 | --- | --- | --- |
@@ -123,7 +121,7 @@ Each named example carries metadata in `x-` fields. Phase 3 reads `api/examples/
 
 An example without `x-match` is the fallback for its scenario. An example without `x-scenario` is documentation only.
 
-The generator adds 4 fields to each index entry that has a scenario. These fields map 1:1 to a BlazeMeter SV transaction, so the Phase 3 build does not need its own matching logic.
+The generator adds 4 fields to each index entry that has a scenario. These fields map 1:1 to a BlazeMeter SV transaction, so the build does not need its own matching logic.
 
 | Index field | SV transaction field | Example |
 | --- | --- | --- |
@@ -146,7 +144,7 @@ Priority bands:
 
 ## Local reference mock
 
-The local mock serves the generated examples with the same resolution rules that Phase 3 encodes in BlazeMeter.
+The local mock serves the generated examples with the same resolution rules that the BlazeMeter transactions encode.
 
 ```sh
 python3 scripts/mock-server.py --port 8080 [--no-delay]
@@ -162,10 +160,3 @@ Resolution rules (the full text is in the docstring of [scripts/mock_resolver.py
 5. Examples without `x-scenario` are documentation only. They are never candidates.
 
 `scripts/lint-api.sh` runs `scripts/check-resolution.py`. The check sends every operation × scenario × VIN (EV, gas car, unknown) × poll attempt through the rules. It fails on a request with no example, on a tie, on an example that no request reaches, and on a request where the SV priority order selects a different example.
-
-## Review checklist for Ben
-
-- [x] The endpoint list covers the demo story.
-- [x] Login with email and password, and the PIN on each command, is acceptable.
-- [x] The two demo vehicles are enough (one EV, one gas car).
-- [x] The scenario coverage matches the demo script.

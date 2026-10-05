@@ -7,8 +7,8 @@ import com.drivelink.core.domain.model.AlertSeverity
 import com.drivelink.core.domain.model.AlertType
 import com.drivelink.demo.AURORA
 import com.drivelink.demo.MainDispatcherRule
-import com.drivelink.demo.screenload.StageBExamples
-import com.drivelink.demo.screenload.StageBHarness
+import com.drivelink.demo.screenload.ExampleData
+import com.drivelink.demo.screenload.ScreenHarness
 import com.drivelink.demo.screenload.networkError
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.CompletableDeferred
@@ -19,7 +19,7 @@ import java.time.Instant
 class AlertsViewModelTest {
     @get:Rule val main = MainDispatcherRule()
 
-    private val h = StageBHarness()
+    private val h = ScreenHarness()
 
     private fun viewModel() = AlertsViewModel(h.garage, h.alerts, h.config)
 
@@ -53,8 +53,8 @@ class AlertsViewModelTest {
 
     @Test fun scenarioAlerts_showWarnings() {
         listOf("low-battery" to "alr-910", "door-ajar" to "alr-920", "tire-low" to "alr-930").forEach { (scenario, id) ->
-            val harness = StageBHarness()
-            harness.alerts.alerts = Outcome.Ok(StageBExamples.alerts("200.$scenario"))
+            val harness = ScreenHarness()
+            harness.alerts.alerts = Outcome.Ok(ExampleData.alerts("200.$scenario"))
 
             val state = AlertsViewModel(harness.garage, harness.alerts, harness.config).state.value
 
@@ -132,7 +132,7 @@ class AlertsViewModelTest {
             AppError.NotFound("c3"),
             AppError.Parse("x", "c4"),
         ).forEach { error ->
-            val harness = StageBHarness()
+            val harness = ScreenHarness()
             harness.alerts.alerts = Outcome.Ok(three)
             harness.alerts.markResults["a2"] = Outcome.Err(error)
             val vm = AlertsViewModel(harness.garage, harness.alerts, harness.config)
@@ -235,7 +235,7 @@ class AlertsViewModelTest {
             AppError.RateLimited(30, "c2"),
             AppError.Parse("alerts", "c3"),
         ).forEach { error ->
-            val harness = StageBHarness().also { it.alerts.alerts = Outcome.Err(error) }
+            val harness = ScreenHarness().also { it.alerts.alerts = Outcome.Err(error) }
             val state = AlertsViewModel(harness.garage, harness.alerts, harness.config).state.value
             assertThat(state.error).isEqualTo(error)
             assertThat(state.hasData).isFalse()

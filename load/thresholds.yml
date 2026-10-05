@@ -1,5 +1,5 @@
-# Pass/fail thresholds for the DriveLink API load test (PLAN.md, Phase 7a).
-# The same rules are set as failure criteria on the BlazeMeter test drivelink-api-load.
+# Pass/fail thresholds for the DriveLink API load test.
+# The same rules are set as failure criteria on the BlazeMeter tests drivelink-api-load and drivelink-api-ci.
 # The virtual service adds 300-800 ms of think time to each answer under the scenario "default".
 reporting:
 - module: passfail
