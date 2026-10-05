@@ -4,7 +4,7 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 /**
- * OkHttp timeouts (D-16). [connect], [read] and [write] apply to each attempt. [call] is the
+ * OkHttp timeouts. [connect], [read] and [write] apply to each attempt. [call] is the
  * outer bound for the whole logical call, so one GET retry after a timeout still fits.
  */
 data class NetworkTimeouts(

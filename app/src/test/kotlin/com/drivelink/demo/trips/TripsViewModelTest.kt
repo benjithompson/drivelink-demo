@@ -9,8 +9,8 @@ import com.drivelink.demo.AURORA
 import com.drivelink.demo.Examples
 import com.drivelink.demo.MainDispatcherRule
 import com.drivelink.demo.SOLACE
-import com.drivelink.demo.screenload.StageBExamples
-import com.drivelink.demo.screenload.StageBHarness
+import com.drivelink.demo.screenload.ExampleData
+import com.drivelink.demo.screenload.ScreenHarness
 import com.drivelink.demo.screenload.networkError
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest
@@ -22,7 +22,7 @@ import java.time.ZoneId
 class TripsViewModelTest {
     @get:Rule val main = MainDispatcherRule()
 
-    private val h = StageBHarness()
+    private val h = ScreenHarness()
     private val utc = ZoneId.of("UTC")
     private val now = Instant.parse("2026-10-03T09:00:00Z")
 
@@ -41,7 +41,7 @@ class TripsViewModelTest {
     }
 
     @Test fun rows_showTimes_duration_distance_andEvEfficiency() {
-        val (summary, days) = tripsContent(StageBExamples.trips(), now = now, zone = utc)
+        val (summary, days) = tripsContent(ExampleData.trips(), now = now, zone = utc)
 
         assertThat(summary.count).isEqualTo(3)
         assertThat(days.map { it.key }).containsExactly("2026-10-02", "2026-10-01").inOrder()
@@ -54,14 +54,14 @@ class TripsViewModelTest {
     }
 
     @Test fun today_isNamed() {
-        val (_, days) = tripsContent(StageBExamples.trips(), now = Instant.parse("2026-10-02T20:00:00Z"), zone = utc)
+        val (_, days) = tripsContent(ExampleData.trips(), now = Instant.parse("2026-10-02T20:00:00Z"), zone = utc)
 
         assertThat(days[0].title).isEqualTo("Today")
         assertThat(days[1].title).isEqualTo("Yesterday")
     }
 
     @Test fun daysFollowTheTimeZone() {
-        val (_, days) = tripsContent(StageBExamples.trips(), now = now, zone = ZoneId.of("Asia/Tokyo"))
+        val (_, days) = tripsContent(ExampleData.trips(), now = now, zone = ZoneId.of("Asia/Tokyo"))
 
         // In Tokyo (UTC+9) all three trips fall on Oct 2: 15:10 UTC on Oct 1 is 00:10 JST on Oct 2.
         assertThat(days.map { it.key }).containsExactly("2026-10-02")
@@ -88,13 +88,13 @@ class TripsViewModelTest {
         assertThat(state.summary?.distanceText).isEqualTo("79.5 km")
 
         val (_, gas) = tripsContent(
-            StageBExamples.trips("200.default-ice"), UserUnits(DistanceUnit.KM, TemperatureUnit.C), utc, now,
+            ExampleData.trips("200.default-ice"), UserUnits(DistanceUnit.KM, TemperatureUnit.C), utc, now,
         )
         assertThat(gas.flatMap { it.trips }.first().efficiency).isEqualTo("6.9 L/100 km")
     }
 
     @Test fun tripWithoutEfficiency_hasNone() {
-        val trip = StageBExamples.trips().first().copy(efficiency = null, efficiencyUnit = null)
+        val trip = ExampleData.trips().first().copy(efficiency = null, efficiencyUnit = null)
 
         val (_, days) = tripsContent(listOf(trip), now = now, zone = utc)
 
@@ -115,7 +115,7 @@ class TripsViewModelTest {
     }
 
     @Test fun oneTrip_isSingular() {
-        h.vehicles.trips[AURORA] = Outcome.Ok(StageBExamples.trips().take(1))
+        h.vehicles.trips[AURORA] = Outcome.Ok(ExampleData.trips().take(1))
 
         assertThat(viewModel().state.value.summary?.countText).isEqualTo("1 trip")
     }
@@ -130,7 +130,7 @@ class TripsViewModelTest {
         assertThat(failed.error).isInstanceOf(AppError.Network::class.java)
         assertThat(failed.error?.correlationId).isEqualTo("cid-9")
 
-        h.vehicles.trips[AURORA] = Outcome.Ok(StageBExamples.trips())
+        h.vehicles.trips[AURORA] = Outcome.Ok(ExampleData.trips())
         vm.refresh()
 
         assertThat(vm.state.value.error).isNull()
@@ -143,7 +143,7 @@ class TripsViewModelTest {
             AppError.RateLimited(30, "c2"),
             AppError.Parse("trips", "c3"),
         ).forEach { error ->
-            val harness = StageBHarness().also { it.vehicles.trips[AURORA] = Outcome.Err(error) }
+            val harness = ScreenHarness().also { it.vehicles.trips[AURORA] = Outcome.Err(error) }
             val state = TripsViewModel(harness.garage, harness.vehicles, harness.config).state.value
             assertThat(state.error).isEqualTo(error)
             assertThat(state.hasData).isFalse()

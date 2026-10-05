@@ -1,6 +1,6 @@
 """Response resolution for the DriveLink reference mock (scripts/mock-server.py).
 
-This module is the reference for the BlazeMeter virtual-service transactions (Phase 3).
+This module is the reference for the BlazeMeter virtual-service transactions.
 It loads api/openapi.yaml, api/scenarios.yaml and api/examples/index.json, and it selects
 one index entry for a request. It does no I/O after the load.
 

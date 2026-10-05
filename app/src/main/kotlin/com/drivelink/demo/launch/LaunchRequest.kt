@@ -4,7 +4,7 @@ import android.content.Intent
 import com.drivelink.core.domain.config.DemoConfig
 
 /**
- * The launch extras of MainActivity (docs/ui-spec.md, "How to open a screen directly").
+ * The launch extras of MainActivity.
  *
  * | Extra | Values |
  * | --- | --- |

@@ -67,7 +67,7 @@ class CoreSuiteTest : CoreSuiteBase() {
         assertThat(status.locked).isTrue()
     }
 
-    /** c. Lock: the EV is unlocked in `door-ajar`, so the tile sends LOCK; Done, then the tile shows Locked (D-30). */
+    /** c. Lock: the EV is unlocked in `door-ajar`, so the tile sends LOCK; Done, then the tile shows Locked. */
     @Test fun lock_succeeds_andTileShowsLocked() {
         useScenario("door-ajar")
         launch()

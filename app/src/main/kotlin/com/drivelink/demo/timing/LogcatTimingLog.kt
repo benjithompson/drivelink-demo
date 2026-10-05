@@ -6,7 +6,7 @@ import com.drivelink.core.domain.TimingLog
 /**
  * Writes timing marks to Logcat with tag [TAG], for example
  * `DL_TIMING command_ms=4210 type=LOCK result=SUCCEEDED`.
- * Phase 6 (Perfecto) and Phase 7 read these lines: `adb logcat -d -s DL_TIMING`.
+ * Perfecto and BlazeMeter tests read these lines: `adb logcat -d -s DL_TIMING`.
  */
 object LogcatTimingLog : TimingLog {
     const val TAG = "DL_TIMING"

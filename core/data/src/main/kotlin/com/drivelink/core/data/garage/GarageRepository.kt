@@ -30,7 +30,7 @@ import javax.inject.Singleton
 /** What the app knows about the signed-in user's vehicles. One instance for all screens. */
 data class GarageState(
     val vehicles: List<Vehicle> = emptyList(),
-    /** The selected vehicle (D-09: the switcher shows two). Null until the list loads. */
+    /** The selected vehicle (the switcher shows two). Null until the list loads. */
     val selected: Vehicle? = null,
     /** Status of [selected], with the commanded states applied (see [GarageRepository.commandSucceeded]). Null while it loads, and after a load error on the first load. */
     val status: VehicleStatus? = null,
@@ -57,16 +57,16 @@ data class GarageState(
 }
 
 /**
- * Shared vehicle state (source plan, step 5). Loads the vehicles, keeps the selected VIN in
+ * Shared vehicle state. Loads the vehicles, keeps the selected VIN in
  * [DemoConfig], loads the status, the alert count, the location and the last trip, and refreshes
  * the status after a command succeeds.
  *
  * After a command succeeds, [commandSucceeded] keeps the commanded lock, climate or charging state
  * on top of the fetched status until a later fetched status shows a different value than at command
- * time (D-30). The mock returns one fixed status body; without this the Lock tile would not change.
+ * time. The mock returns one fixed status body; without this the Lock tile would not change.
  *
  * Every load takes a token (generation and source key). A load that finishes after sign-out, a
- * vehicle switch, or a profile or scenario change finds an old token and drops its result (D-31).
+ * vehicle switch, or a profile or scenario change finds an old token and drops its result.
  *
  * A load that finds [AppError.Unauthorized] does not sign out here: the caller decides
  * ([expireSession]).
@@ -196,7 +196,7 @@ class GarageRepository @Inject constructor(
     /**
      * Call after the command [type] for [vin] succeeded. Keeps the commanded state of the lock
      * (LOCK, UNLOCK), the climate (START, STOP) or the charging (CHARGE_START, CHARGE_STOP) on top of
-     * the fetched status (D-30), then reloads the status. Other command types only reload.
+     * the fetched status, then reloads the status. Other command types only reload.
      */
     suspend fun commandSucceeded(vin: String, type: CommandType) {
         if (vin == _state.value.selected?.vin && overrides.record(type)) {
@@ -227,7 +227,7 @@ class GarageRepository @Inject constructor(
 
     /**
      * Saves [settings] with PUT. On success the app keeps the values that it sent, not the answer:
-     * the mock returns a fixed body (D-32).
+     * the mock returns a fixed body.
      */
     suspend fun saveChargeSettings(settings: ChargeSettings): Outcome<ChargeSettings> {
         val vin = _state.value.selected?.vin ?: return Outcome.Err(AppError.NotFound(null, "No vehicle selected."))
@@ -320,7 +320,7 @@ class GarageRepository @Inject constructor(
 }
 
 /**
- * The commanded lock, climate and charging states (D-30). Each holds the commanded value and the
+ * The commanded lock, climate and charging states. Each holds the commanded value and the
  * fetched value at command time. A fetched status with another value than at command time ends the
  * override: the vehicle state changed, so the fetched value wins.
  */

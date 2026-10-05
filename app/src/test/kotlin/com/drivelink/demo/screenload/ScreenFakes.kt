@@ -23,7 +23,7 @@ import kotlinx.coroutines.CompletableDeferred
 import kotlinx.serialization.builtins.ListSerializer
 
 /** Contract examples for Car Care, Trips and Alerts. */
-object StageBExamples {
+object ExampleData {
     fun maintenance(name: String = "200.default"): Maintenance =
         Examples.decode("getMaintenance/$name.json", Maintenance.serializer())
 
@@ -37,17 +37,17 @@ object StageBExamples {
 fun networkError(id: String = "cid-net") = AppError.Network(timeout = true, correlationId = id)
 
 /**
- * Vehicle fake for stage 2B. Status, vehicles and location come from the stage 1 fake ([base]).
- * Each demo car has its own maintenance and trips (D-09).
+ * Vehicle fake. Status, vehicles and location come from the base fake ([base]).
+ * Each demo car has its own maintenance and trips.
  */
-class StageBVehicleRepository(val base: FakeVehicleRepository = FakeVehicleRepository()) : VehicleRepository by base {
+class ScreenVehicleRepository(val base: FakeVehicleRepository = FakeVehicleRepository()) : VehicleRepository by base {
     val maintenance = mutableMapOf<String, Outcome<Maintenance>>(
-        AURORA to Outcome.Ok(StageBExamples.maintenance("200.default")),
-        SOLACE to Outcome.Ok(StageBExamples.maintenance("200.default-ice")),
+        AURORA to Outcome.Ok(ExampleData.maintenance("200.default")),
+        SOLACE to Outcome.Ok(ExampleData.maintenance("200.default-ice")),
     )
     val trips = mutableMapOf<String, Outcome<List<Trip>>>(
-        AURORA to Outcome.Ok(StageBExamples.trips("200.default")),
-        SOLACE to Outcome.Ok(StageBExamples.trips("200.default-ice")),
+        AURORA to Outcome.Ok(ExampleData.trips("200.default")),
+        SOLACE to Outcome.Ok(ExampleData.trips("200.default-ice")),
     )
     var maintenanceCalls = 0
     val tripLimits = mutableListOf<Int>()
@@ -76,7 +76,7 @@ class StageBVehicleRepository(val base: FakeVehicleRepository = FakeVehicleRepos
 }
 
 /** Alerts fake. [markResults] answers markRead by alert id (default: success); [markGate] holds a call open. */
-class StageBAlertsRepository(var alerts: Outcome<List<Alert>> = Outcome.Ok(StageBExamples.alerts())) : AlertsRepository {
+class ScreenAlertsRepository(var alerts: Outcome<List<Alert>> = Outcome.Ok(ExampleData.alerts())) : AlertsRepository {
     val markResults = mutableMapOf<String, Outcome<Unit>>()
     val marked = mutableListOf<String>()
     var markGate: CompletableDeferred<Unit>? = null
@@ -95,12 +95,12 @@ class StageBAlertsRepository(var alerts: Outcome<List<Alert>> = Outcome.Ok(Stage
 }
 
 /** The repositories and the shared state, wired like the app wires them. */
-class StageBHarness {
+class ScreenHarness {
     val config = FakeDemoConfig()
     val sessions = FakeSessionStore()
     val auth = FakeAuthRepository(sessions)
-    val vehicles = StageBVehicleRepository()
-    val alerts = StageBAlertsRepository()
+    val vehicles = ScreenVehicleRepository()
+    val alerts = ScreenAlertsRepository()
     val account = FakeAccountRepository()
     val garage = GarageRepository(vehicles, alerts, account, auth, config)
 }

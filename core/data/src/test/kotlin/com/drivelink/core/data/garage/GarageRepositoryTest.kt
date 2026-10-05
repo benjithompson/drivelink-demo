@@ -106,7 +106,7 @@ class GarageRepositoryTest {
         assertThat(garage.state.value.stale).isTrue()
     }
 
-    // --- Commanded states (D-30) ---
+    // --- Commanded states ---
 
     @Test fun lock_overrideSurvivesRefresh_andAlternates() = runTest {
         garage.refresh()
@@ -247,7 +247,7 @@ class GarageRepositoryTest {
         assertThat(garage.signInNotice.value).isNotNull()
     }
 
-    // --- Race: a load that ends after a reset (D-31) ---
+    // --- Race: a load that ends after a reset ---
 
     @Test fun refreshThatEndsAfterSignOut_doesNotRepopulate() = runTest {
         val gate = CompletableDeferred<Unit>()

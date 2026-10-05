@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
-# Installs the debug APK and captures the Phase 1 screens to docs/ui/screens/.
-# Since Phase 5 stage 1 the screens need a signed-in session and a running mock (see docs/ui-spec.md,
-# "How to open a screen directly"). Sign in once on the device first. The p5-* screenshots were
-# captured by hand against `python3 scripts/mock-server.py --port 8081`.
+# Installs the debug APK and captures the main screens to build/screenshots/.
+# The screens need a signed-in session and a running mock, for example
+# `python3 scripts/mock-server.py --port 8081`. Sign in once on the device first.
 # Needs one running emulator or device. Usage: scripts/screenshots.sh
 set -euo pipefail
 ADB="${ANDROID_HOME:-$HOME/Library/Android/sdk}/platform-tools/adb"
 PKG=com.drivelink.demo
-OUT="$(cd "$(dirname "$0")/.." && pwd)/docs/ui/screens"
+OUT="$(cd "$(dirname "$0")/.." && pwd)/build/screenshots"
 mkdir -p "$OUT"
 
 ./gradlew -q :app:installDebug

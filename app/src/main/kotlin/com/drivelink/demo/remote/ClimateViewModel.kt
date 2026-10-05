@@ -39,7 +39,7 @@ data class ClimateUiState(
     val frontDefrost: Boolean = false,
     val rearDefrost: Boolean = false,
     val heatedWheel: Boolean = false,
-    /** 0 = off, 3 = high (D-10). */
+    /** 0 = off, 3 = high. */
     val heatedSeats: Int = 0,
     /** 1..10. */
     val durationMin: Int = 10,

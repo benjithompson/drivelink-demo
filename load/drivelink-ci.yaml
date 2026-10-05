@@ -1,0 +1,26 @@
+# DriveLink API load test, CI profile: 5 users for 2 minutes. The main script of the
+# BlazeMeter test drivelink-api-ci, which the GitHub Actions pipeline starts.
+# BlazeMeter runs this file with drivelink-api.jmx and target.csv in one folder.
+# Local run: python3 scripts/load-target.py && bzt load/drivelink-ci.yaml -o scenarios.drivelink-api.properties.target_file=build/target.csv
+included-configs:
+- thresholds.yml
+
+execution:
+- executor: jmeter
+  scenario: drivelink-api
+  concurrency: 5
+  ramp-up: 20s
+  hold-for: 2m
+
+scenarios:
+  drivelink-api:
+    script: drivelink-api.jmx
+    properties:
+      target_file: target.csv
+      scenario: default
+      status_interval_ms: 5000
+      command_every: 4
+
+modules:
+  jmeter:
+    version: 5.6.3

@@ -8,7 +8,7 @@ import okhttp3.Interceptor
 import okhttp3.Response
 
 /**
- * Adds `X-Correlation-Id` and `X-Client-Version` (D-17).
+ * Adds `X-Correlation-Id` and `X-Client-Version`.
  *
  * Id source, in order: a header that the caller set; the [CorrelationTag] on the request
  * (set by [com.drivelink.core.network.DriveLinkHttp.callFactory]); a new UUID v4. The tag is also

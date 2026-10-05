@@ -65,7 +65,7 @@ fun MenuRoute(actions: MenuActions, vm: MenuViewModel = hiltViewModel()) {
     MenuScreen(state, actions, onSignOut = vm::signOut)
 }
 
-/** The row names of the D-11 stubs and the dialog that opens for them. */
+/** The message that the stub rows show. */
 private const val STUB_MESSAGE = "Not available in the demo"
 
 /**

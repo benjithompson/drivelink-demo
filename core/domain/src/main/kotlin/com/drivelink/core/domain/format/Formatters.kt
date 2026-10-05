@@ -11,7 +11,7 @@ import java.util.Locale
 import kotlin.math.roundToInt
 
 /**
- * Text for values of the API (Car Care, Trips). The API sends miles only (D-13);
+ * Text for values of the API (Car Care, Trips). The API sends miles only;
  * these functions convert for the user's distance unit. Pure functions, no Android.
  */
 object Formatters {

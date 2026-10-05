@@ -43,7 +43,7 @@ data class CommandUi(
  * because the command goes on while the user moves from the PIN screen back to Home.
  *
  * - Success: the card shows "Done" for [successHold], then goes away. The vehicle status reloads,
- *   and the commanded lock, climate or charging state stays on screen (D-30).
+ *   and the commanded lock, climate or charging state stays on screen.
  * - Failure, timeout and error: the card stays until the user dismisses it or starts a command.
  * - [retry] sends the same command again with the same PIN (kept in memory until the card is gone).
  */

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  DriveLink API load test (Phase 7a). Models the traffic of one app user per thread:
+  DriveLink API load test. Models the traffic of one app user per thread:
   sign in once, refresh the vehicle status every 30 s, and every few minutes send a
   LOCK or UNLOCK command, poll it, and check that the next status shows the new lock state.
 

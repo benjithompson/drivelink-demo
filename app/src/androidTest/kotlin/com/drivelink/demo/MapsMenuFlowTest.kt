@@ -31,7 +31,7 @@ import org.junit.runner.RunWith
 import javax.inject.Inject
 
 /**
- * Phase 5 stage 2C screens on a device: Maps, Menu, Profile, Settings and the Demo console tools.
+ * The Maps, Menu, Profile and Settings screens and the Demo console tools on a device.
  * The map tiles need the internet; the tests check the marker, the card and the data only.
  * A MockWebServer on the device serves the contract examples ([ExampleServer]).
  */
@@ -82,7 +82,7 @@ class MapsMenuFlowTest {
             demoConfig.setScenario(initialScenario)
             demoConfig.setVin(null)
             demoConfig.deleteProfile(PROFILE)
-            runCatching { demoConfig.deleteProfile("stage-2c-profile") }
+            runCatching { demoConfig.deleteProfile("test-profile") }
         }
         server.close()
     }
@@ -207,13 +207,13 @@ class MapsMenuFlowTest {
         tap("console.tools")
         tap("console.profile.add")
         waitFor("console.profile.editor")
-        compose.onNodeWithTag("console.profile.field.name").performTextInput("Stage 2C profile")
+        compose.onNodeWithTag("console.profile.field.name").performTextInput("Test profile")
         compose.onNodeWithTag("console.profile.field.baseUrl").performTextInput("http://10.0.2.2:9090")
         tap("console.profile.save")
         waitFor("screen_console")
-        assertThat(demoConfig.profiles.value.map { it.id }).contains("stage-2c-profile")
+        assertThat(demoConfig.profiles.value.map { it.id }).contains("test-profile")
 
-        demoConfig.profiles.value.first { it.id == "stage-2c-profile" }.let {
+        demoConfig.profiles.value.first { it.id == "test-profile" }.let {
             runBlocking { demoConfig.setActiveProfile(it.id) }
         }
         tap("console.profile.edit")
@@ -221,7 +221,7 @@ class MapsMenuFlowTest {
         tap("console.profile.delete")
         tap("console.profile.delete.yes")
         waitFor("screen_console")
-        assertThat(demoConfig.profiles.value.map { it.id }).doesNotContain("stage-2c-profile")
+        assertThat(demoConfig.profiles.value.map { it.id }).doesNotContain("test-profile")
 
         runBlocking { demoConfig.setActiveProfile(PROFILE) }
         runBlocking { demoConfig.setScenario("server-error") }
@@ -231,6 +231,6 @@ class MapsMenuFlowTest {
     }
 
     private companion object {
-        const val PROFILE = "stage-2c-device-examples"
+        const val PROFILE = "device-examples"
     }
 }

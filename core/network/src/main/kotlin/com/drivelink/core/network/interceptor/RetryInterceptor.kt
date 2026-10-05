@@ -7,7 +7,7 @@ import okhttp3.Response
 import java.io.IOException
 
 /**
- * D-16: retries a GET once after a transport error (IOException, timeouts included).
+ * Retries a GET once after a transport error (IOException, timeouts included).
  * POST, PUT and DELETE are never retried, so a remote command is never sent twice.
  * The retry is the same request, so it keeps the same X-Correlation-Id.
  */

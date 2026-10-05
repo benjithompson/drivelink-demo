@@ -4,7 +4,7 @@
 Output:
   api/examples/<operationId>/<status>.<exampleName>.json   one file per response example
   api/examples/index.json                                  metadata for the smoke test and the
-                                                           virtual-service build (Phase 3)
+                                                           virtual-service build
 
 Each index entry: operationId, method, path, status, contentType, example, scenario, match,
 vin, headers, file. Examples without x-scenario are documentation only and get scenario null.

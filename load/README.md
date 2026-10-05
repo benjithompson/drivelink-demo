@@ -1,6 +1,11 @@
-# DriveLink API load test (Phase 7a)
+# DriveLink API load test
 
-A JMeter test plan that sends app traffic to the virtual service `drivelink-proto`. It runs in BlazeMeter as the test `drivelink-api-load` (id 15966561, project "Auto" 2613758, workspace 2194183), and locally with JMeter or Taurus.
+A JMeter test plan that sends app traffic to the virtual service `drivelink-proto`. It runs in BlazeMeter as two tests (project "Auto" 2613758, workspace 2194183), and locally with JMeter or Taurus.
+
+| BlazeMeter test | ID | Load | Main script | Use |
+| --- | --- | --- | --- | --- |
+| `drivelink-api-ci` | 15970009 | 5 users, 2 min | `drivelink-ci.yaml` | The GitHub Actions pipeline, on each push to `main` |
+| `drivelink-api-load` | 15966561 | 50 users, 1 min ramp-up, 5 min hold | `drivelink-api.jmx` | Demo and scale runs |
 
 ## What one virtual user does
 
@@ -19,7 +24,8 @@ All requests send `X-Scenario` (default `default`), `X-Client-Version` and a new
 | File | Purpose |
 | --- | --- |
 | `drivelink-api.jmx` | The JMeter test plan. The main script of the BlazeMeter test. |
-| `drivelink-load.yaml` | Taurus config: 50 users, 1 min ramp-up, 5 min hold. For local runs and for CI (Phase 8). |
+| `drivelink-load.yaml` | Taurus config: 50 users, 1 min ramp-up, 5 min hold. For local runs. |
+| `drivelink-ci.yaml` | Taurus config: 5 users, 2 min, a status refresh every 5 s and a command at every 4th refresh. The main script of `drivelink-api-ci`. |
 | `thresholds.yml` | Taurus pass/fail rules. The BlazeMeter test has the same failure criteria. |
 | `build/target.csv` | The host name of `drivelink-proto`. Gitignored. `scripts/load-target.py` writes it from `MOCK_BASE_URL`. |
 
@@ -55,22 +61,20 @@ bzt drivelink-load.yaml                     # 50 users, 6 minutes, with the thre
 
 `results/` and `*.jtl` are gitignored.
 
-## BlazeMeter test `drivelink-api-load`
+## BlazeMeter tests
 
 | Setting | Value |
 | --- | --- |
-| Main script | `drivelink-api.jmx` |
-| Load | 50 users, 1 min ramp-up, 5 min hold, 1 step |
 | Location | `us-east4-a` (100 %) |
 | JMeter | Stable (5.5) |
 | Failure criteria | The two thresholds above |
-| Cost of one run | 50 VUH (BlazeMeter MCP estimate). The workspace allowance is 500,000 VUH. |
+| Cost of one 50-user run | 50 VUH (BlazeMeter MCP estimate) |
 
-The test also needs `target.csv` in its files. Upload `load/build/target.csv` in the BlazeMeter UI (test → Files). It is not in the repo, because it comes from `MOCK_BASE_URL`.
+Both tests also need `target.csv` in their files. It is not in the repo, because it comes from `MOCK_BASE_URL`. Upload `load/build/target.csv` to the test (BlazeMeter UI: test → Files, or the BlazeMeter MCP `upload_assets`).
 
-To start and read runs, use the PAG `blazemeter` server: `blazemeter_execution start` with `test_id` 15966561, then `blazemeter_execution read`. Ask Ben before a 500-user run.
+The pipeline starts `drivelink-api-ci` with `scripts/ci/blazemeter_load.py` (BlazeMeter REST API). From an AI assistant, use the PAG `blazemeter` server: `blazemeter_execution start` with the test ID, then `blazemeter_execution read`.
 
 ## Limits
 
-- Thread numbers start at 1 on each BlazeMeter engine. With more than one engine, two users can use the same car, and the "locked after command" check can fail. Check the engine count before the 500-user run (not yet checked).
+- Thread numbers start at 1 on each BlazeMeter engine. With more than one engine, two users can use the same car, and the "locked after command" check can fail. Check the engine count before a 500-user run.
 - The sign-in request body is a guess of the app request. The virtual service accepts any body for `POST /v1/auth/token`.

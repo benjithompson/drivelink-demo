@@ -1,4 +1,4 @@
-# DriveLink — Perfecto AI Scriptless tests (Phase 6b)
+# DriveLink — Perfecto AI Scriptless tests
 
 The Perfecto AI Scriptless tests come from plain-language prompts. They do not come from a test framework. Perforce Autonomous Testing (PAT) turns each scenario prompt into a Scriptless test with AI User Action and AI Validation steps.
 
@@ -18,7 +18,7 @@ The prompts are in [../autonomous/README.md](../autonomous/README.md) (applicati
 | --- | --- |
 | App | Debug APK, package `com.drivelink.demo`. A build with `secrets.properties` calls the cloud virtual service by default. |
 | Scenario selection | In the app: Menu → Demo console → Scenario. A Scriptless test cannot pass instrumentation arguments. |
-| Devices | Environment 493: Pixel 9 Pro, Galaxy S25 |
+| Devices | Environment 493: Pixel 9 Pro |
 
 ## Run
 

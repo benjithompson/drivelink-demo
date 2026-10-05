@@ -1,0 +1,72 @@
+name: Continuous testing
+
+# One commit goes through the Perforce continuous testing platform:
+#   1. API tests (BlazeMeter API Monitoring) check that the virtual service is up and answers.
+#   2. Then, in parallel:
+#      - Mobile AI tests: a Perforce Autonomous Testing suite runs on a real Perfecto device.
+#      - Load test: a short BlazeMeter test sends app traffic to the same virtual service.
+
+on:
+  push:
+    branches: [main]
+    paths-ignore: ["**.md", "docs/**"]
+  workflow_dispatch:
+    inputs:
+      mobile:
+        description: Run the Autonomous Testing suite
+        type: boolean
+        default: true
+      load:
+        description: Run the BlazeMeter load test
+        type: boolean
+        default: true
+
+# All jobs use one virtual service and one demo car. Runs wait for each other.
+concurrency:
+  group: continuous-testing
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  api:
+    name: API tests · virtual service
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/ci/api_monitoring.py
+        env:
+          BZM_APITEST_TRIGGER_URL: ${{ secrets.BZM_APITEST_TRIGGER_URL }}
+          BZM_APITEST_TOKEN: ${{ secrets.BZM_APITEST_TOKEN }}
+
+  mobile:
+    name: Mobile AI tests · Autonomous Testing on Perfecto
+    needs: api
+    if: github.event_name == 'push' || inputs.mobile
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/ci/pat_suite.py
+        env:
+          PAT_AUTHORIZATION: ${{ secrets.PAT_AUTHORIZATION }}
+          PAT_CLOUD: ${{ vars.PAT_CLOUD }}
+          PAT_APPLICATION_ID: ${{ vars.PAT_APPLICATION_ID }}
+          PAT_SUITE_ID: ${{ vars.PAT_SUITE_ID }}
+          PAT_ENVIRONMENT_ID: ${{ vars.PAT_ENVIRONMENT_ID }}
+
+  load:
+    name: Load test · BlazeMeter
+    needs: api
+    if: github.event_name == 'push' || inputs.load
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/ci/blazemeter_load.py
+        env:
+          BLAZEMETER_API_KEY_ID: ${{ secrets.BLAZEMETER_API_KEY_ID }}
+          BLAZEMETER_API_KEY_SECRET: ${{ secrets.BLAZEMETER_API_KEY_SECRET }}
+          BLAZEMETER_TEST_ID: ${{ vars.BLAZEMETER_TEST_ID || '15970009' }}

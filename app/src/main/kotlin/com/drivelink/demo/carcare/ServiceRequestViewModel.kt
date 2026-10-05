@@ -29,7 +29,7 @@ import java.time.format.DateTimeFormatter
 import java.util.Locale
 import javax.inject.Inject
 
-/** The preferred time of day. The API has no field for it; the app adds it to the notes (D-35). */
+/** The preferred time of day. The API has no field for it; the app adds it to the notes. */
 enum class TimeSlot(val label: String, val range: String) {
     Morning("Morning", "8-11 am"),
     Midday("Midday", "11 am-2 pm"),

@@ -92,7 +92,7 @@ private fun dial(context: Context, number: String) {
 }
 
 /**
- * The Car Care layout of the Phase 1 mock, with live data.
+ * The Car Care layout, with live data.
  * Tags: `screen_carcare`, `carcare_refresh`, `carcare_loading`, `carcare_headline`, `carcare_summary`,
  * `carcare_odometer`, `carcare_last_miles`, `carcare_last_date`, `carcare_next_miles`, `carcare_next_date`,
  * `carcare_interval`, `maint_item_<id>`, `maint_status_<id>`, `recall_<id>`, `recall_status_<id>`, `recalls_none`,

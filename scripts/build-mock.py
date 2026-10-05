@@ -22,7 +22,7 @@ Plan rules:
     "default"), and one "matches" header matcher per entry.match regex.
     Priority: entry.priority (scenario band 1-3, default band 4-6, lowest wins).
     Delay: uniform entry.thinkTimeMs.
-  - Think-time copies (DECISIONS.md D-14). A default transaction keeps its own delay when it
+  - Think-time copies. A default transaction keeps its own delay when it
     answers another scenario. For each scenario S that the resolver answers with default entry D
     and that has a different think time, add "drivelink <operationId> <status> <example> @S":
     the response of D, plus X-Scenario equals S, delay of S, priority D.priority - 3.
@@ -144,7 +144,7 @@ def transaction(entry, scenario=None, think=None, priority=None):
 
 
 def plan(contract, grid):
-    """All transactions: one per scenario entry, plus the think-time copies (D-14)."""
+    """All transactions: one per scenario entry, plus the think-time copies."""
     entries = [e for e in contract["index"] if e["scenario"] is not None]
     txns = [transaction(e) for e in entries]
     copies = {}
