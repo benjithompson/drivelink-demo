@@ -87,7 +87,7 @@ export ORG_GRADLE_PROJECT_branch="${GITHUB_REF_NAME:-$(git -C "$ROOT" branch --s
 
 cd "$ROOT/perfecto/espresso"
 # The plugin can echo its parameters; mask the secret values in the console output and the CI log.
-"$ROOT/gradlew" -p . perfecto-android-inst -PconfigFileLocation="$CONFIG" 2>&1 \
+"$ROOT/gradlew" --console=plain -p . perfecto-android-inst -PconfigFileLocation="$CONFIG" 2>&1 \
   | BASE_URL="$BASE_URL" TOKEN="$TOKEN" python3 -u -c '
 import os, sys
 pairs = [(os.environ["TOKEN"], "<PERFECTO_SECURITY_TOKEN>"), (os.environ["BASE_URL"], "<MOCK_BASE_URL>")]
