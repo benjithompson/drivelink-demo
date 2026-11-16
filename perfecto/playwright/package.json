@@ -1,0 +1,13 @@
+{
+  "name": "drivelink-perfecto-playwright",
+  "private": true,
+  "description": "DriveLink APK install and launch test on a Perfecto Android device (Playwright _android)",
+  "scripts": {
+    "test": "playwright test",
+    "list": "playwright test --list"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.60.0",
+    "@types/node": "^24.0.0"
+  }
+}
