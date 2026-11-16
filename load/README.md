@@ -1,15 +1,15 @@
 # DriveLink API load test
 
-A JMeter test plan that sends app traffic to the virtual service `drivelink-proto`. It runs in BlazeMeter as two tests (project "Auto" 2613758, workspace 2194183), and locally with JMeter or Taurus.
+A JMeter test plan that sends app traffic to the virtual service `drivelink-proto`. It runs in BlazeMeter as two tests (project "DriveLink" 2613758, workspace "Ben T" 2194183), and locally with JMeter or Taurus.
 
 | BlazeMeter test | ID | Load | Main script | Use |
 | --- | --- | --- | --- | --- |
-| `drivelink-api-ci` | 15970009 | 5 users, 2 min | `drivelink-ci.yaml` | The GitHub Actions pipeline, on each push to `main` |
-| `drivelink-api-load` | 15966561 | 50 users, 1 min ramp-up, 5 min hold | `drivelink-api.jmx` | Demo and scale runs |
+| `drivelink-api-ci` | 15970009 | 5 users, 2 min (2 users when the "Performance tests" workflow runs it) | `drivelink-ci.yaml` | The GitHub Actions pipeline, on each push to `main` |
+| `drivelink-api-load` | 15966561 | 2 users, 1 min ramp-up, 2 min hold (set by the "Performance tests" workflow) | `drivelink-api.jmx` | Demo and scale runs |
 
 ## What one virtual user does
 
-Each thread is one app user with its own load-test car. Thread 1 uses `perf001@drivelink.test` and `DLEV26PERF0000001`, thread 2 uses `perf002` and `DLEV26PERF0000002`, up to 500. Thread 501 uses car 1 again. The cars do not share state, so each user can check its own lock state.
+Each thread is one app user with its own load-test car. Thread 1 uses `perf001@drivelink.test` and `DLEV26PERF0000001`, thread 2 uses `perf002` and `DLEV26PERF0000002`, up to 500. Thread 501 uses car 1 again. The cars do not share state, so each user can check its own lock state. The JMeter property `car_offset` moves the range: `drivelink-api-ci` sets 250 (cars 251 and up), so it can run at the same time as `drivelink-api-load` (cars 1 and up).
 
 1. Sign in once: `POST /v1/auth/token`, `GET /v1/me`, `GET /v1/vehicles`.
 2. Refresh the vehicle status: `GET /v1/vehicles/{vin}/status`, then wait 30 s.
@@ -43,6 +43,7 @@ The BlazeMeter failure criteria ignore the ramp-up. The virtual service adds 300
 | Property | Default | Note |
 | --- | --- | --- |
 | `users`, `rampup`, `duration` | 2, 10 s, 120 s | BlazeMeter and Taurus replace these with their load settings. |
+| `car_offset` | 0 | Thread *n* uses car *n* + `car_offset` |
 | `scenario` | `default` | The `X-Scenario` header. Other scenarios do not keep the per-car state, so the "locked after command" check can fail. |
 | `status_interval_ms` | 30000 | Time between status refreshes |
 | `command_every` | 6 | A command at every *n*th refresh |

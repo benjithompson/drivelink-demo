@@ -61,6 +61,22 @@ Repository secrets (**Settings → Secrets and variables → Actions**):
 
 Optional repository variables: `PAT_CLOUD` (default `demo`), `PAT_APPLICATION_ID` (227), `PAT_SUITE_ID` (587), `PAT_ENVIRONMENT_ID` (493), `BLAZEMETER_TEST_ID` (15970009).
 
+### Run tests on demand
+
+[.github/workflows/run-tests.yml](.github/workflows/run-tests.yml) starts one test stage without the API tests (**Actions → Run tests → Run workflow**). It uses the same secrets as the pipeline.
+
+| Input | Values | Runs |
+| --- | --- | --- |
+| `target` | `perfecto`, `blazemeter`, `both` | The Perfecto job, the BlazeMeter job, or both in parallel |
+| `suite` | "DriveLink – CI" 587, "DriveLink – Smoke" 584, "DriveLink – Core" 583 | The Autonomous Testing suite. It runs on a real Perfecto device in environment 493. |
+| `blazemeter_test` | `drivelink-api-ci` 15970009, `drivelink-api-load` 15966561 | The BlazeMeter test in project "DriveLink" (account "BlazeMeter SE Demo", workspace "Ben T") |
+
+The workflow and the pipeline share one queue, so they never use the demo car at the same time.
+
+### Performance tests
+
+[.github/workflows/performance-tests.yml](.github/workflows/performance-tests.yml) runs the BlazeMeter tests `drivelink-api-ci` and `drivelink-api-load` in parallel with the [BlazeMeter GitHub Action](https://github.com/Blazemeter/github-action) (**Actions → Performance tests → Run workflow**). Each test runs with 2 users: 1 min ramp-up, then 2 min hold. The action writes this load into the test configuration in BlazeMeter. A job fails when its test fails the failure criteria. It needs the secrets `BLAZEMETER_API_KEY_ID` and `BLAZEMETER_API_KEY_SECRET`.
+
 ## Repository
 
 | Path | Content |

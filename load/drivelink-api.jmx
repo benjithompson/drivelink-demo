@@ -6,6 +6,7 @@
 
   Each thread uses its own load-test car (DLEV26PERF0000001-0000500 in drivelink-proto),
   so the threads do not share state. Thread 501 uses car 1 again.
+  The property car_offset (default 0) moves the range: with 250, thread 1 uses car 251.
 
   The target host comes from target.csv (one line, the host name of drivelink-proto).
   scripts/load-target.py writes it to load/build/target.csv. Do not commit it.
@@ -124,7 +125,8 @@
               <stringProp name="filename"></stringProp>
               <stringProp name="cacheKey">true</stringProp>
               <stringProp name="script">// One load-test car per thread: perf001 / DLEV26PERF0000001 to perf500 / DLEV26PERF0000500.
-int n = (ctx.getThreadNum() % 500) + 1
+// car_offset moves the range, so that two tests that run at the same time use different cars.
+int n = ((ctx.getThreadNum() + Integer.parseInt(props.getProperty('car_offset', '0'))) % 500) + 1
 vars.put('vin', String.format('DLEV26PERF%07d', n))
 vars.put('username', String.format('perf%03d@drivelink.test', n))</stringProp>
             </JSR223PreProcessor>

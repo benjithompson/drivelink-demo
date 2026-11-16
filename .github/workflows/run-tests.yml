@@ -1,0 +1,75 @@
+name: Run tests
+
+# Start the DriveLink tests on demand, without the API test stage of the pipeline.
+#   Actions -> Run tests -> Run workflow
+#   - Perfecto: a Perforce Autonomous Testing suite runs on a real Perfecto device.
+#   - BlazeMeter: a test in project "DriveLink" (account "BlazeMeter SE Demo", workspace "Ben T").
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: What to run
+        type: choice
+        options: [perfecto, blazemeter, both]
+        default: perfecto
+      suite:
+        description: Autonomous Testing suite (Perfecto)
+        type: choice
+        options:
+          - "587 · DriveLink – CI"
+          - "584 · DriveLink – Smoke"
+          - "583 · DriveLink – Core"
+        default: "587 · DriveLink – CI"
+      blazemeter_test:
+        description: BlazeMeter test
+        type: choice
+        options:
+          - "15970009 · drivelink-api-ci (5 users, 2 min)"
+          - "15966561 · drivelink-api-load (5 users, 4 min)"
+        default: "15970009 · drivelink-api-ci (5 users, 2 min)"
+
+# All runs use one virtual service and one demo car. Runs wait for each other and for the pipeline.
+concurrency:
+  group: continuous-testing
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  perfecto:
+    name: Perfecto · Autonomous Testing suite ${{ inputs.suite }}
+    if: inputs.target != 'blazemeter'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run the suite
+        run: |
+          export PAT_SUITE_ID="${SUITE%% *}"
+          python3 scripts/ci/pat_suite.py
+        env:
+          SUITE: ${{ inputs.suite }}
+          PAT_AUTHORIZATION: ${{ secrets.PAT_AUTHORIZATION }}
+          PAT_CLOUD: ${{ vars.PAT_CLOUD }}
+          PAT_APPLICATION_ID: ${{ vars.PAT_APPLICATION_ID }}
+          PAT_ENVIRONMENT_ID: ${{ vars.PAT_ENVIRONMENT_ID }}
+          TIMEOUT_S: "3300"  # the Core suite has 8 scenarios
+
+  blazemeter:
+    name: BlazeMeter · ${{ inputs.blazemeter_test }}
+    if: inputs.target != 'perfecto'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run the test
+        run: |
+          export BLAZEMETER_TEST_ID="${TEST%% *}"
+          python3 scripts/ci/blazemeter_load.py
+        env:
+          TEST: ${{ inputs.blazemeter_test }}
+          BLAZEMETER_API_KEY_ID: ${{ secrets.BLAZEMETER_API_KEY_ID }}
+          BLAZEMETER_API_KEY_SECRET: ${{ secrets.BLAZEMETER_API_KEY_SECRET }}
+          TIMEOUT_S: "1500"

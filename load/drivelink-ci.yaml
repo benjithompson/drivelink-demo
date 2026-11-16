@@ -20,6 +20,7 @@ scenarios:
       scenario: default
       status_interval_ms: 5000
       command_every: 4
+      car_offset: 250  # cars 251 and up, so this test can run at the same time as drivelink-api-load (cars 1 and up)
 
 modules:
   jmeter:
