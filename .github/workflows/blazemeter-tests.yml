@@ -60,7 +60,7 @@ jobs:
           testID: ${{ matrix.test_id }}
           totalUsers: "2"
           rampUp: "1"
-          duration: "2"
+          duration: "3" # total time: the action holds for duration minus rampUp (1 min ramp-up + 2 min hold)
           continuePipeline: "false" # wait for the test to end; fail the job if the failure criteria fail
           showTailLog: "false"
           reportName: "${{ matrix.name }} · GitHub run ${{ github.run_number }}"
