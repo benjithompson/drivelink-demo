@@ -1,16 +1,23 @@
-name: Performance tests
+name: BlazeMeter tests
 
-# Run the two DriveLink load tests in BlazeMeter at the same time, with the
-# BlazeMeter GitHub Action (https://github.com/Blazemeter/github-action).
-# The tests are in account "BlazeMeter SE Demo", workspace "Ben T" (2194183),
+# Run only the BlazeMeter tests. No Perfecto and no Autonomous Testing.
+#   1. API tests (BlazeMeter API Monitoring bucket "DriveLink") check that the virtual service is up and answers.
+#   2. Then the two load tests run in parallel with the BlazeMeter GitHub Action
+#      (https://github.com/Blazemeter/github-action).
+# The load tests are in account "BlazeMeter SE Demo", workspace "Ben T" (2194183),
 # project "DriveLink" (2613758).
 # Load for each test: 2 users, 1 min ramp-up, then 2 min at 2 users.
 # The action writes this load into the test configuration in BlazeMeter before it starts the test.
 
 on:
   workflow_dispatch:
+    inputs:
+      load:
+        description: Run the two load tests after the API tests
+        type: boolean
+        default: true
 
-# The same queue as the continuous testing pipeline: its load stage uses the same load-test cars.
+# The same queue as the continuous testing pipeline: it uses the same virtual service and load-test cars.
 concurrency:
   group: continuous-testing
   cancel-in-progress: false
@@ -19,8 +26,21 @@ permissions:
   contents: read
 
 jobs:
+  api:
+    name: API tests · BlazeMeter API Monitoring
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/ci/api_monitoring.py
+        env:
+          BZM_APITEST_TRIGGER_URL: ${{ secrets.BZM_APITEST_TRIGGER_URL }}
+          BZM_APITEST_TOKEN: ${{ secrets.BZM_APITEST_TOKEN }}
+
   load:
-    name: ${{ matrix.name }}
+    name: Load test · ${{ matrix.name }}
+    needs: api
+    if: inputs.load
     runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:

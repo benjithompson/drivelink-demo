@@ -73,9 +73,16 @@ Optional repository variables: `PAT_CLOUD` (default `demo`), `PAT_APPLICATION_ID
 
 The workflow and the pipeline share one queue, so they never use the demo car at the same time.
 
-### Performance tests
+### BlazeMeter tests
 
-[.github/workflows/performance-tests.yml](.github/workflows/performance-tests.yml) runs the BlazeMeter tests `drivelink-api-ci` and `drivelink-api-load` in parallel with the [BlazeMeter GitHub Action](https://github.com/Blazemeter/github-action) (**Actions → Performance tests → Run workflow**). Each test runs with 2 users: 1 min ramp-up, then 2 min hold. The action writes this load into the test configuration in BlazeMeter. A job fails when its test fails the failure criteria. It needs the secrets `BLAZEMETER_API_KEY_ID` and `BLAZEMETER_API_KEY_SECRET`.
+[.github/workflows/blazemeter-tests.yml](.github/workflows/blazemeter-tests.yml) runs only the BlazeMeter tests, without Perfecto or Autonomous Testing (**Actions → BlazeMeter tests → Run workflow**).
+
+| Stage | Runs | Checks |
+| --- | --- | --- |
+| 1. API tests | First | The API Monitoring bucket "DriveLink": health check, then sign-in → vehicle list → vehicle status |
+| 2. Load tests | After stage 1. `drivelink-api-ci` and `drivelink-api-load` run in parallel with the [BlazeMeter GitHub Action](https://github.com/Blazemeter/github-action). Clear the input `load` to skip them. | 2 users each: 1 min ramp-up, then 2 min hold. A job fails when its test fails the failure criteria. |
+
+The action writes the load into the test configuration in BlazeMeter. The workflow needs the secrets `BZM_APITEST_TRIGGER_URL`, `BZM_APITEST_TOKEN`, `BLAZEMETER_API_KEY_ID` and `BLAZEMETER_API_KEY_SECRET`.
 
 ## Repository
 
