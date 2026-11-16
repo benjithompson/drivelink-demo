@@ -23,6 +23,9 @@ secrets.properties
 .env*
 perfecto.properties
 perfecto-api-key.json
+
+# GitLab token (local only)
+gitlab-token.txt
 perfecto-api-key.json
 
 # Load test output
