@@ -1,0 +1,46 @@
+name: Performance tests
+
+# Run the two DriveLink load tests in BlazeMeter at the same time, with the
+# BlazeMeter GitHub Action (https://github.com/Blazemeter/github-action).
+# The tests are in account "BlazeMeter SE Demo", workspace "Ben T" (2194183),
+# project "DriveLink" (2613758).
+# Load for each test: 2 users, 1 min ramp-up, then 2 min at 2 users.
+# The action writes this load into the test configuration in BlazeMeter before it starts the test.
+
+on:
+  workflow_dispatch:
+
+# The same queue as the continuous testing pipeline: its load stage uses the same load-test cars.
+concurrency:
+  group: continuous-testing
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  load:
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: drivelink-api-ci
+            test_id: "15970009"
+          - name: drivelink-api-load
+            test_id: "15966561"
+    steps:
+      - name: Run ${{ matrix.name }} in BlazeMeter
+        uses: Blazemeter/github-action@90024e697299dec485fd644842ecf7d0df47b8a7 # v8.9
+        with:
+          apiKey: ${{ secrets.BLAZEMETER_API_KEY_ID }}
+          apiSecret: ${{ secrets.BLAZEMETER_API_KEY_SECRET }}
+          testID: ${{ matrix.test_id }}
+          totalUsers: "2"
+          rampUp: "1"
+          duration: "2"
+          continuePipeline: "false" # wait for the test to end; fail the job if the failure criteria fail
+          showTailLog: "false"
+          reportName: "${{ matrix.name }} · GitHub run ${{ github.run_number }}"
