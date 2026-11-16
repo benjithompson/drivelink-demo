@@ -44,5 +44,8 @@ __pycache__/
 # BlazeMeter API key (local only)
 api-key.json
 
+# GitLab token (local only)
+gitlab-token.txt
+
 # Node dependencies
 node_modules/
