@@ -47,6 +47,10 @@ api-key.json
 # GitLab token (local only)
 gitlab-token.txt
 
+# BlazeMeter API Monitoring token (local only)
+api-testing-token.txt
+api-testing-trigger-url.txt
+
 # Node dependencies
 node_modules/
 
