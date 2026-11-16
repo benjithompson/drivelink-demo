@@ -4,8 +4,8 @@ A JMeter test plan that sends app traffic to the virtual service `drivelink-prot
 
 | BlazeMeter test | ID | Load | Main script | Use |
 | --- | --- | --- | --- | --- |
-| `drivelink-api-ci` | 15970009 | 5 users, 2 min (2 users when the "Performance tests" workflow runs it) | `drivelink-ci.yaml` | The GitHub Actions pipeline, on each push to `main` |
-| `drivelink-api-load` | 15966561 | 2 users, 1 min ramp-up, 2 min hold (set by the "Performance tests" workflow) | `drivelink-api.jmx` | Demo and scale runs |
+| `drivelink-api-ci` | 15970009 | 5 users, 2 min (2 users when the "BlazeMeter tests" workflow runs it) | `drivelink-ci.yaml` | The GitHub Actions pipeline, on each push to `main` |
+| `drivelink-api-load` | 15966561 | 2 users, 1 min ramp-up, 2 min hold (set by the "BlazeMeter tests" workflow) | `drivelink-api.jmx` | Demo and scale runs |
 
 ## What one virtual user does
 
