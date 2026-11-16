@@ -1,0 +1,20 @@
+{
+  "name": "drivelink-perfecto-appium",
+  "private": true,
+  "type": "module",
+  "description": "DriveLink APK install and native-app test on a Perfecto Android device (Appium 2, UiAutomator2, WebdriverIO)",
+  "engines": {
+    "node": ">=23.6"
+  },
+  "scripts": {
+    "test": "node --test --test-concurrency=1 --test-reporter=spec tests/install.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "webdriverio": "9.32.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.0"
+  }
+}
